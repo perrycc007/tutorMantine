@@ -11,9 +11,13 @@
   "dependencies": {
     "@mantine/core": "7.1.3",
     "@mantine/hooks": "7.1.3",
-    "next": "13.4.4",
+    "@tabler/core": "^1.0.0-beta20",
+    "axios": "^1.5.1",
+    "cors": "^2.8.5",
+    "next": "^13.5.5",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "zustand": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "20.2.5",
