@@ -14,7 +14,9 @@ function setLoginTime(time) {
 
 // Helper function to get login time from local storage
 function getLoginTime() {
-  return parseInt(localStorage.getItem("loginTime")); // Adjust this based on your client-side storage mechanism
+  return;
+  //  parseInt(localStorage.getItem("loginTime"));
+  // Adjust this based on your client-side storage mechanism
 }
 
 // Define the store

@@ -61,7 +61,7 @@ const Student = (props) => {
         />
       )}
       {filtered && (
-        <CaseListUser
+        <CaseAccordion
           cases={filteredList}
           type="cases"
           favourite={FavouriteCases}

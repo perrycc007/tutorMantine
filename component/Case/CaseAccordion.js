@@ -45,6 +45,8 @@ const CaseAccordion = (props) => {
                 if (oneCase.type == "tutor") {
                   verifyServer = items.verify;
                 }
+                const id =
+                  oneCase.type == "tutor" ? oneCase.tutorid : oneCase.studentid;
                 const toggleFavoriteStatusHandler = (id) => {
                   props.toggleFavourite(id);
                 };
@@ -94,7 +96,11 @@ const CaseAccordion = (props) => {
                             {item.id} : {item.value}
                           </p>
                         ))}
-                      {/* <Button variant="filled">
+                      {/* <Button variant="filled"
+                                  onClick={
+              oneCase.type == "tutor"
+                ? toggleFavoriteStatusHandler
+                : toggleFavoriteStatusHandler>
                      {/* {oneCase.isFavourite ? <IconHeartFilled /> : <IconHeart />}  */}
                       {/* </Button>  */}
                     </Accordion.Panel>
