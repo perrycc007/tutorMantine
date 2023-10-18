@@ -1,25 +1,38 @@
-import { useState,useEffect } from 'react';
-import { Stepper, Button, Group, TextInput, PasswordInput, Code, Box } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useState, useEffect } from "react";
+import {
+  Stepper,
+  Button,
+  Group,
+  TextInput,
+  PasswordInput,
+  Code,
+  Box,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
 
 interface FormValues {
-  username: string,
-  password: string,
-  name: string,
-  email: string,
-  website: string,
-  github: string,
+  username: string;
+  password: string;
+  name: string;
+  email: string;
+  website: string;
+  github: string;
 }
 
 function loadInitialValues(): Promise<FormValues> {
   return new Promise((resolve) => {
-    setTimeout(() => resolve({  
-    username: 'test@email',  
-    password: 'password',
-    name: 'name',
-    email: 'email',
-    website: 'website',
-    github: 'github',}), 2000);
+    setTimeout(
+      () =>
+        resolve({
+          username: "test@email",
+          password: "password",
+          name: "name",
+          email: "email",
+          website: "website",
+          github: "github",
+        }),
+      2000
+    );
   });
 }
 function Form() {
@@ -27,12 +40,12 @@ function Form() {
 
   const form = useForm<FormValues>({
     initialValues: {
-      username: '',
-      password: '',
-      name: '',
-      email: '',
-      website: '',
-      github: '',
+      username: "",
+      password: "",
+      name: "",
+      email: "",
+      website: "",
+      github: "",
     },
 
     validate: (values) => {
@@ -40,17 +53,22 @@ function Form() {
         return {
           username:
             values.username.trim().length < 6
-              ? 'Username must include at least 6 characters'
+              ? "Username must include at least 6 characters"
               : null,
           password:
-            values.password.length < 6 ? 'Password must include at least 6 characters' : null,
+            values.password.length < 6
+              ? "Password must include at least 6 characters"
+              : null,
         };
       }
 
       if (active === 1) {
         return {
-          name: values.name.trim().length < 2 ? 'Name must include at least 2 characters' : null,
-          email: /^\S+@\S+$/.test(values.email) ? null : 'Invalid email',
+          name:
+            values.name.trim().length < 2
+              ? "Name must include at least 2 characters"
+              : null,
+          email: /^\S+@\S+$/.test(values.email) ? null : "Invalid email",
         };
       }
 
@@ -71,33 +89,51 @@ function Form() {
       return current < 3 ? current + 1 : current;
     });
 
-  const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+  const prevStep = () =>
+    setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
     <>
       <Stepper active={active}>
         <Stepper.Step label="First step" description="Profile settings">
-          <TextInput label="Username" placeholder="Username" {...form.getInputProps('username')} />
+          <TextInput
+            label="Username"
+            placeholder="Username"
+            {...form.getInputProps("username")}
+          />
           <PasswordInput
             mt="md"
             label="Password"
             placeholder="Password"
-            {...form.getInputProps('password')}
+            {...form.getInputProps("password")}
           />
         </Stepper.Step>
 
         <Stepper.Step label="Second step" description="Personal information">
-          <TextInput label="Name" placeholder="Name" {...form.getInputProps('name')} />
-          <TextInput mt="md" label="Email" placeholder="Email" {...form.getInputProps('email')} />
+          <TextInput
+            label="Name"
+            placeholder="Name"
+            {...form.getInputProps("name")}
+          />
+          <TextInput
+            mt="md"
+            label="Email"
+            placeholder="Email"
+            {...form.getInputProps("email")}
+          />
         </Stepper.Step>
 
         <Stepper.Step label="Final step" description="Social media">
-          <TextInput label="Website" placeholder="Website" {...form.getInputProps('website')} />
+          <TextInput
+            label="Website"
+            placeholder="Website"
+            {...form.getInputProps("website")}
+          />
           <TextInput
             mt="md"
             label="GitHub"
             placeholder="GitHub"
-            {...form.getInputProps('github')}
+            {...form.getInputProps("github")}
           />
         </Stepper.Step>
         <Stepper.Completed>
@@ -120,4 +156,4 @@ function Form() {
   );
 }
 
-export default Form
+export default Form;

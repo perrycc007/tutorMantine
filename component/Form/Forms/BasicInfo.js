@@ -11,6 +11,14 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import userStore from "../../../stores/stores";
 import ResetPasswordForm from "./ResetPasswordForm";
+
+import { useState } from "react";
+import { Select } from "@mantine/core";
+
+function Demo() {
+  const [value, setValue] = useState("");
+  return <Select data={[]} value={value} onChange={setValue} />;
+}
 export default function BasicInfo(props) {
   const inputfield = formField.inputfield.BasicInfo;
   const checkboxfield = formField.checkboxfieldfield.agreewith;
@@ -83,14 +91,10 @@ export default function BasicInfo(props) {
       <form onSubmit={formHandler} className={classes.formContent}>
         {Object.entries(inputfield).map(([key, value]) => (
           <div key={`div${value.label}`} className={classes.inputContainer}>
-            <TextField
-              className={classes.formInput}
-              name={value.name}
+            <TextInput
               label={value.label}
-              key={value.name}
-              // value={userData[value.name]}
-              defaultValue={info ? info[value.name] : ""}
-              onChange={updateUserDataHandler(value.name)}
+              placeholder={value.name}
+              {...form.getInputProps(value.label)}
             />
           </div>
         ))}

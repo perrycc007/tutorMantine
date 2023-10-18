@@ -35,7 +35,7 @@ function Grades() {
           select={GradeBase}
         />
       </Tabs.Panel>
-      <Tabs.Panel value="HKALE">
+      <Tabs.Panel value="HKDSE">
         <CAccordions
           cat={HKDSE}
           key="HKDSE"

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
-import Button from "@mui/material/Button";
-import TimetableButton from "../../inputTool/TimetableButton";
+import { Button } from "@mantine/core";
+import TimetableButton from "./TimetableButton";
 import classes from "./TimeForm.module.css";
 
 // const time = [{8: false, 9: false, 10: false, 11: false, 12: false, 13: false, 14: false, 15: false, 16: false, 17: false, 18: false, 19: false, 20: false, 21: false, 22: false}];

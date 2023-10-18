@@ -1,0 +1,64 @@
+.toggleButton {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  font-size: 12px;
+  min-height: 1%;
+  padding: 0.7rem 7%;
+  /* width: 2vw;
+  height: 2%; */
+  color: rgb(78, 78, 78);
+  cursor: pointer;
+  align-items: center;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+}
+
+.toggleButtonClose {
+  background-color: #2196f3;
+  padding: 3% 7%;
+  border: none;
+  color: white;
+  cursor: pointer;
+  align-items: center;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+}
+
+.toggleButton:hover {
+  background-color: #818181;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+}
+
+.toggleButtonClose:hover {
+  background-color: rgb(105, 112, 116);
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+}
+@media (max-width: 400px) {
+  .toggleButton {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    font-size: 12px;
+    min-height: 1%;
+    padding: 0.616rem 7%;
+    /* width: 2vw;
+    height: 2%; */
+    color: rgb(78, 78, 78);
+    cursor: pointer;
+    align-items: center;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+  }
+
+  .toggleButtonClose {
+    background-color: #2196f3;
+    padding: 0.616rem 7%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    align-items: center;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+  }
+}

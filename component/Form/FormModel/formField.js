@@ -1,4 +1,3 @@
-
 const formField = {
   selectfield: {
     BasicInfo: {
@@ -7,10 +6,6 @@ const formField = {
         label: "認識我們的途徑",
         requiredErrorMsg: "Required",
         option: [
-          {
-            value: "undefined",
-            label: "None",
-          },
           {
             value: "Google",
             label: "網上",
@@ -30,10 +25,6 @@ const formField = {
         name: "language",
         label: "主要語言",
         option: [
-          {
-            value: "undefined",
-            label: "None",
-          },
           {
             value: "chinese",
             label: "中文",
@@ -56,8 +47,8 @@ const formField = {
         requiredErrorMsg: "補習年資 is required",
         option: [
           {
-            value: "undefined",
-            label: "None",
+            value: "沒有",
+            label: "沒有",
           },
           {
             value: "1",
@@ -100,8 +91,8 @@ const formField = {
         requiredErrorMsg: "Experience is required",
         option: [
           {
-            value: "undefined",
-            label: "None",
+            value: "沒有",
+            label: "沒有",
           },
           {
             value: "補習社",
@@ -128,7 +119,7 @@ const formField = {
         option: [
           {
             value: "沒有",
-            label: "None",
+            label: "沒有",
           },
           {
             value: "幼稚園",
@@ -154,8 +145,8 @@ const formField = {
         requiredErrorMsg: "最高可補年級 is required",
         option: [
           {
-            value: "undefined",
-            label: "None",
+            value: "沒有",
+            label: "沒有",
           },
           {
             value: "小學",
@@ -189,10 +180,6 @@ const formField = {
         requiredErrorMsg: "Notes is required",
         option: [
           {
-            value: "undefined",
-            label: "",
-          },
-          {
             value: "有",
             label: "有",
           },
@@ -208,8 +195,8 @@ const formField = {
         requiredErrorMsg: "中學類別 is required",
         option: [
           {
-            value: "undefined",
-            label: "None",
+            value: "沒有",
+            label: "",
           },
           {
             value: "中文中學",
@@ -234,8 +221,8 @@ const formField = {
         label: "現時就讀年級",
         option: [
           {
-            value: "undefined",
-            label: "None",
+            value: "沒有",
+            label: "",
           },
           {
             value: "1",
@@ -264,8 +251,8 @@ const formField = {
         label: "授課語言",
         option: [
           {
-            value: "undefined",
-            label: "None",
+            value: "沒有",
+            label: "",
           },
           {
             value: "Chinese",
@@ -286,8 +273,8 @@ const formField = {
         label: "強項",
         option: [
           {
-            value: "undefined",
-            label: "None",
+            value: "沒有",
+            label: "",
           },
           {
             value: "操卷",
@@ -330,10 +317,6 @@ const formField = {
         label: "導師性別要求",
         option: [
           {
-            value: "undefined",
-            label: "None",
-          },
-          {
             value: "None",
             label: "沒有偏好",
           },
@@ -351,10 +334,6 @@ const formField = {
         name: "expectation",
         label: "期望目標",
         option: [
-          {
-            value: "undefined",
-            label: "None",
-          },
           {
             value: "操卷",
             label: "操卷",
