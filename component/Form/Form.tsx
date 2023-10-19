@@ -1,91 +1,58 @@
 import { useState, useEffect } from "react";
-import {
-  Stepper,
-  Button,
-  Group,
-  TextInput,
-  PasswordInput,
-  Code,
-  Box,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
-
-interface FormValues {
-  username: string;
-  password: string;
-  name: string;
-  email: string;
-  website: string;
-  github: string;
-}
-
-function loadInitialValues(): Promise<FormValues> {
-  return new Promise((resolve) => {
-    setTimeout(
-      () =>
-        resolve({
-          username: "test@email",
-          password: "password",
-          name: "name",
-          email: "email",
-          website: "website",
-          github: "github",
-        }),
-      2000
-    );
-  });
-}
+import { Stepper, Button, Group, TextInput, Code } from "@mantine/core";
+import { UserFormProvider, useUserForm } from "./FormModel/FormContext";
+import BasicForm from "./Forms/BasicForm";
+import BudgetForm from "./Forms/BudgetForm";
 function Form() {
   const [active, setActive] = useState(0);
-
-  const form = useForm<FormValues>({
+  const form = useUserForm({
     initialValues: {
-      username: "",
-      password: "",
+      findus: "",
+      language: "",
       name: "",
-      email: "",
-      website: "",
-      github: "",
-    },
-
-    validate: (values) => {
-      if (active === 0) {
-        return {
-          username:
-            values.username.trim().length < 6
-              ? "Username must include at least 6 characters"
-              : null,
-          password:
-            values.password.length < 6
-              ? "Password must include at least 6 characters"
-              : null,
-        };
-      }
-
-      if (active === 1) {
-        return {
-          name:
-            values.name.trim().length < 2
-              ? "Name must include at least 2 characters"
-              : null,
-          email: /^\S+@\S+$/.test(values.email) ? null : "Invalid email",
-        };
-      }
-
-      return {};
+      nationality: "",
+      phoneno: "",
+      address: "",
+      emergencycontact: "",
+      emergencyrelationship: "",
+      emergencyphone: "",
+      lowestpay: 100,
+      highestpay: 200,
+      yearofexperience: "",
+      experience: "",
+      highestteachinglevel: "",
+      educationallevel: "",
+      notes: "",
+      schoolcat: "",
+      year: "",
+      strength: "",
+      genderrequirement: "",
+      expectation: "",
+      agreewith: "",
+      occupation: "",
+      secondaryschool: "",
+      primaryschool: "",
+      publicexamgrade: "",
+      university: "",
+      major: "",
+      othercert: "",
+      others: "",
+      intro: "",
     },
   });
-  useEffect(() => {
-    loadInitialValues().then((values) => {
-      form.setValues(values);
-      form.resetDirty(values);
-    });
-  }, []);
+
+  // useEffect(() => {
+  //   loadInitialValues().then((values) => {
+  //     form.setValues(values);
+  //     form.resetDirty(values);
+  //   });
+  // }, []);
+
   const nextStep = () =>
     setActive((current) => {
-      if (form.validate().hasErrors) {
-        return current;
-      }
+      // if (form.validate().hasErrors) {
+      //   return current;
+      // }
       return current < 3 ? current + 1 : current;
     });
 
@@ -94,64 +61,32 @@ function Form() {
 
   return (
     <>
-      <Stepper active={active}>
-        <Stepper.Step label="First step" description="Profile settings">
-          <TextInput
-            label="Username"
-            placeholder="Username"
-            {...form.getInputProps("username")}
-          />
-          <PasswordInput
-            mt="md"
-            label="Password"
-            placeholder="Password"
-            {...form.getInputProps("password")}
-          />
-        </Stepper.Step>
+      <UserFormProvider form={form}>
+        <Stepper active={active}>
+          <Stepper.Step label="First step" description="Profile settings">
+            <BasicForm />
+          </Stepper.Step>
 
-        <Stepper.Step label="Second step" description="Personal information">
-          <TextInput
-            label="Name"
-            placeholder="Name"
-            {...form.getInputProps("name")}
-          />
-          <TextInput
-            mt="md"
-            label="Email"
-            placeholder="Email"
-            {...form.getInputProps("email")}
-          />
-        </Stepper.Step>
+          <Stepper.Step label="Second step" description="Personal information">
+            <BudgetForm />
+          </Stepper.Step>
 
-        <Stepper.Step label="Final step" description="Social media">
-          <TextInput
-            label="Website"
-            placeholder="Website"
-            {...form.getInputProps("website")}
-          />
-          <TextInput
-            mt="md"
-            label="GitHub"
-            placeholder="GitHub"
-            {...form.getInputProps("github")}
-          />
-        </Stepper.Step>
-        <Stepper.Completed>
-          Completed! Form values:
-          <Code block mt="xl">
-            {JSON.stringify(form.values, null, 2)}
-          </Code>
-        </Stepper.Completed>
-      </Stepper>
+          <Stepper.Step
+            label="Final step"
+            description="Social media"
+          ></Stepper.Step>
+          <Stepper.Completed>complete</Stepper.Completed>
+        </Stepper>
 
-      <Group justify="flex-end" mt="xl">
-        {active !== 0 && (
-          <Button variant="default" onClick={prevStep}>
-            Back
-          </Button>
-        )}
-        {active !== 3 && <Button onClick={nextStep}>Next step</Button>}
-      </Group>
+        <Group justify="flex-end" mt="xl">
+          {active !== 0 && (
+            <Button variant="default" onClick={prevStep}>
+              Back
+            </Button>
+          )}
+          {active !== 3 && <Button onClick={nextStep}>Next step</Button>}
+        </Group>
+      </UserFormProvider>
     </>
   );
 }

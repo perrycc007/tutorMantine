@@ -12,7 +12,9 @@ interface UserFormValues {
   address: string;
   emergencycontact: string;
   emergencyrelationship: string;
-  emergencyphone: number;
+  emergencyphone: string;
+  lowestpay: number;
+  highestpay: number;
 }
 
 // You can give context variables any name
