@@ -5,6 +5,8 @@ import BasicForm from "./Forms/BasicForm";
 import BudgetForm from "./Forms/BudgetForm";
 import Education from "./Forms/Education";
 import Grades from "./Forms/Grades";
+import LocationForms from "./Forms/LocationForms";
+import Time from "./Forms/Time";
 function Form() {
   const [active, setActive] = useState(0);
   const form = useUserForm({
@@ -41,6 +43,7 @@ function Form() {
       others: "",
       intro: "",
       grade: [],
+      location: [],
     },
   });
 
@@ -56,7 +59,7 @@ function Form() {
       // if (form.validate().hasErrors) {
       //   return current;
       // }
-      return current < 3 ? current + 1 : current;
+      return current < 5 ? current + 1 : current;
     });
 
   const prevStep = () =>
@@ -70,15 +73,18 @@ function Form() {
             <BasicForm />
           </Stepper.Step>
 
-          <Stepper.Step label="" description="Personal information">
+          <Stepper.Step label="" description="mation">
             <BudgetForm />
           </Stepper.Step>
 
           <Stepper.Step label="" description="Education">
             <Education />
           </Stepper.Step>
-          <Stepper.Step label="" description="Personal information">
+          <Stepper.Step label="" description="information">
             <Grades />
+          </Stepper.Step>
+          <Stepper.Step label="" description="n">
+            <Time />
           </Stepper.Step>
           <Stepper.Completed>complete</Stepper.Completed>
         </Stepper>
@@ -89,7 +95,7 @@ function Form() {
               Back
             </Button>
           )}
-          {active !== 3 && <Button onClick={nextStep}>Next step</Button>}
+          {active !== 5 && <Button onClick={nextStep}>Next step</Button>}
         </Group>
       </UserFormProvider>
     </>

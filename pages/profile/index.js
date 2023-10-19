@@ -2,12 +2,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import userStore from "../../stores/stores";
-import Grades from "../../component/Form/Forms/Grades";
-import LocationForms from "../../component/Form/Forms/LocationForms";
-import Basic from "../../component/Form/Forms/BasicForm";
-import TimeForm from "../../component/Form/Forms/TimeForm";
-import BudgetForm from "../../component/Form/Forms/BudgetForm";
-import Education from "../../component/Form/Forms/Education";
 import Form from "../../component/Form/Form";
 const UserProfile = () => {
   const [profile, setProfile] = useState(null);

@@ -7,7 +7,7 @@ import { useUserForm } from "../FormModel/FormContext";
 function Grades() {
   const form = useUserForm();
   const [activeTab, setActiveTab] = useState<string | null>("HKCEE");
-  const [list, setList] = useState([{ id: "", value: "" }]);
+  const [list, setList] = useState([{ id: "drop", value: "" }]);
   const {
     list: { HKCEE, HKALE, HKDSE, IB, IGCSE, GCEALevel, GradeBase, numberBase },
   } = GradeFormOption;
@@ -18,9 +18,10 @@ function Grades() {
     console.log(existed(id));
     // updating
     if (existed(id)) {
-      const filtered = list
+      let filtered = list
         .filter((item) => item.id !== id)
         .filter((item) => item.value !== "");
+      filtered = list.filter((item) => item.id !== "none");
       if (value !== "") {
         setList([...filtered, { id: id, value: value }]);
       } else {
@@ -29,7 +30,8 @@ function Grades() {
     } else {
       // adding
       if (value !== "") {
-        const newlist = [...list, { id: id, value: value }];
+        let newlist = [...list, { id: id, value: value }];
+        newlist = list.filter((item) => item.id !== "none");
         setList(newlist);
       }
     }
@@ -38,9 +40,7 @@ function Grades() {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        console.log(list);
         form.setFieldValue("grade", list);
-        console.log(form.values);
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>

@@ -1,31 +1,46 @@
 import { useState } from "react";
-import { Tabs, Chip } from "@mantine/core";
+import { Tabs, Chip, Button } from "@mantine/core";
 import locations from "./location.js";
+import { useUserForm } from "../FormModel/FormContext";
 
 function LocationForms() {
-  const [activeTab, setActiveTab] = useState<string | null>("first");
+  const [activeTab, setActiveTab] = useState<string | null>("香港島");
+  const form = useUserForm();
   const cat = Object.entries(locations).map(([key, value]) => {
     return value;
   });
-  const [value, setValue] = useState(["react"]);
+  const [value, setValue] = useState([""]);
 
   return (
-    <Tabs value={activeTab} onChange={setActiveTab}>
-      <Tabs.List>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        console.log(value);
+        form.setFieldValue("location", value);
+      }}
+    >
+      <Tabs value={activeTab} onChange={setActiveTab}>
+        <Tabs.List>
+          {cat.map((location) => (
+            <Tabs.Tab key={location.cat} value={location.cat}>
+              {location.cat}
+            </Tabs.Tab>
+          ))}
+        </Tabs.List>
         {cat.map((location) => (
-          <Tabs.Tab value={location.cat}>{location.cat}</Tabs.Tab>
+          <Tabs.Panel value={location.cat}>
+            <Chip.Group multiple value={value} onChange={setValue}>
+              {location.items.map((item) => (
+                <Chip value={item} key={item}>
+                  {item}
+                </Chip>
+              ))}
+            </Chip.Group>
+          </Tabs.Panel>
         ))}
-      </Tabs.List>
-      {cat.map((location) => (
-        <Tabs.Panel value={location.cat}>
-          <Chip.Group multiple value={value} onChange={setValue}>
-            {location.items.map((item) => (
-              <Chip value={item}>{item}</Chip>
-            ))}
-          </Chip.Group>
-        </Tabs.Panel>
-      ))}
-    </Tabs>
+      </Tabs>
+      <Button type="submit">Submit</Button>
+    </form>
   );
 }
 

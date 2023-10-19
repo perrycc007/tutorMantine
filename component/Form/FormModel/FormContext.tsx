@@ -36,6 +36,7 @@ interface UserFormValues {
   others: string;
   intro: string;
   grade: any;
+  location: any;
 }
 
 // You can give context variables any name
