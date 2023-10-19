@@ -19,7 +19,7 @@ const Education = () => {
         return (
           <Select
             label={value.label}
-            data={value.option.map}
+            data={value.option}
             placeholder={value.label}
             //   value={formData[formField.selectfield.BasicInfo.name]}
           />

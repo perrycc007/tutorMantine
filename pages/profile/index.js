@@ -38,7 +38,6 @@ const UserProfile = () => {
     <>
       {/* {loading && <p>Loading...</p>} */}
       <Basic />
-      <Education></Education>
       {/* {!loading && <ProfileForm profile={profile} tutor={tutor} />}
        */}
     </>

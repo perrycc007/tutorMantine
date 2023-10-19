@@ -74,7 +74,6 @@ const formField = {
             value: "6",
             label: "6",
           },
-          ,
           {
             value: "7",
             label: "7",
