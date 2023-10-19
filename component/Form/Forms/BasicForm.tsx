@@ -29,7 +29,6 @@ function loadInitialValues(): Promise<any> {
 
 const BasicForm = () => {
   const form = useUserForm();
-  console.log(form.values);
   // const form = useUserForm({
   //   initialValues: {
   //     findus: "",

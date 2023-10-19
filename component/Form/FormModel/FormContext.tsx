@@ -15,6 +15,27 @@ interface UserFormValues {
   emergencyphone: string;
   lowestpay: number;
   highestpay: number;
+  yearofexperience: string;
+  experience: string;
+  highestteachinglevel: string;
+  educationallevel: string;
+  notes: string;
+  schoolcat: string;
+  year: string;
+  strength: string;
+  genderrequirement: string;
+  expectation: string;
+  agreewith: string;
+  occupation: string;
+  secondaryschool: string;
+  primaryschool: string;
+  publicexamgrade: string;
+  university: string;
+  major: string;
+  othercert: string;
+  others: string;
+  intro: string;
+  grade: any;
 }
 
 // You can give context variables any name

@@ -7,7 +7,6 @@ const inputfield = formField.inputfield.Education;
 const selectfield = formField.selectfield.Education;
 const Education = () => {
   const form = useUserForm();
-  console.log(form.values);
   return (
     <>
       <form
@@ -20,20 +19,20 @@ const Education = () => {
           <TextInput
             label={value.label}
             placeholder={value.label}
-            //   {...form.getInputProps(value.label)}
+            {...form.getInputProps(value.name)}
           />
         ))}
         {Object.entries(selectfield).map(([key, value]) => {
-          console.log(value.option);
           return (
             <Select
               label={value.label}
               data={value.option}
               placeholder={value.label}
-              //   value={formData[formField.selectfield.BasicInfo.name]}
+              {...form.getInputProps(value.name)}
             />
           );
         })}
+        <Button type="submit">Submit</Button>
       </form>
     </>
   );

@@ -3,6 +3,8 @@ import { Stepper, Button, Group, TextInput, Code } from "@mantine/core";
 import { UserFormProvider, useUserForm } from "./FormModel/FormContext";
 import BasicForm from "./Forms/BasicForm";
 import BudgetForm from "./Forms/BudgetForm";
+import Education from "./Forms/Education";
+import Grades from "./Forms/Grades";
 function Form() {
   const [active, setActive] = useState(0);
   const form = useUserForm({
@@ -38,6 +40,7 @@ function Form() {
       othercert: "",
       others: "",
       intro: "",
+      grade: [],
     },
   });
 
@@ -63,18 +66,20 @@ function Form() {
     <>
       <UserFormProvider form={form}>
         <Stepper active={active}>
-          <Stepper.Step label="First step" description="Profile settings">
+          <Stepper.Step label="" description="Profile settings">
             <BasicForm />
           </Stepper.Step>
 
-          <Stepper.Step label="Second step" description="Personal information">
+          <Stepper.Step label="" description="Personal information">
             <BudgetForm />
           </Stepper.Step>
 
-          <Stepper.Step
-            label="Final step"
-            description="Social media"
-          ></Stepper.Step>
+          <Stepper.Step label="" description="Education">
+            <Education />
+          </Stepper.Step>
+          <Stepper.Step label="" description="Personal information">
+            <Grades />
+          </Stepper.Step>
           <Stepper.Completed>complete</Stepper.Completed>
         </Stepper>
 

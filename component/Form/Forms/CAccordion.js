@@ -12,7 +12,7 @@ function CAcccordion(props) {
               key={props.childKey + key + item}
               id={props.childKey + key + item}
               name={item}
-              //   passValue={props.choiceHandler}
+              passValue={props.choiceHandler}
               select={props.select}
             ></BasicSelect>
           );
