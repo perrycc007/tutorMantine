@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Tabs, Button } from "@mantine/core";
 import GradeFormOption from "./GradeFormOption";
 import CAccordions from "./CAccordion";
-import { useUserForm } from "../FormModel/FormContext";
+import { useUserForm } from "../../FormModel/FormContext";
 
 function Grades() {
   const form = useUserForm();

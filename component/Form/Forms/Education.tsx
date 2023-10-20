@@ -17,6 +17,7 @@ const Education = () => {
       >
         {Object.entries(inputfield).map(([key, value]) => (
           <TextInput
+            key={value.name}
             label={value.label}
             placeholder={value.label}
             {...form.getInputProps(value.name)}
@@ -25,6 +26,7 @@ const Education = () => {
         {Object.entries(selectfield).map(([key, value]) => {
           return (
             <Select
+              key={value.name}
               label={value.label}
               data={value.option}
               placeholder={value.label}

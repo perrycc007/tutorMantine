@@ -1,34 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { TextInput, Select, Button } from "@mantine/core";
 import formField from "../FormModel/formField";
 import { useUserForm } from "../FormModel/FormContext";
-
+import userStore from "../../../stores/stores";
 const inputfield = formField.inputfield.BasicInfo;
 const checkboxfield = formField.checkboxfieldfield.agreewith;
 const selectfield = formField.selectfield.BasicInfo;
 
-function loadInitialValues(): Promise<any> {
-  return new Promise((resolve) => {
-    setTimeout(
-      () =>
-        resolve({
-          findus: "",
-          language: "",
-          name: "",
-          nationality: "",
-          phoneno: "1231132",
-          address: "1231213",
-          emergencycontact: "",
-          emergencyrelationship: "",
-          emergencyphone: "132456",
-        }),
-      2000
-    );
-  });
-}
-
-const BasicForm = () => {
+const PersonalInfoForm = () => {
   const form = useUserForm();
+
+  const Profile = userStore((state) => state.Profile);
+  console.log(Profile);
+  const updateProfile = userStore((state) => state.updateProfile);
+  const [value, setValue] = useState(Profile);
   // const form = useUserForm({
   //   initialValues: {
   //     findus: "",
@@ -42,8 +27,14 @@ const BasicForm = () => {
   //     emergencyphone: "",
   //   },
   // });
+  const loadInitialValues = (Profile) => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(Profile), 1000);
+    });
+  };
   useEffect(() => {
-    loadInitialValues().then((values) => {
+    loadInitialValues(Profile).then((values) => {
+      console.log(values);
       form.setValues(values);
       form.resetDirty(values);
     });
@@ -53,7 +44,10 @@ const BasicForm = () => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        console.log(form.values);
+        form.setValues((prev) => ({ ...prev, ...event }));
+        const NewProfile = { ...Profile, ...form.values };
+        console.log(event);
+        updateProfile(NewProfile);
       }}
     >
       {Object.entries(inputfield).map(([key, value]) => (
@@ -80,4 +74,4 @@ const BasicForm = () => {
   );
 };
 
-export default BasicForm;
+export default PersonalInfoForm;
