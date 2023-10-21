@@ -61,7 +61,29 @@ let store = (set) => ({
     grade: [],
     location: [],
   },
-  updateProfile: (NewProfile) => set({ Profile: NewProfile }),
+  updateProfile: (NewProfile) => {
+    // Custom serialization function to handle circular references
+    const serialize = (obj) => {
+      const seen = new WeakSet();
+      return JSON.stringify(obj, (key, value) => {
+        if (typeof value === "object" && value !== null) {
+          if (seen.has(value)) {
+            return; // Avoid circular references
+          }
+          seen.add(value);
+        }
+        return value;
+      });
+    };
+
+    const serializedProfile = serialize(NewProfile);
+
+    // Parse the serializedProfile back to an object
+    const updatedProfile = JSON.parse(serializedProfile);
+
+    // Update the Profile state
+    set({ Profile: updatedProfile });
+  },
   fetchFavouriteTutor: async (id) => {
     const res = await Axios.get(`http://localhost:3001/favourite/tutor/${id}`);
     if (res.data != null) {

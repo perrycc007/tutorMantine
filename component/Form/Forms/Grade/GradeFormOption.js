@@ -114,10 +114,6 @@ const GCEALevel = {
 
 const numberBase = [
   {
-    value: "None",
-    label: "None",
-  },
-  {
     value: "U",
     label: "U",
   },
@@ -148,10 +144,6 @@ const numberBase = [
 ];
 
 const GradeBase = [
-  {
-    value: "None",
-    label: "None",
-  },
   {
     value: "A+",
     label: "A+",

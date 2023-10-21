@@ -1,25 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, Chip, Button } from "@mantine/core";
 import locations from "./location.js";
 import { useUserForm } from "../../FormModel/FormContext";
-import userStore from "../../../../stores/stores";
+import userStore from "../../../../stores/stores.js";
 function LocationForms() {
-  const [activeTab, setActiveTab] = useState<string | null>("香港島");
+  const [activeTab, setActiveTab] = useState("香港島");
+  // const [activeTab, setActiveTab] = useState<string | null>("香港島");
+
   const form = useUserForm();
+  const Profile = userStore((state) => state.Profile);
+  const updateProfile = userStore((state) => state.updateProfile);
+  const [value, setValue] = useState([""]);
   const cat = Object.entries(locations).map(([key, value]) => {
     return value;
   });
-  const Profile = userStore((state) => state.favouriteTutor);
-  const [value, setValue] = useState([""]);
-
+  const loadInitialValues = (Profile) => {
+    console.log("load");
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(Profile), 1000);
+    });
+  };
+  useEffect(() => {
+    loadInitialValues(Profile).then((values) => {
+      console.log(values);
+      setValue(values.location);
+      form.setValues(values);
+      form.resetDirty(values);
+    });
+  }, []);
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        console.log(Profile);
-        console.log(value);
         form.setFieldValue("location", value);
-        console.log(form.values);
+        const NewProfile = { ...Profile, location: value };
+        updateProfile(NewProfile);
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>

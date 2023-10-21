@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "component/Form/Forms/Location/LocationForms.js", "component/Form/Forms/Time/Time.js", "component/Form/Forms/Education.js", "component/Form/Forms/Subject/SubjectForm.js"],
   "exclude": ["node_modules"]
 }

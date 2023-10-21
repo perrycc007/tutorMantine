@@ -1,46 +1,71 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, Button } from "@mantine/core";
 import GradeFormOption from "./GradeFormOption";
 import CAccordions from "./CAccordion";
 import { useUserForm } from "../../FormModel/FormContext";
-
+import userStore from "../../../../stores/stores";
 function Grades() {
   const form = useUserForm();
-  const [activeTab, setActiveTab] = useState<string | null>("HKCEE");
+  const Profile = userStore((state) => state.Profile);
+  const updateProfile = userStore((state) => state.updateProfile);
+  const [activeTab, setActiveTab] = useState("HKCEE");
   const [list, setList] = useState([{ id: "drop", value: "" }]);
   const {
     list: { HKCEE, HKALE, HKDSE, IB, IGCSE, GCEALevel, GradeBase, numberBase },
   } = GradeFormOption;
-  const selectHandler = (id: any, value: string) => {
-    const existed = (id: any) => {
-      return list.some((item) => item.id === id);
+
+  const loadInitialValues = (Profile) => {
+    console.log("load");
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(Profile), 1000);
+    });
+  };
+  useEffect(() => {
+    loadInitialValues(Profile).then((values) => {
+      form.setValues(values);
+      form.resetDirty(values);
+      setList(values.grade);
+    });
+  }, []);
+
+  const selectHandler = (id, value) => {
+    const existed = (id) => {
+      return list.some((item) => item.id == id);
     };
-    console.log(existed(id));
     // updating
     if (existed(id)) {
       let filtered = list
         .filter((item) => item.id !== id)
-        .filter((item) => item.value !== "");
-      filtered = list.filter((item) => item.id !== "none");
+        .filter((item) => item.value !== "")
+        .filter((item) => item.value !== null);
       if (value !== "") {
-        setList([...filtered, { id: id, value: value }]);
+        setList(
+          [...filtered, { id: id, value: value }].filter(
+            (item) => item.value !== null
+          )
+        );
       } else {
-        setList([...filtered]);
+        setList([...filtered].filter((item) => item.value !== null));
       }
     } else {
       // adding
       if (value !== "") {
         let newlist = [...list, { id: id, value: value }];
-        newlist = list.filter((item) => item.id !== "none");
-        setList(newlist);
+        // newlist = list.filter((item) => item.id !== "none");
+        setList(newlist.filter((item) => item.value !== null));
       }
     }
+    console.log(list);
   };
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
         form.setFieldValue("grade", list);
+        console.log(list);
+        const NewProfile = { ...Profile, grade: list };
+        console.log(NewProfile);
+        updateProfile(NewProfile);
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>

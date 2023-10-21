@@ -1,22 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, Chip, Button } from "@mantine/core";
 import subjects from "./Subject";
-import { useUserForm } from "../../FormModel/FormContext.jsx";
+import { useUserForm } from "../../FormModel/FormContext";
+import userStore from "../../../../stores/stores";
 
 function SubjectsForms() {
-  const [activeTab, setActiveTab] = useState<string | null>("香港島");
+  const [activeTab, setActiveTab] = useState("補習");
   const form = useUserForm();
+  const Profile = userStore((state) => state.Profile);
+  const updateProfile = userStore((state) => state.updateProfile);
+
   const cat = Object.entries(subjects).map(([key, value]) => {
     return value;
   });
   const [value, setValue] = useState([""]);
-
+  const loadInitialValues = (Profile) => {
+    console.log("load");
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(Profile), 1000);
+    });
+  };
+  useEffect(() => {
+    loadInitialValues(Profile).then((values) => {
+      console.log(values);
+      setValue(values.subjects);
+      form.setValues(values);
+      form.resetDirty(values);
+    });
+  }, []);
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
         console.log(value);
         form.setFieldValue("subjects", value);
+        const NewProfile = { ...Profile, subjects: value };
+        updateProfile(NewProfile);
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>

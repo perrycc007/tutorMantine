@@ -9,32 +9,18 @@ const selectfield = formField.selectfield.BasicInfo;
 
 const PersonalInfoForm = () => {
   const form = useUserForm();
-
   const Profile = userStore((state) => state.Profile);
-  console.log(Profile);
   const updateProfile = userStore((state) => state.updateProfile);
   const [value, setValue] = useState(Profile);
-  // const form = useUserForm({
-  //   initialValues: {
-  //     findus: "",
-  //     language: "",
-  //     name: "",
-  //     nationality: "",
-  //     phoneno: "",
-  //     address: "",
-  //     emergencycontact: "",
-  //     emergencyrelationship: "",
-  //     emergencyphone: "",
-  //   },
-  // });
+
   const loadInitialValues = (Profile) => {
+    console.log("load");
     return new Promise((resolve) => {
       setTimeout(() => resolve(Profile), 1000);
     });
   };
   useEffect(() => {
     loadInitialValues(Profile).then((values) => {
-      console.log(values);
       form.setValues(values);
       form.resetDirty(values);
     });
@@ -46,7 +32,6 @@ const PersonalInfoForm = () => {
         event.preventDefault();
         form.setValues((prev) => ({ ...prev, ...event }));
         const NewProfile = { ...Profile, ...form.values };
-        console.log(event);
         updateProfile(NewProfile);
       }}
     >

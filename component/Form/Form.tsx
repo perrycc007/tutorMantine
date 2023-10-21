@@ -8,7 +8,7 @@ import Grades from "./Forms/Grade/Grades";
 import LocationForms from "./Forms/Location/LocationForms";
 import Time from "./Forms/Time/Time";
 import userStore from "../../stores/stores";
-
+import SubjectsForms from "./Forms/Subject/SubjectForm";
 function Form() {
   const [active, setActive] = useState(0);
   const Profile = userStore((state) => state.Profile);
@@ -48,6 +48,7 @@ function Form() {
       intro: "",
       grade: [],
       location: [],
+      time: [],
     },
   });
 
@@ -85,6 +86,9 @@ function Form() {
           <Stepper.Step label="" description="教育水平">
             <Education />
           </Stepper.Step>
+          <Stepper.Step label="" description="薪金">
+            <SubjectsForms />
+          </Stepper.Step>
           <Stepper.Step label="" description="考試成績">
             <Grades />
           </Stepper.Step>
@@ -100,7 +104,7 @@ function Form() {
               返回
             </Button>
           )}
-          {active !== 5 && <Button onClick={nextStep}>下一步</Button>}
+          {active !== 6 && <Button onClick={nextStep}>下一步</Button>}
         </Group>
       </UserFormProvider>
     </>

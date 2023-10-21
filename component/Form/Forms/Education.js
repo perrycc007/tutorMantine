@@ -1,18 +1,37 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { TextInput, Select, Button } from "@mantine/core";
 import formField from "../FormModel/formField";
 import { useUserForm } from "../FormModel/FormContext";
+import userStore from "../../../stores/stores";
 
 const inputfield = formField.inputfield.Education;
 const selectfield = formField.selectfield.Education;
 const Education = () => {
   const form = useUserForm();
+  const Profile = userStore((state) => state.Profile);
+  const updateProfile = userStore((state) => state.updateProfile);
+  const loadInitialValues = (Profile) => {
+    console.log("load");
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(Profile), 1000);
+    });
+  };
+  useEffect(() => {
+    loadInitialValues(Profile).then((values) => {
+      form.setValues(values);
+      form.resetDirty(values);
+    });
+  }, []);
   return (
     <>
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          console.log(form.values);
+          form.setValues((prev) => ({ ...prev, ...event }));
+
+          const NewProfile = { ...Profile, ...form.values };
+          console.log(NewProfile);
+          updateProfile(NewProfile);
         }}
       >
         {Object.entries(inputfield).map(([key, value]) => (
