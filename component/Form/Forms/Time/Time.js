@@ -4,20 +4,17 @@ import { Chip, Button } from "@mantine/core";
 import datetime from "./TimeOption.js";
 import { useUserForm } from "../../FormModel/FormContext";
 import userStore from "../../../../stores/stores"; // import { loadInitialValues } from "./FormModel/FormModel";
-function Time() {
+function Time(props) {
   const [value, setValue] = useState([""]);
   const form = useUserForm();
-  const Profile = userStore((state) => state.Profile);
-  const updateProfile = userStore((state) => state.updateProfile);
-  const loadInitialValues = (Profile) => {
+  const loadInitialValues = (data) => {
     console.log("load");
     return new Promise((resolve) => {
-      setTimeout(() => resolve(Profile), 1000);
+      setTimeout(() => resolve(data), 1000);
     });
   };
   useEffect(() => {
-    loadInitialValues(Profile).then((values) => {
-      console.log(values);
+    loadInitialValues(props.data).then((values) => {
       setValue(values.time);
       form.setValues(values);
       form.resetDirty(values);
@@ -27,10 +24,9 @@ function Time() {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        console.log(value);
         form.setFieldValue("time", value);
-        const NewProfile = { ...Profile, time: value };
-        updateProfile(NewProfile);
+        const NewData = { ...props.data, time: value };
+        props.updateForm(NewData);
       }}
     >
       <Chip.Group multiple value={value} onChange={setValue}>

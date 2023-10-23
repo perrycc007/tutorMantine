@@ -3,25 +3,22 @@ import { Tabs, Button } from "@mantine/core";
 import GradeFormOption from "./GradeFormOption";
 import CAccordions from "./CAccordion";
 import { useUserForm } from "../../FormModel/FormContext";
-import userStore from "../../../../stores/stores";
-function Grades() {
+
+function Grades(props) {
   const form = useUserForm();
-  const Profile = userStore((state) => state.Profile);
-  const updateProfile = userStore((state) => state.updateProfile);
   const [activeTab, setActiveTab] = useState("HKCEE");
   const [list, setList] = useState([{ id: "drop", value: "" }]);
   const {
     list: { HKCEE, HKALE, HKDSE, IB, IGCSE, GCEALevel, GradeBase, numberBase },
   } = GradeFormOption;
 
-  const loadInitialValues = (Profile) => {
-    console.log("load");
+  const loadInitialValues = (data) => {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(Profile), 1000);
+      setTimeout(() => resolve(data), 1000);
     });
   };
   useEffect(() => {
-    loadInitialValues(Profile).then((values) => {
+    loadInitialValues(props.data).then((values) => {
       form.setValues(values);
       form.resetDirty(values);
       setList(values.grade);
@@ -62,10 +59,8 @@ function Grades() {
       onSubmit={(event) => {
         event.preventDefault();
         form.setFieldValue("grade", list);
-        console.log(list);
-        const NewProfile = { ...Profile, grade: list };
-        console.log(NewProfile);
-        updateProfile(NewProfile);
+        const NewData = { ...props.data, grade: list };
+        props.updateForm(NewData);
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>

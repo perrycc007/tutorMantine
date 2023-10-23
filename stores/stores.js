@@ -6,6 +6,18 @@ import Axios from "axios";
 function clearLocalStorage() {
   localStorage.clear(); // Adjust this based on your client-side storage mechanism
 }
+const serialize = (obj) => {
+  const seen = new WeakSet();
+  return JSON.stringify(obj, (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return; // Avoid circular references
+      }
+      seen.add(value);
+    }
+    return value;
+  });
+};
 
 // Helper function to set login time in local storage
 function setLoginTime(time) {
@@ -63,18 +75,6 @@ let store = (set) => ({
   },
   updateProfile: (NewProfile) => {
     // Custom serialization function to handle circular references
-    const serialize = (obj) => {
-      const seen = new WeakSet();
-      return JSON.stringify(obj, (key, value) => {
-        if (typeof value === "object" && value !== null) {
-          if (seen.has(value)) {
-            return; // Avoid circular references
-          }
-          seen.add(value);
-        }
-        return value;
-      });
-    };
 
     const serializedProfile = serialize(NewProfile);
 
@@ -84,6 +84,39 @@ let store = (set) => ({
     // Update the Profile state
     set({ Profile: updatedProfile });
   },
+  NewStudentApplication: {
+    lowestpay: 100,
+    highestpay: 200,
+    yearofexperience: "",
+    experience: "",
+    highestteachinglevel: "",
+    educationallevel: "",
+    notes: "",
+    schoolcat: "",
+    year: "",
+    strength: "",
+    genderrequirement: "",
+    expectation: "",
+    agreewith: "",
+    occupation: "",
+    secondaryschool: "",
+    primaryschool: "",
+    publicexamgrade: "",
+    university: "",
+    major: "",
+    othercert: "",
+    others: "",
+    location: [],
+  },
+  updateNewStudentApplication: (NewApplication) => {
+    // Custom serialization function to handle circular references
+    const serializedApplication = serialize(NewApplication);
+    // Parse the serializedProfile back to an object
+    const updatedApplication = JSON.parse(serializedApplication);
+    // Update the Profile state
+    set({ NewStudentApplication: updatedApplication });
+  },
+
   fetchFavouriteTutor: async (id) => {
     const res = await Axios.get(`http://localhost:3001/favourite/tutor/${id}`);
     if (res.data != null) {

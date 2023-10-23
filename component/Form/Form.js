@@ -13,6 +13,10 @@ function Form() {
   const [active, setActive] = useState(0);
   const Profile = userStore((state) => state.Profile);
   const updateProfile = userStore((state) => state.updateProfile);
+  const updateFormHanlder = (values) => {
+    updateProfile(values);
+    form.setValues(values);
+  };
   const form = useUserForm({
     initialValues: {
       findus: "",
@@ -64,7 +68,7 @@ function Form() {
       // if (form.validate().hasErrors) {
       //   return current;
       // }
-      return current < 5 ? current + 1 : current;
+      return current < 6 ? current + 1 : current;
     });
 
   const prevStep = () =>
@@ -75,25 +79,25 @@ function Form() {
       <UserFormProvider form={form}>
         <Stepper active={active}>
           <Stepper.Step label="" description="個人資料">
-            <PersonalInfoForm />
+            <PersonalInfoForm updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>
           <Stepper.Step label="" description="地點">
-            <LocationForms />
+            <LocationForms updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>
           <Stepper.Step label="" description="時間">
-            <Time />
+            <Time updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>
           <Stepper.Step label="" description="教育水平">
-            <Education />
+            <Education updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>
           <Stepper.Step label="" description="薪金">
-            <SubjectsForms />
+            <SubjectsForms updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>
           <Stepper.Step label="" description="考試成績">
-            <Grades />
+            <Grades updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>
           <Stepper.Step label="" description="薪金">
-            <BudgetForm />
+            <BudgetForm updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>
           <Stepper.Completed>完成</Stepper.Completed>
         </Stepper>

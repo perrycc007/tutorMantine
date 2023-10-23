@@ -3,26 +3,23 @@ import { Tabs, Chip, Button } from "@mantine/core";
 import locations from "./location.js";
 import { useUserForm } from "../../FormModel/FormContext";
 import userStore from "../../../../stores/stores.js";
-function LocationForms() {
+function LocationForms(props) {
   const [activeTab, setActiveTab] = useState("香港島");
   // const [activeTab, setActiveTab] = useState<string | null>("香港島");
 
   const form = useUserForm();
-  const Profile = userStore((state) => state.Profile);
-  const updateProfile = userStore((state) => state.updateProfile);
   const [value, setValue] = useState([""]);
   const cat = Object.entries(locations).map(([key, value]) => {
     return value;
   });
-  const loadInitialValues = (Profile) => {
+  const loadInitialValues = (data) => {
     console.log("load");
     return new Promise((resolve) => {
-      setTimeout(() => resolve(Profile), 1000);
+      setTimeout(() => resolve(data), 1000);
     });
   };
   useEffect(() => {
-    loadInitialValues(Profile).then((values) => {
-      console.log(values);
+    loadInitialValues(props.data).then((values) => {
       setValue(values.location);
       form.setValues(values);
       form.resetDirty(values);
@@ -33,8 +30,8 @@ function LocationForms() {
       onSubmit={(event) => {
         event.preventDefault();
         form.setFieldValue("location", value);
-        const NewProfile = { ...Profile, location: value };
-        updateProfile(NewProfile);
+        const NewData = { ...props.data, ...form.values };
+        props.updateForm(NewData);
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>

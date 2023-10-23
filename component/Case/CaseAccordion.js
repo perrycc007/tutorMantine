@@ -3,7 +3,7 @@ import { Accordion, Button, Pagination } from "@mantine/core";
 import usePagination from "./usePagination";
 import itemName from "./itemName";
 import classes from "./CaseItem.module.css";
-
+import EditForm from "../Form/EditForm";
 const CaseAccordion = (props) => {
   const [page, setPage] = useState(1);
   const PER_PAGE = 15;
@@ -96,6 +96,12 @@ const CaseAccordion = (props) => {
                             {item.id} : {item.value}
                           </p>
                         ))}
+                      {props.type == "edit" && (
+                        <EditForm
+                          cases={oneCase}
+                          studentid={oneCase.studentid}
+                        />
+                      )}
                       {/* <Button variant="filled"
                                   onClick={
               oneCase.type == "tutor"

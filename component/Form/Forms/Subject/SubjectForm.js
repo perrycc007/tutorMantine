@@ -4,11 +4,9 @@ import subjects from "./Subject";
 import { useUserForm } from "../../FormModel/FormContext";
 import userStore from "../../../../stores/stores";
 
-function SubjectsForms() {
+function SubjectsForms(props) {
   const [activeTab, setActiveTab] = useState("補習");
   const form = useUserForm();
-  const Profile = userStore((state) => state.Profile);
-  const updateProfile = userStore((state) => state.updateProfile);
 
   const cat = Object.entries(subjects).map(([key, value]) => {
     return value;
@@ -21,8 +19,7 @@ function SubjectsForms() {
     });
   };
   useEffect(() => {
-    loadInitialValues(Profile).then((values) => {
-      console.log(values);
+    loadInitialValues(props.data).then((values) => {
       setValue(values.subjects);
       form.setValues(values);
       form.resetDirty(values);
@@ -32,10 +29,12 @@ function SubjectsForms() {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        console.log(value);
         form.setFieldValue("subjects", value);
-        const NewProfile = { ...Profile, subjects: value };
-        updateProfile(NewProfile);
+        const NewData = {
+          ...props.data,
+          subjects: value,
+        };
+        props.updateForm(NewData);
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>
@@ -47,8 +46,13 @@ function SubjectsForms() {
           ))}
         </Tabs.List>
         {cat.map((subjects) => (
-          <Tabs.Panel value={subjects.cat}>
-            <Chip.Group multiple value={value} onChange={setValue}>
+          <Tabs.Panel key={subjects.cat} value={subjects.cat}>
+            <Chip.Group
+              key={`${subjects.cat}` + "Chip.Group"}
+              multiple
+              value={value}
+              onChange={setValue}
+            >
               {subjects.items.map((item) => (
                 <Chip value={item} key={item}>
                   {item}
