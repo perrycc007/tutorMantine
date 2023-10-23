@@ -33,6 +33,7 @@ const CaseAccordion = (props) => {
         <Accordion>
           {props.cases
             ? _DATA.currentData().map((oneCase) => {
+                const oneCaseCopy = Object.assign({}, oneCase);
                 let { location, subject, availtime, studentid, ...items } =
                   oneCase;
                 const fee = (items.highestfee + items.lowestfee) / 2;
@@ -98,7 +99,7 @@ const CaseAccordion = (props) => {
                         ))}
                       {props.type == "edit" && (
                         <EditForm
-                          cases={oneCase}
+                          cases={oneCaseCopy}
                           studentid={oneCase.studentid}
                         />
                       )}

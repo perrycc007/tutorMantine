@@ -13,7 +13,6 @@ function LocationForms(props) {
     return value;
   });
   const loadInitialValues = (data) => {
-    console.log("load");
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 1000);
     });
@@ -24,13 +23,13 @@ function LocationForms(props) {
       form.setValues(values);
       form.resetDirty(values);
     });
-  }, []);
+  }, [props.data]);
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
         form.setFieldValue("location", value);
-        const NewData = { ...props.data, ...form.values };
+        const NewData = { ...props.data, location: value };
         props.updateForm(NewData);
       }}
     >
@@ -45,8 +44,8 @@ function LocationForms(props) {
         {cat.map((location) => (
           <Tabs.Panel key={location.cat} value={location.cat}>
             <Chip.Group
+              key={`${location.cat}` + "Chip.Group"}
               multiple
-              key={`${location.cat}` + "ChipGroup"}
               value={value}
               onChange={setValue}
             >

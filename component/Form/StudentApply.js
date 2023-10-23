@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Stepper, Button, Group, TextInput, Code } from "@mantine/core";
 import { UserFormProvider, useUserForm } from "./FormModel/FormContext";
-import Education from "./Forms/Education";
 import LocationForms from "./Forms/Location/LocationForms";
 import Time from "./Forms/Time/Time";
 import StudentOthers from "./Forms/StudentOthers";
@@ -52,19 +51,25 @@ function StudentApply(props) {
       <UserFormProvider form={form}>
         <Stepper active={active}>
           <Stepper.Step label="" description="地點">
-            <LocationForms data={props.data} />
+            <LocationForms
+              data={props.data}
+              updateForm={props.updateApplication}
+            />
           </Stepper.Step>
           <Stepper.Step label="" description="時間">
-            <Time data={props.data} />
-          </Stepper.Step>
-          <Stepper.Step label="" description="教育水平">
-            <Education data={props.data} />
+            <Time data={props.data} updateForm={props.updateApplication} />
           </Stepper.Step>
           <Stepper.Step label="" description="科目">
-            <SubjectsForms data={props.data} />
+            <SubjectsForms
+              data={props.data}
+              updateForm={props.updateApplication}
+            />
           </Stepper.Step>
           <Stepper.Step label="" description="要求">
-            <StudentOthers data={props.data} />
+            <StudentOthers
+              data={props.data}
+              updateForm={props.updateApplication}
+            />
           </Stepper.Step>
           <Stepper.Completed>完成</Stepper.Completed>
         </Stepper>

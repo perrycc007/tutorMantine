@@ -1,15 +1,14 @@
 import classes from "./CaseItem.module.css";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Accordion, Button, Pagination } from "@mantine/core";
 import EditForm from "../Form/Forms/EditForm";
 import { useState, useEffect } from "react";
-import BasicPopover from "../ui/BasicPopover";
-import Button from "@mui/material/Button";
-import itemName from "./itemName";
+import EditProfileForm from "../../Form/EditProfileForm";
+import itemName from "../itemName";
+import readDate from "../HelperFunction";
 function CaseItemAdminStudent(props) {
-  const [status, setStatus] = useState(props.cases.status?props.cases.status:'open');
+  const [status, setStatus] = useState(
+    props.cases.status ? props.cases.status : "open"
+  );
   const [notAvailStatus, setNotAvailStatus] = useState(false);
   const [checkStatus, setCheckStatus] = useState("not yet checked");
   const StatusHandler = () => {
@@ -59,40 +58,6 @@ function CaseItemAdminStudent(props) {
   console.log(items);
   const fee = (items.highestfee + items.lowestfee) / 2;
   console.log(fee);
-  const readDate = (notFormat) => {
-    const time = notFormat.split("t");
-    let dayOfWeek = [];
-    let startingTime = `${time[1]}:00`;
-    switch (time[0]) {
-      case "d1":
-        dayOfWeek = "星期一";
-        break;
-      case "d2":
-        dayOfWeek = "星期二";
-        break;
-      case "d3":
-        dayOfWeek = "星期三";
-        break;
-      case "d4":
-        dayOfWeek = "星期四";
-        break;
-      case "d5":
-        dayOfWeek = "星期五";
-        break;
-      case "d6":
-        dayOfWeek = "星期六";
-        break;
-      case "d7":
-        dayOfWeek = "星期日";
-        break;
-
-      default:
-      // code block
-    }
-
-    const result = [dayOfWeek, startingTime];
-    return result;
-  };
 
   const availtimeArray = JSON.parse(availtime);
   const timeForDisaply = availtimeArray
@@ -108,25 +73,22 @@ function CaseItemAdminStudent(props) {
 
   return (
     <div className={classes.item}>
-      <Accordion className={classes.accordion}>
-        <AccordionSummary
-          className={classes.accordionSummary}
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          {Object.entries(heading).map(([key, value]) => (
-            <p className={classes.title} key={`${itemName[key]}value`}>
-              {typeof value == "object"
-                ? value.map((item) => {
-                    return ` ${item}`;
-                  })
-                : ""}
-            </p>
-          ))}
-          <p className={classes.title}>{`$${fee}/小時`}</p>
-        </AccordionSummary>
-        <AccordionDetails className={classes.summary}>
+      <Accordion>
+        <Accordion.Item>
+          <Accordion.Control>
+            {Object.entries(heading).map(([key, value]) => (
+              <p className={classes.title} key={`${itemName[key]}value`}>
+                {typeof value == "object"
+                  ? value.map((item) => {
+                      return ` ${item}`;
+                    })
+                  : ""}
+              </p>
+            ))}
+            <p className={classes.title}>{`$${fee}/小時`}</p>
+          </Accordion.Control>
+        </Accordion.Item>
+        <Accordion.Panel>
           <p className={classes.detail}>ID:{props.cases.studentid}</p>
           {Object.entries(items).map(
             ([key, value]) =>
@@ -157,15 +119,18 @@ function CaseItemAdminStudent(props) {
                   : "個案已封鎖"}
               </Button>
               <div>
-                <EditForm cases={props.cases} />
+                <EditForm
+                  cases={props.cases}
+                  studentid={props.cases.studentid}
+                />
               </div>
             </div>
 
             <div>
-              <BasicPopover userid={props.cases.userid} type={props.type} />
+              <EditProfileForm userid={props.cases.userid} type={"student"} />
             </div>
           </div>
-        </AccordionDetails>
+        </Accordion.Panel>
       </Accordion>
     </div>
   );

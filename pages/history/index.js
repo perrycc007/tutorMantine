@@ -17,7 +17,7 @@ const Cases = () => {
       language: null,
       lastOnline: "2023-07-15T13:49:21.000Z",
       level: null,
-      location: '["中半山","則魚涌"]',
+      location: '["則魚涌"]',
       lowestduration: 75,
       lowestfee: 200,
       lowestfrequency: 1,

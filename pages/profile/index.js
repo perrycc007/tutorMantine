@@ -4,11 +4,17 @@ import axios from "axios";
 import userStore from "../../stores/stores";
 import Form from "../../component/Form/Form";
 const UserProfile = () => {
-  const [profile, setProfile] = useState(null);
-  const [tutor, setTutor] = useState(null);
-  const [loading, setLoading] = useState(true);
   const getUserid = userStore((state) => state.userId);
-
+  const Profile = userStore((state) => state.Profile);
+  const TutorProfile = userStore((state) => state.TutorProfile);
+  const updateProfile = userStore((state) => state.updateProfile);
+  const updateTutor = userStore((state) => state.updateTutor);
+  const updateFormHanlder = (values) => {
+    updateProfile(values);
+  };
+  const updateTutorFormHandler = (values) => {
+    updateTutor(values);
+  };
   // useEffect(() => {
   //   async function fetchData() {
   //     try {
@@ -31,7 +37,12 @@ const UserProfile = () => {
   return (
     <>
       {/* {loading && <p>Loading...</p>} */}
-      <Form />
+      <Form
+        data={Profile}
+        tutorData={TutorProfile}
+        updateForm={updateFormHanlder}
+        updateTutorForm={updateTutorFormHandler}
+      />
       {/* {!loading && <ProfileForm profile={profile} tutor={tutor} />}
        */}
     </>

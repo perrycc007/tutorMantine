@@ -48,6 +48,8 @@ let store = (set) => ({
     emergencycontact: "",
     emergencyrelationship: "",
     emergencyphone: "",
+  },
+  TutorProfile: {
     lowestpay: 100,
     highestpay: 200,
     yearofexperience: "",
@@ -72,17 +74,7 @@ let store = (set) => ({
     intro: "",
     grade: [],
     location: [],
-  },
-  updateProfile: (NewProfile) => {
-    // Custom serialization function to handle circular references
-
-    const serializedProfile = serialize(NewProfile);
-
-    // Parse the serializedProfile back to an object
-    const updatedProfile = JSON.parse(serializedProfile);
-
-    // Update the Profile state
-    set({ Profile: updatedProfile });
+    subject: [],
   },
   NewStudentApplication: {
     lowestpay: 100,
@@ -107,7 +99,17 @@ let store = (set) => ({
     othercert: "",
     others: "",
     location: [],
+    subject: [],
   },
+  updateProfile: (NewProfile) => {
+    // Custom serialization function to handle circular references
+    const serializedProfile = serialize(NewProfile);
+    // Parse the serializedProfile back to an object
+    const updatedProfile = JSON.parse(serializedProfile);
+    // Update the Profile state
+    set({ Profile: updatedProfile });
+  },
+
   updateNewStudentApplication: (NewApplication) => {
     // Custom serialization function to handle circular references
     const serializedApplication = serialize(NewApplication);
@@ -116,7 +118,14 @@ let store = (set) => ({
     // Update the Profile state
     set({ NewStudentApplication: updatedApplication });
   },
-
+  updateTutor: (Tutor) => {
+    // Custom serialization function to handle circular references
+    const serializedTutor = serialize(Tutor);
+    // Parse the serializedProfile back to an object
+    const updatedTutor = JSON.parse(serializedTutor);
+    // Update the Profile state
+    set({ TutorProfile: updatedTutor });
+  },
   fetchFavouriteTutor: async (id) => {
     const res = await Axios.get(`http://localhost:3001/favourite/tutor/${id}`);
     if (res.data != null) {

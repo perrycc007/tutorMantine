@@ -9,12 +9,17 @@ import LocationForms from "./Forms/Location/LocationForms";
 import Time from "./Forms/Time/Time";
 import userStore from "../../stores/stores";
 import SubjectsForms from "./Forms/Subject/SubjectForm";
-function Form() {
+function Form(props) {
   const [active, setActive] = useState(0);
-  const Profile = userStore((state) => state.Profile);
-  const updateProfile = userStore((state) => state.updateProfile);
+  const Profile = props.data;
+  const Tutor = props.tutorData;
   const updateFormHanlder = (values) => {
-    updateProfile(values);
+    // updateProfile(values);
+    props.updateForm(values);
+    form.setValues(values);
+  };
+  const updateTutorHanlder = (values) => {
+    props.updateTutorForm(values);
     form.setValues(values);
   };
   const form = useUserForm({
@@ -56,19 +61,17 @@ function Form() {
     },
   });
 
-  // useEffect(() => {
-  //   loadInitialValues(Profile).then((values) => {
-  //     form.setValues(Profile);
-  //     form.resetDirty(values);
-  //   });
-  // }, []);
-
   const nextStep = () =>
     setActive((current) => {
       // if (form.validate().hasErrors) {
       //   return current;
       // }
-      return current < 6 ? current + 1 : current;
+      if (props.type == "tutor") {
+        return current < 6 ? current + 1 : current;
+      }
+      if (props.type == "cases") {
+        return 7;
+      }
     });
 
   const prevStep = () =>
@@ -82,22 +85,22 @@ function Form() {
             <PersonalInfoForm updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>
           <Stepper.Step label="" description="地點">
-            <LocationForms updateForm={updateFormHanlder} data={Profile} />
+            <LocationForms updateForm={updateTutorHanlder} data={Tutor} />
           </Stepper.Step>
           <Stepper.Step label="" description="時間">
-            <Time updateForm={updateFormHanlder} data={Profile} />
+            <Time updateForm={updateTutorHanlder} data={Tutor} />
           </Stepper.Step>
           <Stepper.Step label="" description="教育水平">
-            <Education updateForm={updateFormHanlder} data={Profile} />
+            <Education updateForm={updateTutorHanlder} data={Tutor} />
           </Stepper.Step>
           <Stepper.Step label="" description="薪金">
-            <SubjectsForms updateForm={updateFormHanlder} data={Profile} />
+            <SubjectsForms updateForm={updateTutorHanlder} data={Tutor} />
           </Stepper.Step>
           <Stepper.Step label="" description="考試成績">
-            <Grades updateForm={updateFormHanlder} data={Profile} />
+            <Grades updateForm={updateTutorHanlder} data={Tutor} />
           </Stepper.Step>
           <Stepper.Step label="" description="薪金">
-            <BudgetForm updateForm={updateFormHanlder} data={Profile} />
+            <BudgetForm updateForm={updateTutorHanlder} data={Tutor} />
           </Stepper.Step>
           <Stepper.Completed>完成</Stepper.Completed>
         </Stepper>
@@ -108,7 +111,10 @@ function Form() {
               返回
             </Button>
           )}
-          {active !== 6 && <Button onClick={nextStep}>下一步</Button>}
+          {active !== 6 && props.type == "tutor" && (
+            <Button onClick={nextStep}>下一步</Button>
+          )}
+          {props.type == "tutor" && <Button onClick={nextStep}>完成</Button>}
         </Group>
       </UserFormProvider>
     </>

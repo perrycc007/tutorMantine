@@ -1,35 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { TextInput, Select, Button, RangeSlider } from "@mantine/core";
 import { useUserForm } from "../FormModel/FormContext";
-import userStore from "../../../stores/stores";
+import formField from "../FormModel/formField";
 
-const PersonalInfoForm = () => {
+const StudentOthers = (props) => {
   const form = useUserForm();
-  const NewStudentApplication = userStore(
-    (state) => state.NewStudentApplication
-  );
-  const updateNewStudentApplication = userStore(
-    (state) => state.updateNewStudentApplication
-  );
-  const [lessonAWeek, setLessonAWeek] = useState(2);
-  const [payPerHour, setPayPerHour] = useState(100);
-  const [hourPerLesson, setHourPerLesson] = useState([100, 200]);
+  const [lessonAWeek, setLessonAWeek] = useState([1, 5]);
+  const [payPerHour, setPayPerHour] = useState([100, 200]);
+  const [hourPerLesson, setHourPerLesson] = useState([60, 200]);
   const inputfield = formField.inputfield.StudentOthers;
   const selectfield = formField.selectfield.StudentOthers;
 
-  const loadInitialValues = (NewStudentApplication) => {
-    console.log("load");
+  const loadInitialValues = (data) => {
+    console.log("load", data);
     return new Promise((resolve) => {
-      setTimeout(() => resolve(NewStudentApplication), 1000);
+      setTimeout(() => resolve(data), 1000);
     });
   };
   useEffect(() => {
-    loadInitialValues(NewStudentApplication).then((values) => {
+    loadInitialValues(props.data).then((values) => {
       form.setValues(values);
       form.resetDirty(values);
-      setLessonAWeek([values.lowestpay, values.highestpay]);
-      setPayPerHour([values.lowestduration, values.highestduration]);
-      setHourPerLesson([values.lowestfrequency, values.highestfrequency]);
+      setLessonAWeek([values.lowestfrequency, values.highestfrequency]);
+      setHourPerLesson([values.lowestduration, values.highestduration]);
+      setPayPerHour([values.lowestfee, values.highestfee]);
     });
   }, []);
 
@@ -45,8 +39,8 @@ const PersonalInfoForm = () => {
         form.setFieldValue("lowestfrequency", lessonAWeek[0]);
         form.setFieldValue("highestfrequency", lessonAWeek[1]);
 
-        let NewStudentApplicationRevised = {
-          ...NewStudentApplication,
+        let NewData = {
+          ...props.data,
           lowestpay: payPerHour[0],
           highestpay: payPerHour[1],
           lowestduration: hourPerLesson[0],
@@ -54,11 +48,11 @@ const PersonalInfoForm = () => {
           lowestfrequency: lessonAWeek[0],
           highestfrequency: lessonAWeek[1],
         };
-        NewStudentApplicationRevised = {
-          ...NewStudentApplicationRevised,
+        NewData = {
+          ...NewData,
           ...form.values,
         };
-        updateNewStudentApplication(NewStudentApplicationRevised);
+        props.updateForm(NewData);
       }}
     >
       {Object.entries(inputfield).map(([key, value]) => (
@@ -86,8 +80,9 @@ const PersonalInfoForm = () => {
         onChange={(newValue) => setLessonAWeek(newValue)}
         step={1}
         max={7}
+        minRange={1}
         min={1}
-        label={(value) => `$${value}`}
+        label={(value) => `${value}`}
       />
       <p>學費每小時</p>
       <RangeSlider
@@ -107,11 +102,11 @@ const PersonalInfoForm = () => {
         step={15}
         max={180}
         min={30}
-        label={(value) => `$${value}`}
+        label={(value) => `${value}`}
       />
       <Button type="submit">Submit</Button>
     </form>
   );
 };
 
-export default PersonalInfoForm;
+export default StudentOthers;
