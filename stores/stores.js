@@ -1,7 +1,9 @@
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import Axios from "axios";
-
+import {
+  fetchFavouriteCases,
+  fetchFavouriteTutor,
+} from "../component/Helper/AxiosFunction";
 // Helper function to clear local storage
 function clearLocalStorage() {
   localStorage.clear(); // Adjust this based on your client-side storage mechanism
@@ -102,38 +104,27 @@ let store = (set) => ({
     subject: [],
   },
   updateProfile: (NewProfile) => {
-    // Custom serialization function to handle circular references
-    const serializedProfile = serialize(NewProfile);
-    // Parse the serializedProfile back to an object
-    const updatedProfile = JSON.parse(serializedProfile);
-    // Update the Profile state
+    const updatedProfile = JSON.parse(serialize(NewProfile));
     set({ Profile: updatedProfile });
   },
 
   updateNewStudentApplication: (NewApplication) => {
-    // Custom serialization function to handle circular references
-    const serializedApplication = serialize(NewApplication);
-    // Parse the serializedProfile back to an object
-    const updatedApplication = JSON.parse(serializedApplication);
-    // Update the Profile state
+    const updatedApplication = JSON.parse(serialize(NewApplication));
     set({ NewStudentApplication: updatedApplication });
   },
   updateTutor: (Tutor) => {
-    // Custom serialization function to handle circular references
     const serializedTutor = serialize(Tutor);
-    // Parse the serializedProfile back to an object
     const updatedTutor = JSON.parse(serializedTutor);
-    // Update the Profile state
     set({ TutorProfile: updatedTutor });
   },
   fetchFavouriteTutor: async (id) => {
-    const res = await Axios.get(`http://localhost:3001/favourite/tutor/${id}`);
+    const res = await fetchFavouriteTutor(id);
     if (res.data != null) {
       set({ favouriteTutor: await res.data.favouritetutorid });
     }
   },
   fetchFavouriteCases: async (id) => {
-    const res = await Axios.get(`http://localhost:3001/favourite/cases/${id}`);
+    const res = await fetchFavouriteCases(id);
     if (res.data != null) {
       set({ favouriteCase: await res.data.favouritecaseid });
     }

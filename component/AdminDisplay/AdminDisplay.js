@@ -1,7 +1,13 @@
-import CaseItemAdminStudent from "../Case/CaseItemAdminStudent";
-import CaseListAdminTutor from "../Case/CaseListAdminTutor";
+import CaseItemAdminStudent from "../Case/Admin/CaseItemAdminStudent";
+import CaseListAdminTutor from "../Case/Admin/CaseListAdminTutor";
 import Axios from "axios";
 import classes from "./AdminDisplay.module.css";
+import {
+  toggleCheck,
+  toggleAvail,
+  toggleStatus,
+  toggleVerify,
+} from "../Helper/AxiosFunction.js";
 import { useState, Fragment } from "react";
 export default function AdminDisplay(props) {
   console.log(props.match);
@@ -24,55 +30,6 @@ export default function AdminDisplay(props) {
     checking,
   };
   const url = "http://localhost:3001/admin/toggleCheck";
-  async function toggleCheck(idmatch, checked, checking) {
-    const res = await Axios.patch(url, {
-      idmatch: idmatch,
-      checked: checked,
-      checking: checking,
-    });
-    // console.log(res.data.result);
-    return res;
-  }
-  async function toggleAvail(idmatch, notavailtutor) {
-    const res = await Axios.patch("http://localhost:3001/admin/toggleAvail", {
-      idmatch: idmatch,
-      notavailtutor: notavailtutor,
-    });
-    // console.log(res.data.result);
-    return res;
-  }
-
-  async function toggleStatus(id, status, type) {
-    if (type == "cases") {
-      const response = await Axios.patch(
-        `http://localhost:3001/history/updateCaseStatus`,
-        {
-          studentid: id,
-          status: status,
-        }
-      );
-      response.data.result;
-    } else {
-      const response = await Axios.patch(
-        `http://localhost:3001/history/updateTutorStatus`,
-        {
-          tutorid: id,
-          status: status,
-        }
-      );
-      response.data.result;
-    }
-  }
-  async function toggleVerify(id, verify, type) {
-    const response = await Axios.patch(
-      `http://localhost:3001/admin/updateTutorVerify`,
-      {
-        tutorid: id,
-        verify: verify,
-      }
-    );
-    response.data.result;
-  }
 
   return (
     <Fragment>

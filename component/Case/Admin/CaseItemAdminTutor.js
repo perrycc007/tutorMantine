@@ -2,8 +2,7 @@ import classes from "./CaseItem.module.css";
 import { Accordion, Button } from "@mantine/core";
 import EditForm from "../Form/Forms/EditForm";
 import { useState, useEffect } from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { IconHeartFilled } from "@tabler/icons-react";
 import itemName from "../itemName";
 import readDate from "../HelperFunction";
 import EditProfileForm from "../../Form/EditProfileForm";
@@ -168,7 +167,7 @@ function CaseItemAdminTutor(props) {
               <Button onClick={toggleNotAvail}>
                 {notAvailStatus ? "Not Available" : "Available"}
               </Button>
-              {props.isFavouriteTutor ? <FavoriteIcon /> : ""}
+              {props.isFavouriteTutor ? <IconHeartFilled /> : ""}
             </div>
           </div>
         </Accordion.Panel>

@@ -4,6 +4,8 @@ import usePagination from "./usePagination";
 import itemName from "./itemName";
 import classes from "./CaseItem.module.css";
 import EditForm from "../Form/EditForm";
+import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
+
 const CaseAccordion = (props) => {
   const [page, setPage] = useState(1);
   const PER_PAGE = 15;
@@ -103,13 +105,20 @@ const CaseAccordion = (props) => {
                           studentid={oneCase.studentid}
                         />
                       )}
-                      {/* <Button variant="filled"
-                                  onClick={
-              oneCase.type == "tutor"
-                ? toggleFavoriteStatusHandler
-                : toggleFavoriteStatusHandler>
-                     {/* {oneCase.isFavourite ? <IconHeartFilled /> : <IconHeart />}  */}
-                      {/* </Button>  */}
+                      <Button
+                        variant="filled"
+                        onClick={
+                          oneCase.type == "tutor"
+                            ? toggleFavoriteStatusHandler
+                            : toggleFavoriteStatusHandler
+                        }
+                      >
+                        {oneCase.isFavourite ? (
+                          <IconHeartFilled />
+                        ) : (
+                          <IconHeart />
+                        )}
+                      </Button>
                     </Accordion.Panel>
                   </Accordion.Item>
                 );

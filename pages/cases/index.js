@@ -1,6 +1,6 @@
 import axios from "axios";
 import Student from "../../component/Case/Student";
-
+import { CaseGetAxios } from "../../component/Helper/AxiosFunction";
 const Cases = (props) => {
   return (
     <>
@@ -11,7 +11,7 @@ const Cases = (props) => {
 
 export async function getStaticProps() {
   // fetch data from an API
-  // const response = await axios.get(`http://localhost:3001/cases`);
+  // const response = await CaseGetAxios()
   // const result = response ? response.data.result : "";
   const result = [
     {

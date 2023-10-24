@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import userStore from "../../stores/stores";
 import Form from "../../component/Form/Form";
+import { fetchProfileData } from "../../component/Helper/AxiosFunction";
 const UserProfile = () => {
   const getUserid = userStore((state) => state.userId);
   const Profile = userStore((state) => state.Profile);
@@ -18,10 +19,7 @@ const UserProfile = () => {
   // useEffect(() => {
   //   async function fetchData() {
   //     try {
-  //       const [profileResponse, tutorResponse] = await Promise.all([
-  //         axios.get(`http://localhost:3001/profile/${getUserid}`),
-  //         axios.get(`http://localhost:3001/tutor/${getUserid}`),
-  //       ]);
+  //       const [profileResponse, tutorResponse] = await fetchProfileData(getUserid)
   //       setProfile(profileResponse.data.result);
   //       setTutor(tutorResponse.data.result);
   //       setLoading(false);

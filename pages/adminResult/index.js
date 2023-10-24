@@ -7,6 +7,7 @@ import classes from "./adminResult.module.css";
 import { useEffect, useState, useRef } from "react";
 import CaseItemAdminTutor from "../../components/Case/CaseItemAdminTutor";
 import { isAdmin } from "../../utils/isAdmin";
+import getMatchResultAxios from "../../components/Helper/AxiosFunction";
 const Result = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -30,16 +31,18 @@ const Result = () => {
   };
   async function getMatchResult(page) {
     setLoading(true);
-    const response = await axios.get(
-      `http://localhost:3001/result/${page - 1}`
-    );
-    console.log(response.data[0]);
-    setItem(response.data[0]);
-    setTotalNumberofPage(response.data[1].totalNumberofMatch);
-    if (response.status == 200) {
-      setLoading(false);
+    try {
+      const response = await getMatchResultAxios(page);
+      console.log(response.data[0]);
+      setItem(response.data[0]);
+      setTotalNumberofPage(response.data[1].totalNumberofMatch);
+      if (response.status == 200) {
+        setLoading(false);
+        return response.data;
+      }
+    } catch (err) {
+      console.log(err);
     }
-    return response.data;
   }
 
   async function getSingleMatchResult() {
@@ -49,18 +52,14 @@ const Result = () => {
       return;
     } else {
       setLoading(true);
-      const response = await axios.get(
-        `http://localhost:3001/result/studentid/${enteredStudentId}`
-      );
-      console.log(response);
-      if (response.data == "error") {
-        setItem(undefined);
-      } else {
+      try {
+        const response = await getSingleMatchResultAxios(enteredStudentId);
+        console.log(response);
         setItem(response.data[0]);
-      }
-      if (response.status == 200) {
         setLoading(false);
         setTotalNumberofPage(1);
+      } catch (err) {
+        setItem(undefined);
       }
 
       return response.data;
@@ -71,15 +70,15 @@ const Result = () => {
     const enteredTutorId = tutoridRef.current?.value;
     console.log(enteredTutorId);
     setLoading(true);
-    const response = await axios.get(
-      `http://localhost:3001/tutor/${enteredTutorId}`
-    );
-    console.log(response.data.result);
-    setTutor(response.data.result);
-    if (response.status == 200) {
+    try {
+      const response = await getTutorAxios(enteredTutorId);
+      console.log(response);
+      setTutor(response.data.result);
       setLoading(false);
+      return response.data;
+    } catch (err) {
+      return;
     }
-    return response.data;
   }
 
   async function toggleStatus(id, status, type) {
