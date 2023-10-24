@@ -1,12 +1,10 @@
 import AdminDisplay from "../../components/AdminDisplay/AdminDisplay";
-import axios from "axios";
 import NoSSR from "react-no-ssr";
 import LoadingScreen from "../../components/Layout/LoadingScreen";
 import { TextInput, Pagination, Button } from "@mantine/core";
 import classes from "./adminResult.module.css";
 import { useEffect, useState, useRef } from "react";
 import CaseItemAdminTutor from "../../components/Case/CaseItemAdminTutor";
-import { isAdmin } from "../../utils/isAdmin";
 import { useRouter } from "next/router";
 import {
   getMatchResultAxios,

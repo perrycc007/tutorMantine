@@ -133,3 +133,18 @@ export async function fetchFavouriteCase(getUserid) {
     `http://localhost:3001/favourite/case/${getUserid}`
   );
 }
+
+// Favourite
+export async function getFavouriteTutorListAxios(getUserid) {
+  const response = await Axios.post(
+    `http://localhost:3001/tutor/getFavouriteCase/${getUserid}`
+  );
+  return response;
+}
+
+export async function getFavouriteStudentListAxios(getUserid) {
+  const response = await Axios.post(
+    `http://localhost:3001/cases/getFavouriteCase/${getUserid}`
+  );
+  return response;
+}
