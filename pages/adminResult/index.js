@@ -7,7 +7,11 @@ import classes from "./adminResult.module.css";
 import { useEffect, useState, useRef } from "react";
 import CaseItemAdminTutor from "../../components/Case/CaseItemAdminTutor";
 import { isAdmin } from "../../utils/isAdmin";
-import getMatchResultAxios from "../../components/Helper/AxiosFunction";
+import { useRouter } from "next/router";
+import {
+  getMatchResultAxios,
+  getSingleMatchResultAxios,
+} from "../../components/Helper/AxiosFunction";
 const Result = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -79,28 +83,6 @@ const Result = () => {
     } catch (err) {
       return;
     }
-  }
-
-  async function toggleStatus(id, status, type) {
-    const response = await axios.patch(
-      `http://localhost:3001/history/updateTutorStatus`,
-      {
-        tutorid: id,
-        status: status,
-      }
-    );
-    response.data.result;
-  }
-
-  async function toggleVerify(id, verify, type) {
-    const response = await Axios.patch(
-      `http://localhost:3001/admin/updateTutorVerify`,
-      {
-        tutorid: id,
-        verify: verify,
-      }
-    );
-    response.data.result;
   }
 
   useEffect(() => {
