@@ -148,3 +148,36 @@ export async function getFavouriteStudentListAxios(getUserid) {
   );
   return response;
 }
+
+// ForgetPassword
+export async function resetPasswordLinkAxios(enteredEmail) {
+  const res = await Axios.post("http://localhost:3001/forgetPassword", {
+    email: enteredEmail,
+  });
+  return res;
+}
+
+// ResetPassword
+export async function ResetPasswordAxios(userid, token, enteredPassword) {
+  const res = await Axios.post(
+    `http://localhost:3001/forgetPassword/${userid}/${token}`,
+    {
+      password: enteredPassword,
+    }
+  );
+  return res;
+}
+
+export async function logIn(isLogin, url, enteredEmail, enteredPassword) {
+  if (isLogin) {
+    url = "http://localhost:3001/login";
+  } else {
+    url = "http://localhost:3001/register";
+  }
+  const res = await Axios.post(url, {
+    email: enteredEmail,
+    password: enteredPassword,
+  });
+  console.log(res.data.result);
+  return res;
+}

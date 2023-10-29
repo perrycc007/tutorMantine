@@ -1,6 +1,6 @@
 import Tutor from "../../components/Case/Tutor";
 import Axios from "axios";
-import { TutorGet } from "../../component/Helper/AxiosFunction";
+import { TutorGetAxios } from "../../component/Helper/AxiosFunction";
 const TutorPage = (props) => {
   return (
     <>
@@ -11,7 +11,7 @@ const TutorPage = (props) => {
 
 export async function getStaticProps() {
   // fetch data from an API
-  const response = await TutorGet();
+  const response = await TutorGetAxios();
   const result = response ? response.data.result : "";
   return {
     props: {

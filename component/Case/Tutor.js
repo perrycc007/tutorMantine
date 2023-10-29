@@ -1,9 +1,7 @@
 import CaseAccordion from "./CaseAccordion";
-import axios from "axios";
 import userStore from "../../stores/stores";
 import Filter from "./Filter";
 import { useState, useEffect } from "react";
-import Axios from "axios";
 import classes from "./Student.module.css";
 import { tutorFilterAxios } from "../Helper/AxiosFunction";
 const Tutor = (props) => {
