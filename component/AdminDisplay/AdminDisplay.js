@@ -1,7 +1,6 @@
 import CaseItemAdminStudent from "../Case/Admin/CaseItemAdminStudent";
-import CaseListAdminTutor from "../Case/Admin/CaseListAdminTutor";
-import Axios from "axios";
-import classes from "./AdminDisplay.module.css";
+import CaseItemAdminTutor from "../Case/Admin/CaseItemAdminTutor";
+
 import {
   toggleCheck,
   toggleAvail,
@@ -33,7 +32,7 @@ export default function AdminDisplay(props) {
 
   return (
     <Fragment>
-      <div className={classes.container}>
+      <div>
         <div>
           <CaseItemAdminStudent
             cases={studentInfo}
@@ -43,7 +42,7 @@ export default function AdminDisplay(props) {
             type="cases"
           />
         </div>
-        <CaseListAdminTutor
+        <CaseItemAdminTutor
           cases={tutor}
           idmatch={idmatch}
           toggleCheckHandler={toggleCheck}

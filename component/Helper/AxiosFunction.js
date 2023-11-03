@@ -1,20 +1,22 @@
-const url = "http://localhost:3001/";
+import Axios from "Axios";
+import { stringify, parse } from "flatted";
+
+const url = "http://localhost:3001";
 
 // AdminDisplay
 
-export async function toggleCheck(idmatch, checked, checking) {
+export async function toggleCheck(idmatch, checkStatus) {
   const res = await Axios.patch(url + "/admin/toggleCheck", {
     idmatch: idmatch,
-    checked: checked,
-    checking: checking,
+    checkStatus: checkStatus,
   });
   // console.log(res.data.result);
   return res;
 }
-export async function toggleAvail(idmatch, notavailtutor) {
+export async function toggleAvail(idmatch, availability) {
   const res = await Axios.patch(url + "/admin/toggleAvail", {
     idmatch: idmatch,
-    notavailtutor: notavailtutor,
+    availability: availability,
   });
   // console.log(res.data.result);
   return res;
@@ -36,7 +38,7 @@ export async function toggleStatus(id, status, type) {
   }
   return response.data.result;
 }
-export async function toggleVerify(id, verify, type) {
+export async function toggleVerify(id, verify) {
   const response = await Axios.patch(url + `/admin/updateTutorVerify`, {
     tutorid: id,
     verify: verify,
@@ -45,18 +47,18 @@ export async function toggleVerify(id, verify, type) {
 }
 // AdminResult
 export async function getMatchResultAxios(page) {
-  const response = await axios.get(`http://localhost:3001/result/${page - 1}`);
+  const response = await Axios.get(`http://localhost:3001/result/${page - 1}`);
   return response;
 }
 export async function getSingleMatchResultAxios(enteredStudentId) {
-  const response = await axios.get(
+  const response = await Axios.get(
     `http://localhost:3001/result/studentid/${enteredStudentId}`
   );
   return response;
 }
 
 export async function getTutor(enteredTutorId) {
-  const response = await axios.get(
+  const response = await Axios.get(
     `http://localhost:3001/tutor/${enteredTutorId}`
   );
   return response;
@@ -69,23 +71,42 @@ export async function TutorGetAxios() {
 }
 
 export async function tutorFilterAxios(preference) {
-  const response = await axios.post(`http://localhost:3001/tutor`, {
+  const response = await Axios.post(`http://localhost:3001/tutor`, {
     preference,
   });
   return response;
 }
 
+export async function updateTutorAxios(getUserid, values) {
+  const safeValues = stringify(values);
+  const response = await Axios.patch(`http://localhost:3001/tutor`, {
+    userid: getUserid,
+    ...parse(safeValues),
+  });
+  return response;
+}
 // Profile
 export async function fetchProfileData(getUserid) {
   const [profileResponse, tutorResponse] = await Promise.all([
-    axios.get(`http://localhost:3001/profile/${getUserid}`),
-    axios.get(`http://localhost:3001/tutor/${getUserid}`),
+    Axios.get(`http://localhost:3001/profile/${getUserid}`),
+    Axios.get(`http://localhost:3001/tutors/${getUserid}`),
   ]);
   return [profileResponse, tutorResponse];
 }
+
+export async function updateProfileAxios(getUserid, values) {
+  const safeValues = stringify(values);
+  const response = await Axios.patch(
+    `http://localhost:3001/profile`,
+    // `http://localhost:3001/profile/${getUserid}`,
+    { userid: getUserid, ...parse(safeValues) }
+  );
+  return response;
+}
+
 // history
 export async function fetchHistory(getUserid) {
-  const response = await axios.get(
+  const response = await Axios.get(
     `http://localhost:3001/history/${getUserid}`
   );
   return response;
@@ -93,12 +114,13 @@ export async function fetchHistory(getUserid) {
 // case
 
 export async function CaseGetAxios() {
-  const response = await axios.get(`http://localhost:3001/cases`);
+  const response = await Axios.get(`http://localhost:3001/students`);
+  console.log(response.data.result);
   return response;
 }
 
 export async function caseFilterAxios(preference) {
-  const response = await axios.post(`http://localhost:3001/cases`, {
+  const response = await Axios.post(`http://localhost:3001/students`, {
     preference,
   });
   return response;
@@ -128,7 +150,7 @@ export async function fetchFavouriteTutor(getUserid) {
     `http://localhost:3001/favourite/tutor/${getUserid}`
   );
 }
-export async function fetchFavouriteCase(getUserid) {
+export async function fetchFavouriteCases(getUserid) {
   const response = await Axios.get(
     `http://localhost:3001/favourite/case/${getUserid}`
   );
@@ -144,7 +166,7 @@ export async function getFavouriteTutorListAxios(getUserid) {
 
 export async function getFavouriteStudentListAxios(getUserid) {
   const response = await Axios.post(
-    `http://localhost:3001/cases/getFavouriteCase/${getUserid}`
+    `http://localhost:3001/students/getFavouriteCase/${getUserid}`
   );
   return response;
 }
@@ -168,16 +190,18 @@ export async function ResetPasswordAxios(userid, token, enteredPassword) {
   return res;
 }
 
-export async function logIn(isLogin, url, enteredEmail, enteredPassword) {
+export async function logIn(isLogin, enteredEmail, enteredPassword) {
+  let url = "http://localhost:3001";
   if (isLogin) {
-    url = "http://localhost:3001/login";
+    url = url + "/auth/login";
+    console.log(url);
   } else {
-    url = "http://localhost:3001/register";
+    url = url + "/auth/signup";
   }
   const res = await Axios.post(url, {
     email: enteredEmail,
     password: enteredPassword,
   });
-  console.log(res.data.result);
+  console.log(res);
   return res;
 }

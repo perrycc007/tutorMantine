@@ -4,6 +4,7 @@ import userStore from "../../stores/stores";
 import { useState, useEffect } from "react";
 import classes from "./Student.module.css";
 import { caseFilterAxios, UpdateFavorite } from "../Helper/AxiosFunction";
+import AccordionFilter from "./AccordionFilter";
 const Student = (props) => {
   const getUserid = userStore((state) => state.userId);
   const FavouriteCases = userStore((state) => state.favouriteCase);
@@ -36,7 +37,7 @@ const Student = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.filter}>
-        {/* {!props.Favourite && <Filter FilterHanlder={casesFilter} />} */}
+        {!props.Favourite && <AccordionFilter FilterHanlder={casesFilter} />}
       </div>
       {!filtered && (
         <CaseAccordion

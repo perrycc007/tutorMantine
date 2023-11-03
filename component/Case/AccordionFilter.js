@@ -1,77 +1,52 @@
 import React, { useState, useEffect } from "react";
-import { styled } from '@mui/material/styles';
-import MuiAccordion from "@mui/material/Accordion";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import MuiAccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-
-import BasicTabs from "../ui/BasicTabs";
-const Accordion = styled((props) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-  border: `0 solid ${theme.palette.divider}`,
-  borderBottom: '1px solid rgba(0, 0, 0, .125)',
-  '&:not(:last-child)': {
-    borderBottom: 0,
-  },
-  '&:before': {
-    display: 'none',
-  },
-}));
-
-const AccordionSummary = styled((props) => (
-  <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === 'dark'
-      ? 'rgba(255, 255, 255, .05)'
-      : 'rgba(0, 0, 0, 0)',
-  flexDirection: 'row-reverse',
-  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-    transform: 'rotate(90deg)',
-  },
-  '& .MuiAccordionSummary-content': {
-    marginLeft: theme.spacing(1),
-  },
-}));
-
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: '1px solid rgba(0, 0, 0, .125)',
-  
-}));
+import { RangeSlider, Button, Accordion } from "@mantine/core";
+import { UserFormProvider, useUserForm } from "../Form/FormModel/FormContext";
+import LocationForms from "../Form/Forms/Location/LocationForms";
+import SubjectsForm from "../Form/Forms/Subject/SubjectsForms";
 export default function AccordionFilter(props) {
-  const [expanded, setExpanded] = useState(false);
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const [payRange, setPayRange] = useState([100, 200]);
+  const updateFilterHanlder = (values) => {
+    props.updateFilterForm(values);
+    form.setValues(values);
   };
+  const form = useUserForm({
+    initialValues: {
+      location: [],
+      time: [],
+      lowestpay: 100,
+      highestpay: 200,
+    },
+  });
   return (
     <div>
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          {props.buttonName}
-        </AccordionSummary>
-        <AccordionDetails>
-          <BasicTabs
-            category={props.option}
-            listHandler={props.listHandlerHandler}
-            passValue={props.passValue}
-            type = "AccordFliter"
-          />
-        </AccordionDetails>
-      </Accordion>
+      <UserFormProvider form={form}>
+        <p>
+          工資: ${payRange[0]} - ${payRange[1]} 每小時
+        </p>
+        <RangeSlider
+          id="pay-range"
+          value={payRange}
+          onChange={(newValue) => setPayRange(newValue)}
+          min={60}
+          max={1000}
+          step={10}
+          label={(value) => `$${value}`}
+        />
+        <Accordion>
+          <Accordion.Item key={"location"} value="location">
+            <Accordion.Control>Location</Accordion.Control>
+            <Accordion.Panel>
+              <LocationForms updateForm={updateFilterHanlder} data={null} />
+            </Accordion.Panel>
+          </Accordion.Item>
+          <Accordion.Item value="subject">
+            <Accordion.Control>Subject</Accordion.Control>
+            <Accordion.Panel>
+              <SubjectsForm updateForm={updateFilterHanlder} data={null} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        </Accordion>
+      </UserFormProvider>
     </div>
   );
 }

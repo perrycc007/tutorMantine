@@ -8,7 +8,7 @@ import Grades from "./Forms/Grade/Grades";
 import LocationForms from "./Forms/Location/LocationForms";
 import Time from "./Forms/Time/Time";
 import userStore from "../../stores/stores";
-import SubjectsForms from "./Forms/Subject/SubjectForm";
+import SubjectsForms from "./Forms/Subject/SubjectsForms";
 function Form(props) {
   const [active, setActive] = useState(0);
   const Profile = props.data;

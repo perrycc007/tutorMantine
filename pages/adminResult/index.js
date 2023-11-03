@@ -1,15 +1,15 @@
-import AdminDisplay from "../../components/AdminDisplay/AdminDisplay";
+import AdminDisplay from "../../component/AdminDisplay/AdminDisplay";
 import NoSSR from "react-no-ssr";
-import LoadingScreen from "../../components/Layout/LoadingScreen";
+import { Loader } from "@mantine/core";
 import { TextInput, Pagination, Button } from "@mantine/core";
 import classes from "./adminResult.module.css";
 import { useEffect, useState, useRef } from "react";
-import CaseItemAdminTutor from "../../components/Case/CaseItemAdminTutor";
+import CaseItemAdminTutor from "../../component/Case/Admin/CaseItemAdminTutor";
 import { useRouter } from "next/router";
 import {
   getMatchResultAxios,
   getSingleMatchResultAxios,
-} from "../../components/Helper/AxiosFunction";
+} from "../../component/Helper/AxiosFunction";
 const Result = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -21,11 +21,11 @@ const Result = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push("/unauthorized"); // Redirect to login page or any other unauthorized page
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isAuthenticated()) {
+  //     router.push("/unauthorized"); // Redirect to login page or any other unauthorized page
+  //   }
+  // }, []);
 
   // const enteredStudentId = studentidRef.current?.value;
   const handleChange = (e, p) => {
@@ -90,7 +90,7 @@ const Result = () => {
     <div>
       <NoSSR>
         <h1 className={classes.h1}>補習搜尋</h1>
-        {loading && <LoadingScreen />}
+        {loading && <Loader />}
         {!loading && (
           <div className={classes.searchbar}>
             <TextInput inputRef={studentidRef} />{" "}

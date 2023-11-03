@@ -1,4 +1,4 @@
-const readDate = (notFormat) => {
+export const readDate = (notFormat) => {
   const time = notFormat.split("t");
   let dayOfWeek = [];
   let startingTime = `${time[1]}:00`;
@@ -33,4 +33,43 @@ const readDate = (notFormat) => {
   return result;
 };
 
-export default readDate;
+export function stripFormEventProperties(event) {
+  const formData = {};
+
+  const propertiesToRemove = [
+    "timeStamp",
+    "type",
+    "_reactName",
+    "bubbles",
+    "cancelable",
+    "defaultPrevented",
+    "eventPhase",
+    "isTrusted",
+  ];
+  function stripProperties(obj, propsToRemove) {
+    // Create a shallow copy of the object
+    const newObj = { ...obj };
+
+    // Iterate over all properties to remove and delete them from the new object
+    propsToRemove.forEach((prop) => {
+      delete newObj[prop];
+    });
+
+    return newObj;
+  }
+
+  // Iterate over all properties of the event object
+  for (const [key, value] of Object.entries(event)) {
+    // Check if the value is of a type that you'd expect form data to be
+    if (
+      typeof value === "string" ||
+      typeof value === "number" ||
+      typeof value === "boolean" ||
+      Array.isArray(value)
+    ) {
+      formData[key] = value;
+    }
+  }
+  const result = stripProperties(formData, propertiesToRemove);
+  return result;
+}

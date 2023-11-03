@@ -1,30 +1,34 @@
 import classes from "./CaseItem.module.css";
 import { Accordion, Button } from "@mantine/core";
-import EditForm from "../Form/Forms/EditForm";
+import EditForm from "../../Form/EditForm";
 import { useState, useEffect } from "react";
 import { IconHeartFilled } from "@tabler/icons-react";
 import itemName from "../itemName";
-import readDate from "../HelperFunction";
+import readDate from "../../Helper/HelperFunction";
 import EditProfileForm from "../../Form/EditProfileForm";
 function CaseItemAdminTutor(props) {
   const [status, setStatus] = useState(props.cases.status);
   const [verify, setVerify] = useState(props.cases.verify);
   const [notAvailStatus, setNotAvailStatus] = useState(false);
-  const [checkStatus, setCheckStatus] = useState("not yet checked");
+  const [checkStatus, setCheckStatus] = useState("");
 
   const toggleFavoriteStatusHandler = () => {
     props.toggleFavourite(props.id);
   };
   const toggleCheck = () => {
-    if (checkStatus == "not yet checked") {
-      setCheckStatus("checking");
-      props.toggleCheck(props.idmatch, props.cases.tutorid, "not yet checked");
-    } else if (checkStatus == "checking") {
-      setCheckStatus("checked");
-      props.toggleCheck(props.idmatch, props.cases.tutorid, "checking");
+    if (checkStatus == "NOT_YET_CHECKED") {
+      setCheckStatus("CHECKING");
+      props.toggleCheckHandler(
+        props.idmatch,
+        props.cases.tutorid,
+        "NOT_YET_CHECKED"
+      );
+    } else if (checkStatus == "CHECKING") {
+      setCheckStatus("CHECKED");
+      props.toggleCheckHandler(props.idmatch, props.cases.tutorid, "CHECKING");
     } else {
-      setCheckStatus("not yet checked");
-      props.toggleCheck(props.idmatch, props.cases.tutorid, "checked");
+      setCheckStatus("NOT_YET_CHECKED");
+      props.toggleCheckHandler(props.idmatch, props.cases.tutorid, "CHECKED");
     }
   };
 
@@ -60,10 +64,10 @@ function CaseItemAdminTutor(props) {
   const toggleNotAvail = () => {
     if (notAvailStatus) {
       setNotAvailStatus(false);
-      props.toggleAvail(false, props.idmatch, props.cases.tutorid);
+      props.toggleAvailHandler(false, props.idmatch, props.cases.tutorid);
     } else {
       setNotAvailStatus(true);
-      props.toggleAvail(true, props.idmatch, props.cases.tutorid);
+      props.toggleAvailHandler(true, props.idmatch, props.cases.tutorid);
     }
   };
   // const item = Object.entries(items).map((key, value) => {
@@ -71,12 +75,12 @@ function CaseItemAdminTutor(props) {
   // });
 
   useEffect(() => {
-    if (props.checkedStatus) {
-      setCheckStatus("checking");
-    } else if (props.checkingStatus) {
-      setCheckStatus("checked");
+    if (props.checkStatus) {
+      setCheckStatus("CHECKING");
+    } else if (props.checkStatus) {
+      setCheckStatus("CHECKED");
     } else {
-      setCheckStatus("not yet checked");
+      setCheckStatus("NOT_YET_CHECKED");
     }
     setNotAvailStatus(props.notAvailStatus);
   }, []);

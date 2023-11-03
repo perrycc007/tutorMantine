@@ -4,7 +4,7 @@ import { UserFormProvider, useUserForm } from "./FormModel/FormContext";
 import LocationForms from "./Forms/Location/LocationForms";
 import Time from "./Forms/Time/Time";
 import StudentOthers from "./Forms/StudentOthers";
-import SubjectsForms from "./Forms/Subject/SubjectForm";
+import SubjectsForms from "./Forms/Subject/SubjectsForms";
 import userStore from "../../stores/stores";
 function StudentApply(props) {
   const [active, setActive] = useState(0);

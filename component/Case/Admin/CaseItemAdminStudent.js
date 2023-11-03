@@ -1,10 +1,10 @@
 import classes from "./CaseItem.module.css";
 import { Accordion, Button, Pagination } from "@mantine/core";
-import EditForm from "../Form/Forms/EditForm";
+import EditForm from "../../Form/EditForm";
 import { useState, useEffect } from "react";
 import EditProfileForm from "../../Form/EditProfileForm";
 import itemName from "../itemName";
-import readDate from "../HelperFunction";
+import readDate from "../../Helper/HelperFunction";
 function CaseItemAdminStudent(props) {
   const [status, setStatus] = useState(
     props.cases.status ? props.cases.status : "open"

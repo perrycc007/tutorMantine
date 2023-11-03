@@ -1,6 +1,6 @@
 import CaseAccordion from "./CaseAccordion";
 import userStore from "../../stores/stores";
-import Filter from "./Filter";
+import AccordionFilter from "./AccordionFilter";
 import { useState, useEffect } from "react";
 import classes from "./Student.module.css";
 import { tutorFilterAxios } from "../Helper/AxiosFunction";
@@ -51,7 +51,7 @@ const Tutor = (props) => {
       </div>
       <div className={classes.contentContainer}>
         <div className={classes.filter}>
-          {!props.Favourite && <Filter FilterHanlder={tutorFilter} />}
+          {!props.Favourite && <AccordionFilter FilterHanlder={tutorFilter} />}
         </div>
         <div className={classes.caseList}>
           {!filtered && (

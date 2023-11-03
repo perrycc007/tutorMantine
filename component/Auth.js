@@ -4,11 +4,11 @@ import useStore from "../stores/stores";
 import Link from "next/link";
 import { Button, TextInput } from "@mantine/core";
 import { logIn } from "../component/Helper/AxiosFunction";
+import { useUserForm } from "../component/Form/FormModel/FormContext";
 
 const AuthForm = () => {
   const router = useRouter();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
+  const form = useUserForm();
   const addUserid = useStore((state) => state.addUserid);
   const loginAction = useStore((state) => state.loginUserid);
   const [isLogin, setIsLogin] = useState(true);
@@ -20,25 +20,22 @@ const AuthForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    const enteredEmail = emailInputRef.current?.value;
-    const enteredPassword = passwordInputRef.current?.value;
     setIsLoading(true);
-    logIn(isLogin, url, enteredEmail, enteredPassword)
+    form.setValues((prev) => ({ ...prev, ...event }));
+    logIn(isLogin, form.values.email, form.values.password)
       .then((res) => {
         setIsLoading(false);
-        if (res.status == 200) {
+        if (res.status === 201) {
           return res.data;
         } else {
-          return res.then((data) => {
-            let errorMessage = "Authentication failed!";
-            throw new Error(errorMessage);
-          });
+          let errorMessage = "Authentication failed!";
+          throw new Error(errorMessage);
         }
       })
       .then((res) => {
-        console.log(res.userID);
-        addUserid(res.userID);
+        console.log(res.accessToken);
+        localStorage.setItem("accessToken", res.accessToken);
+        addUserid(res.userid);
         loginAction();
         console.log(res.accessToken);
         router.push("/cases");
@@ -54,21 +51,21 @@ const AuthForm = () => {
       <h1>{isLogin ? "登入" : "登記"}</h1>
       <form onSubmit={submitHandler}>
         <div>
-          <TextField
+          <TextInput
             label="Email"
             type="email"
             id="email"
             required
-            inputRef={emailInputRef}
+            {...form.getInputProps("email")}
           />
         </div>
         <div>
-          <TextField
+          <TextInput
             label="Password"
             type="password"
             id="password"
             required
-            inputRef={passwordInputRef}
+            {...form.getInputProps("password")}
           />
         </div>
         <div>
