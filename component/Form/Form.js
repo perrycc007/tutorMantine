@@ -14,13 +14,12 @@ function Form(props) {
   const Profile = props.data;
   const Tutor = props.tutorData;
   const updateFormHanlder = (values) => {
-    // updateProfile(values);
-    props.updateForm(values);
     form.setValues(values);
+    props.updateForm(values);
   };
   const updateTutorHanlder = (values) => {
-    props.updateTutorForm(values);
     form.setValues(values);
+    props.updateTutorForm(values);
   };
   const form = useUserForm({
     initialValues: {

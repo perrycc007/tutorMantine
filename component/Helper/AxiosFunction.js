@@ -95,11 +95,11 @@ export async function fetchProfileData(getUserid) {
 }
 
 export async function updateProfileAxios(getUserid, values) {
-  const safeValues = stringify(values);
+  const safeValues = parse(stringify(values));
   const response = await Axios.patch(
     `http://localhost:3001/profile`,
     // `http://localhost:3001/profile/${getUserid}`,
-    { userid: getUserid, ...parse(safeValues) }
+    { userid: getUserid, ...safeValues }
   );
   return response;
 }

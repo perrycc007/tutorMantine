@@ -16,10 +16,8 @@ const UserProfile = () => {
   const updateProfile = userStore((state) => state.updateProfile);
   const updateTutor = userStore((state) => state.updateTutor);
   const updateFormHanlder = (values) => {
-    console.log(stripFormEventProperties(values));
-
     updateProfile(stripFormEventProperties(values));
-    // updateProfileAxios(getUserid, values);
+    updateProfileAxios(getUserid, stripFormEventProperties(values));
   };
   const updateTutorFormHandler = (values) => {
     // updateTutor(values);
