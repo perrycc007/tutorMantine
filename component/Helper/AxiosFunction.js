@@ -78,10 +78,10 @@ export async function tutorFilterAxios(preference) {
 }
 
 export async function updateTutorAxios(getUserid, values) {
-  const safeValues = stringify(values);
-  const response = await Axios.patch(`http://localhost:3001/tutor`, {
-    userid: getUserid,
-    ...parse(safeValues),
+  const safeValues = parse(stringify(values));
+  const information = { userid: getUserid, ...safeValues };
+  const response = await Axios.patch(`http://localhost:3001/tutors`, {
+    information,
   });
   return response;
 }
@@ -91,15 +91,17 @@ export async function fetchProfileData(getUserid) {
     Axios.get(`http://localhost:3001/profile/${getUserid}`),
     Axios.get(`http://localhost:3001/tutors/${getUserid}`),
   ]);
-  return [profileResponse, tutorResponse];
+  console.log(tutorResponse.data);
+  return [profileResponse.data, tutorResponse.data];
 }
 
 export async function updateProfileAxios(getUserid, values) {
   const safeValues = parse(stringify(values));
+  const information = { userid: getUserid, ...safeValues };
   const response = await Axios.patch(
     `http://localhost:3001/profile`,
     // `http://localhost:3001/profile/${getUserid}`,
-    { userid: getUserid, ...safeValues }
+    information
   );
   return response;
 }
@@ -146,14 +148,10 @@ export async function UpdateFavorite(newFavourite, getUserid) {
 
 // Store
 export async function fetchFavouriteTutor(getUserid) {
-  const response = await Axios.get(
-    `http://localhost:3001/favourite/tutor/${getUserid}`
-  );
+  return await Axios.get(`http://localhost:3001/favourite/tutors/${getUserid}`);
 }
 export async function fetchFavouriteCases(getUserid) {
-  const response = await Axios.get(
-    `http://localhost:3001/favourite/case/${getUserid}`
-  );
+  return await Axios.get(`http://localhost:3001/favourite/cases/${getUserid}`);
 }
 
 // Favourite
@@ -203,5 +201,13 @@ export async function logIn(isLogin, enteredEmail, enteredPassword) {
     password: enteredPassword,
   });
   console.log(res);
+  return res;
+}
+
+// resetPassword
+export async function VerifyResetPasswordAxios(userid, token) {
+  const res = await Axios.get(
+    `http://localhost:3001/forgetPassword/${userid}/${token}`
+  );
   return res;
 }

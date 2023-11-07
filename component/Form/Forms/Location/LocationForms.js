@@ -1,29 +1,33 @@
 import { useState, useEffect } from "react";
-import { Tabs, Chip, Button } from "@mantine/core";
+import { Tabs, Chip, Button, Group } from "@mantine/core";
 import locations from "./location.js";
 import { useUserForm } from "../../FormModel/FormContext";
-import userStore from "../../../../stores/stores.js";
+
 function LocationForms(props) {
   const [activeTab, setActiveTab] = useState("香港島");
-  // const [activeTab, setActiveTab] = useState<string | null>("香港島");
-
   const form = useUserForm();
+
+  // Ensure the initial state is an array to support multiple selections.
   const [value, setValue] = useState([""]);
-  const cat = Object.entries(locations).map(([key, value]) => {
-    return value;
-  });
+
+  const cat = Object.entries(locations).map(([key, value]) => value);
+
   const loadInitialValues = (data) => {
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 1000);
     });
   };
+
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
-      setValue(values.location);
+      // Assuming 'values.location' is an array of selected locations
+      console.log(values.location);
+      setValue(values.location || [null]);
       form.setValues(values);
       form.resetDirty(values);
     });
   }, [props.data]);
+
   return (
     <form
       onSubmit={(event) => {
@@ -41,19 +45,22 @@ function LocationForms(props) {
             </Tabs.Tab>
           ))}
         </Tabs.List>
+
         {cat.map((location) => (
           <Tabs.Panel key={location.cat} value={location.cat}>
             <Chip.Group
-              key={`${location.cat}` + "Chip.Group"}
-              multiple
+              multiple={true}
               value={value}
               onChange={setValue}
+              key={`${location.cat}` + "Chip.Group"}
             >
-              {location.items.map((item) => (
-                <Chip value={item} key={item}>
-                  {item}
-                </Chip>
-              ))}
+              <Group key={`${location.cat}` + "Group"} justify="center">
+                {location.items.map((item) => (
+                  <Chip value={item} key={item}>
+                    {item}
+                  </Chip>
+                ))}
+              </Group>
             </Chip.Group>
           </Tabs.Panel>
         ))}

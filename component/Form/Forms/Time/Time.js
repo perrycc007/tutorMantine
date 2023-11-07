@@ -24,8 +24,8 @@ function Time(props) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setFieldValue("time", value);
-        const NewData = { ...props.data, time: value };
+        form.setFieldValue("availtime", value);
+        const NewData = { ...props.data, availtime: value };
         props.updateForm(NewData);
       }}
     >

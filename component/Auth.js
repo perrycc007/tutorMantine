@@ -37,7 +37,6 @@ const AuthForm = () => {
         localStorage.setItem("accessToken", res.accessToken);
         addUserid(res.userid);
         loginAction();
-        console.log(res.accessToken);
         router.push("/cases");
       })
       .catch((err) => {

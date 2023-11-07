@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
-import { Tabs, Chip, Button } from "@mantine/core";
+import { Tabs, Chip, Button, Group } from "@mantine/core";
 import subjects from "./Subject";
 import { useUserForm } from "../../FormModel/FormContext";
 import userStore from "../../../../stores/stores";
 
 function SubjectsForms(props) {
   const [activeTab, setActiveTab] = useState("補習");
+  const [value, setValue] = useState([""]);
   const form = useUserForm();
 
   const cat = Object.entries(subjects).map(([key, value]) => {
     return value;
   });
-  const [value, setValue] = useState([""]);
+
   const loadInitialValues = (Profile) => {
-    console.log("load");
     return new Promise((resolve) => {
       setTimeout(() => resolve(Profile), 1000);
     });
   };
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
-      setValue(values.subjects);
+      setValue(values.subject || []);
       form.setValues(values);
       form.resetDirty(values);
     });
@@ -29,10 +29,10 @@ function SubjectsForms(props) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setFieldValue("subjects", value);
+        form.setFieldValue("subject", value);
         const NewData = {
           ...props.data,
-          subjects: value,
+          subject: value,
         };
         props.updateForm(NewData);
       }}
@@ -53,11 +53,13 @@ function SubjectsForms(props) {
               value={value}
               onChange={setValue}
             >
-              {subjects.items.map((item) => (
-                <Chip value={item} key={item}>
-                  {item}
-                </Chip>
-              ))}
+              <Group key={`${subjects.cat}` + "Group"} justify="center">
+                {subjects.items.map((item) => (
+                  <Chip value={item} key={item}>
+                    {item}
+                  </Chip>
+                ))}
+              </Group>
             </Chip.Group>
           </Tabs.Panel>
         ))}

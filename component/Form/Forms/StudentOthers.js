@@ -19,11 +19,13 @@ const StudentOthers = (props) => {
   };
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
-      form.setValues(values);
-      form.resetDirty(values);
-      setLessonAWeek([values.lowestfrequency, values.highestfrequency]);
-      setHourPerLesson([values.lowestduration, values.highestduration]);
-      setPayPerHour([values.lowestfee, values.highestfee]);
+      if (values.lowestfrequency && values.highestfrequency) {
+        form.setValues(values);
+        form.resetDirty(values);
+        setLessonAWeek([values.lowestfrequency, values.highestfrequency]);
+        setHourPerLesson([values.lowestduration, values.highestduration]);
+        setPayPerHour([values.lowestfee, values.highestfee]);
+      }
     });
   }, []);
 

@@ -75,7 +75,7 @@ let store = (set) => ({
     others: "",
     intro: "",
     grade: [],
-    location: [],
+    location: [""],
     subject: [],
   },
   NewStudentApplication: {

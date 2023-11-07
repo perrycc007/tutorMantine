@@ -32,8 +32,8 @@ function Form(props) {
       emergencycontact: "",
       emergencyrelationship: "",
       emergencyphone: "",
-      lowestpay: 100,
-      highestpay: 200,
+      lowestfee: 100,
+      highestfee: 200,
       yearofexperience: "",
       experience: "",
       highestteachinglevel: "",
@@ -56,7 +56,8 @@ function Form(props) {
       intro: "",
       grade: [],
       location: [],
-      time: [],
+      availtime: [],
+      subject: [],
     },
   });
 
@@ -92,7 +93,7 @@ function Form(props) {
           <Stepper.Step label="" description="教育水平">
             <Education updateForm={updateTutorHanlder} data={Tutor} />
           </Stepper.Step>
-          <Stepper.Step label="" description="薪金">
+          <Stepper.Step label="" description="科目">
             <SubjectsForms updateForm={updateTutorHanlder} data={Tutor} />
           </Stepper.Step>
           <Stepper.Step label="" description="考試成績">

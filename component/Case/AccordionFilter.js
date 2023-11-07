@@ -5,17 +5,18 @@ import LocationForms from "../Form/Forms/Location/LocationForms";
 import SubjectsForm from "../Form/Forms/Subject/SubjectsForms";
 export default function AccordionFilter(props) {
   const [payRange, setPayRange] = useState([100, 200]);
+  const initialValues = {
+    location: [],
+    time: [],
+    lowestpay: 100,
+    highestpay: 200,
+  };
   const updateFilterHanlder = (values) => {
     props.updateFilterForm(values);
     form.setValues(values);
   };
   const form = useUserForm({
-    initialValues: {
-      location: [],
-      time: [],
-      lowestpay: 100,
-      highestpay: 200,
-    },
+    initialValues: { ...initialValues },
   });
   return (
     <div>
@@ -36,13 +37,19 @@ export default function AccordionFilter(props) {
           <Accordion.Item key={"location"} value="location">
             <Accordion.Control>Location</Accordion.Control>
             <Accordion.Panel>
-              <LocationForms updateForm={updateFilterHanlder} data={null} />
+              <LocationForms
+                updateForm={updateFilterHanlder}
+                data={initialValues}
+              />
             </Accordion.Panel>
           </Accordion.Item>
           <Accordion.Item value="subject">
             <Accordion.Control>Subject</Accordion.Control>
             <Accordion.Panel>
-              <SubjectsForm updateForm={updateFilterHanlder} data={null} />
+              <SubjectsForm
+                updateForm={updateFilterHanlder}
+                data={initialValues}
+              />
             </Accordion.Panel>
           </Accordion.Item>
         </Accordion>

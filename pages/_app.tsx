@@ -2,7 +2,8 @@ import "@mantine/core/styles.css";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import { theme } from "../theme";
-
+import { HeaderMegaMenu } from "../component/Header/HeaderMegaMenu";
+import { FooterLinks } from "../component/Footer/FooterLinks";
 export default function App({ Component, pageProps }: any) {
   return (
     <MantineProvider theme={theme}>
@@ -14,7 +15,9 @@ export default function App({ Component, pageProps }: any) {
         />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
+      <HeaderMegaMenu />
       <Component {...pageProps} />
+      <FooterLinks />
     </MantineProvider>
   );
 }

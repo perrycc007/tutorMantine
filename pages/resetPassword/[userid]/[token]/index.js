@@ -1,10 +1,11 @@
 import { useEffect, useState, Fragment } from "react";
 import { useRouter } from "next/router";
 // import { useNavigate } from 'react-router-dom';
-import Axios from "axios";
+import Axios from "Axios";
+import { VerifyResetPasswordAxios } from "../../../../component/Helper/AxiosFunction";
 // import useStore from '../stores/stores';
-import ResetPassword from "../../../../components/ResetPassword/ResetPassword";
-import InvalidResetLink from "../../../../components/ResetPassword/InvalidResetLink";
+import ResetPassword from "../../../../component/ResetPassword/ResetPassword";
+import InvalidResetLink from "../../../../component/ResetPassword/InvalidResetLink";
 
 const ResetPasswordPage = () => {
   const router = useRouter();
@@ -14,31 +15,25 @@ const ResetPasswordPage = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     console.log(userid, token);
-    async function Verify(userid, token) {
-      const res = await Axios.get(
-        `http://localhost:3001/forgetPassword/${userid}/${token}`
-      );
-      console.log(res.data);
-      return res;
-    }
+
     if (token != null) {
-      Verify(userid, token)
+      VerifyResetPasswordAxios(userid, token)
         .then((res) => {
           console.log(res);
-          setLoading(false)
+          setLoading(false);
           if (res.data == "jwt expired") {
             // let errorMessage = "Link has Expired";
             setLinkValid(false);
-            setLoading(false)
+            setLoading(false);
             // throw new Error(errorMessage);
           } else if (res.data == "invalid token") {
             // let errorMessage = "Link is invalid";
             setLinkValid(false);
-            setLoading(false)
+            setLoading(false);
             // throw new Error(errorMessage);
           } else {
             setLinkValid(true);
-            setLoading(false)
+            setLoading(false);
           }
         })
         .catch((err) => {

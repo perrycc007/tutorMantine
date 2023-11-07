@@ -1,6 +1,8 @@
 import React from "react";
 import StudentApply from "./StudentApply"; // Replace with the correct path to your StudentApply component
-import userStore from "../../../stores/stores";
+import userStore from "../../stores/stores";
+import { useState } from "react";
+
 function NewStudentApply() {
   const [data, setData] = useState();
   const NewStudentApplication = userStore(

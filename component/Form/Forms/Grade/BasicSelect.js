@@ -5,9 +5,11 @@ import userStore from "../../../../stores/stores";
 
 export default function BasicSelect(props) {
   const [value, setValue] = useState();
-  const Profile = userStore((state) => state.Profile);
+  const Tutor = userStore((state) => state.Tutor);
 
-  const foundObject = Profile.grade.find((item) => item.id === props.id);
+  const foundObject = Tutor
+    ? Tutor.grade.find((item) => item.id === props.id)
+    : [];
 
   useEffect(() => {
     if (foundObject) {

@@ -10,6 +10,7 @@ import {
 } from "../../component/Helper/AxiosFunction";
 const UserProfile = () => {
   const [loading, setLoading] = useState(true);
+  const [isTutor, serIsTutor] = useState("tutor");
   const getUserid = userStore((state) => state.userId);
   const Profile = userStore((state) => state.Profile);
   const TutorProfile = userStore((state) => state.TutorProfile);
@@ -20,8 +21,8 @@ const UserProfile = () => {
     updateProfileAxios(getUserid, stripFormEventProperties(values));
   };
   const updateTutorFormHandler = (values) => {
-    // updateTutor(values);
-    // updateTutorAxios(getUserid, values);
+    updateTutor(stripFormEventProperties(values));
+    updateTutorAxios(getUserid, stripFormEventProperties(values));
   };
   useEffect(() => {
     async function fetchData() {
@@ -29,8 +30,8 @@ const UserProfile = () => {
         const [profileResponse, tutorResponse] = await fetchProfileData(
           getUserid
         );
-        setProfile(profileResponse.data.result);
-        setTutor(tutorResponse.data.result);
+        updateProfile(profileResponse);
+        updateTutor(tutorResponse);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching user profile:", error);
@@ -39,7 +40,7 @@ const UserProfile = () => {
     }
 
     fetchData();
-  }, []);
+  }, [loading]);
 
   return (
     <>
@@ -49,6 +50,7 @@ const UserProfile = () => {
         tutorData={TutorProfile}
         updateForm={updateFormHanlder}
         updateTutorForm={updateTutorFormHandler}
+        type={isTutor}
       />
       {/* {!loading && <ProfileForm profile={profile} tutor={tutor} />}
        */}

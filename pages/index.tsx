@@ -1,9 +1,15 @@
-import { Button, Group } from "@mantine/core";
+import { HeroContentLeft } from "../component/HeroContent/HeroContentLeft";
+import { FeaturesCards } from "../component/FeaturesCards/FeaturesCards";
+import { FeaturesTitle } from "../component/FeaturesTitle/FeaturesTitle";
+import { FaqWithImage } from "../component/FAQ/FaqWithImage";
 
 export default function IndexPage() {
   return (
-    <Group mt={50} justify="center">
-      <Button size="xl">Welcome to Mantine!</Button>
-    </Group>
+    <div>
+      <HeroContentLeft />
+      <FeaturesTitle />
+      <FeaturesCards />
+      <FaqWithImage />
+    </div>
   );
 }

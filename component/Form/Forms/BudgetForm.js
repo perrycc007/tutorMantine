@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RangeSlider, Button, TextInput } from "@mantine/core";
 import { UserFormProvider, useUserForm } from "../FormModel/FormContext";
-import userStore from "../../../stores/stores";
 
 function BudgetForm(props) {
   const [payRange, setPayRange] = useState([100, 200]);
@@ -13,9 +12,13 @@ function BudgetForm(props) {
   };
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
-      form.setValues(values);
-      form.resetDirty(values);
-      setPayRange([values.lowestpay, values.highestpay]);
+      if (values.lowestfee && values.highestfee) {
+        form.setValues(values);
+        form.resetDirty(values);
+        setPayRange([values.lowestfee, values.highestfee]);
+      } else {
+        setPayRange([100, 200]);
+      }
     });
   }, []);
 
@@ -24,12 +27,12 @@ function BudgetForm(props) {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          form.setFieldValue("lowestpay", payRange[0]);
-          form.setFieldValue("highestpay", payRange[1]);
+          form.setFieldValue("lowestfee", payRange[0]);
+          form.setFieldValue("highestfee", payRange[1]);
           const NewData = {
             ...props.data,
-            lowestpay: payRange[0],
-            highestpay: payRange[1],
+            lowestfee: payRange[0],
+            highestfee: payRange[1],
           };
           props.updateForm(NewData);
         }}
