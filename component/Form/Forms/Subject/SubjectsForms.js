@@ -54,9 +54,9 @@ function SubjectsForms(props) {
               onChange={setValue}
             >
               <Group key={`${subjects.cat}` + "Group"} justify="center">
-                {subjects.items.map((item) => (
-                  <Chip value={item} key={item}>
-                    {item}
+                {Object.entries(subjects.items).map(([key, label]) => (
+                  <Chip value={key} key={key}>
+                    {label}
                   </Chip>
                 ))}
               </Group>

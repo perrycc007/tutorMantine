@@ -55,9 +55,9 @@ function LocationForms(props) {
               key={`${location.cat}` + "Chip.Group"}
             >
               <Group key={`${location.cat}` + "Group"} justify="center">
-                {location.items.map((item) => (
-                  <Chip value={item} key={item}>
-                    {item}
+                {Object.entries(location.items).map(([key, label]) => (
+                  <Chip value={key} key={key}>
+                    {label}
                   </Chip>
                 ))}
               </Group>

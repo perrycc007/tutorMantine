@@ -1,32 +1,90 @@
-const hki = { cat: "香港島",
-              index:0, 
-              items:[
-              '中半山', '薄扶林', '中上環', '西環',
-              '灣仔', '銅鑼灣', '跑馬地', '北角',
-              '則魚涌', '太古', '筲箕灣', '西灣河', '柴灣', '小西灣', '香港仔',
-              '鴨利洲', '赤柱']};
-const kl = {cat: "九龍", 
-            index:1, 
-            items:[
-              '美孚', '荔枝角', '長沙灣', '深水步',
-              '大角咀', '旺角', '何文田', '油麻地',
-              '佐敦', '尖沙咀', '土瓜灣', '紅磡',
-              '石硤尾', '九龍塘', '樂富', '慈雲山',
-              '黃大仙', '鑽石山', '新蒲崗', '彩虹及牛池灣', '牛頭角及九龍灣',
-              '秀茂坪', '觀塘', '藍田', '油塘', '九龍城',]};
+const hki = {
+  cat: "香港島",
+  index: 0,
+  items: {
+    CentralMidLevels: "中半山",
+    PokFuLam: "薄扶林",
+    MidLevelsCentral: "中上環",
+    SaiYingPun: "西環",
+    WanChai: "灣仔",
+    CausewayBay: "銅鑼灣",
+    HappyValley: "跑馬地",
+    NorthPoint: "北角",
+    QuarryBay: "則魚涌",
+    TaiKoo: "太古",
+    ShauKeiWan: "筲箕灣",
+    SiuSaiWan: "西灣河",
+    ChaiWan: "柴灣",
+    LittleSaiWan: "小西灣",
+    Aberdeen: "香港仔",
+    ApLeiChau: "鴨利洲",
+    Stanley: "赤柱",
+  },
+};
+const kl = {
+  cat: "九龍",
+  index: 1,
+  items: {
+    MeiFoo: "美孚",
+    LaiChiKok: "荔枝角",
+    CheungShaWan: "長沙灣",
+    ShamShuiPo: "深水步",
+    TaiKokTsui: "大角咀",
+    MongKok: "旺角",
+    HoManTin: "何文田",
+    YauMaTei: "油麻地",
+    Jordan: "佐敦",
+    TsimShaTsui: "尖沙咀",
+    ToKwaWan: "土瓜灣",
+    HungHom: "紅磡",
+    ShekKipMei: "石硤尾",
+    KowloonTong: "九龍塘",
+    LokFu: "樂富",
+    TszWanShan: "慈雲山",
+    WongTaiSin: "黃大仙",
+    DiamondHill: "鑽石山",
+    SanPoKong: "新蒲崗",
+    ChoiHungAndNgauChiWan: "彩虹及牛池灣",
+    NgauTauKokAndKowloonBay: "牛頭角及九龍灣",
+    SauMauPing: "秀茂坪",
+    KwunTong: "觀塘",
+    LamTin: "藍田",
+    YauTong: "油塘",
+    KowloonCity: "九龍城",
+  },
+};
 
-const nt = {cat: "新界及離島", 
-              index:2, 
-              items:[
-                '上水',	'粉嶺',	'大埔',	'馬鞍山',
-                '火炭',	'小瀝源','沙田',	'沙田市中心',
-                '大圍',	'西貢',	'將軍澳','天水圍',
-                '元朗',	'屯門',	'青龍頭','深井',
-                '荃灣',	'葵芳',	'葵涌',	'荔景',
-                '青衣',	'馬灣',	'東涌',	'離島',]};
+const nt = {
+  cat: "新界及離島",
+  index: 2,
+  items: {
+    SheungShui: "上水",
+    FanLing: "粉嶺",
+    TaiPo: "大埔",
+    MaOnShan: "馬鞍山",
+    FoTan: "火炭",
+    SiuLekYuen: "小瀝源",
+    ShaTin: "沙田",
+    ShaTinTownCenter: "沙田市中心",
+    TaiWai: "大圍",
+    SaiKung: "西貢",
+    TseungKwanO: "將軍澳",
+    TinShuiWai: "天水圍",
+    YuenLong: "元朗",
+    TuenMun: "屯門",
+    TsingLungTau: "青龍頭",
+    ShamTseng: "深井",
+    TsuenWan: "荃灣",
+    KwaiFong: "葵芳",
+    KwaiChung: "葵涌",
+    LaiKing: "荔景",
+    TsingYi: "青衣",
+    MaWan: "馬灣",
+    TungChung: "東涌",
+    OutlyingIslands: "離島",
+  },
+};
 
-              
-const place = [hki,kl,nt]
-
+const place = [hki, kl, nt];
 
 export default place;
