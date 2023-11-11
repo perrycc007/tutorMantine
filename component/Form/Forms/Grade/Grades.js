@@ -11,7 +11,6 @@ function Grades(props) {
   const {
     list: { HKCEE, HKALE, HKDSE, IB, IGCSE, GCEALevel, GradeBase, numberBase },
   } = GradeFormOption;
-
   const loadInitialValues = (data) => {
     return new Promise((resolve) => {
       setTimeout(() => resolve(data), 1000);
@@ -21,45 +20,18 @@ function Grades(props) {
     loadInitialValues(props.data).then((values) => {
       form.setValues(values);
       form.resetDirty(values);
+      form.setFieldValue("HKDSE_ChineseLanguage", "2");
       setList(values.grade);
     });
   }, []);
 
-  const selectHandler = (id, value) => {
-    const existed = (id) => {
-      return list.some((item) => item.id == id);
-    };
-    // updating
-    if (existed(id)) {
-      let filtered = list
-        .filter((item) => item.id !== id)
-        .filter((item) => item.value !== "")
-        .filter((item) => item.value !== null);
-      if (value !== "") {
-        setList(
-          [...filtered, { id: id, value: value }].filter(
-            (item) => item.value !== null
-          )
-        );
-      } else {
-        setList([...filtered].filter((item) => item.value !== null));
-      }
-    } else {
-      // adding
-      if (value !== "") {
-        let newlist = [...list, { id: id, value: value }];
-        // newlist = list.filter((item) => item.id !== "none");
-        setList(newlist.filter((item) => item.value !== null));
-      }
-    }
-    console.log(list);
-  };
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setFieldValue("grade", list);
-        const NewData = { ...props.data, grade: list };
+        form.setValues((prev) => ({ ...prev, ...event }));
+        const NewData = { ...props.data, ...form.values };
+        console.log(NewData);
         props.updateForm(NewData);
       }}
     >
@@ -73,13 +45,14 @@ function Grades(props) {
           <Tabs.Tab value="GCE A Level">IGCSE</Tabs.Tab>
         </Tabs.List>
         {/* put the CAccordion into the pannel  */}
+
         <Tabs.Panel value="HKCEE">
           <CAccordions
             cat={HKCEE}
             key="HKCEE"
             childKey="HKCEE"
             select={GradeBase}
-            choiceHandler={selectHandler}
+            form={form}
           />
         </Tabs.Panel>
         <Tabs.Panel value="HKALE">
@@ -88,7 +61,7 @@ function Grades(props) {
             key="HKALE"
             childKey="HKALE"
             select={GradeBase}
-            choiceHandler={selectHandler}
+            form={form}
           />
         </Tabs.Panel>
         <Tabs.Panel value="HKDSE">
@@ -97,11 +70,17 @@ function Grades(props) {
             key="HKDSE"
             childKey="HKDSE"
             select={numberBase}
-            choiceHandler={selectHandler}
+            form={form}
           />
         </Tabs.Panel>
         <Tabs.Panel value="IB">
-          <CAccordions cat={IB} key="IB" childKey="IB" select={GradeBase} />
+          <CAccordions
+            cat={IB}
+            key="IB"
+            childKey="IB"
+            select={GradeBase}
+            form={form}
+          />
         </Tabs.Panel>
         <Tabs.Panel value="IGCSE">
           <CAccordions
@@ -109,7 +88,7 @@ function Grades(props) {
             key="IGCSE"
             childKey="IGCSE"
             select={GradeBase}
-            choiceHandler={selectHandler}
+            form={form}
           />
         </Tabs.Panel>
         <Tabs.Panel value="GCE A Level">
@@ -118,7 +97,7 @@ function Grades(props) {
             key="GCEALevel"
             childKey="GCEALevel"
             select={GradeBase}
-            choiceHandler={selectHandler}
+            form={form}
           />
         </Tabs.Panel>
       </Tabs>

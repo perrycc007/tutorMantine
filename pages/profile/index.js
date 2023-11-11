@@ -22,6 +22,7 @@ const UserProfile = () => {
   };
   const updateTutorFormHandler = (values) => {
     updateTutor(stripFormEventProperties(values));
+    console.log(stripFormEventProperties(values));
     updateTutorAxios(getUserid, stripFormEventProperties(values));
   };
   useEffect(() => {
