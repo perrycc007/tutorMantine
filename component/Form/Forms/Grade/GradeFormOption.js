@@ -185,6 +185,10 @@ const GCEALevel = {
 
 const numberBase = [
   {
+    value: "",
+    label: "請選擇",
+  },
+  {
     value: "U",
     label: "U",
   },
@@ -215,6 +219,10 @@ const numberBase = [
 ];
 
 const GradeBase = [
+  {
+    value: "",
+    label: "請選擇",
+  },
   {
     value: "A+",
     label: "A+",

@@ -78,6 +78,9 @@ export function HeaderMegaMenu() {
     cleanFavourite();
     router.push("/");
   };
+  const loginHandler = () => {
+    router.push("/auth");
+  };
   useEffect(() => {
     setIsLoggedin(Loggedin);
   }, [Loggedin]);
@@ -203,7 +206,9 @@ export function HeaderMegaMenu() {
 
           <Group visibleFrom="sm">
             {!isLoggedin ? (
-              <Button variant="default">登入</Button>
+              <Button variant="default" onClick={loginHandler}>
+                登入
+              </Button>
             ) : (
               <Button onClick={logoutHandler}>登出</Button>
             )}

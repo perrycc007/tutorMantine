@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import useStore from "../stores/stores";
 import Link from "next/link";
-import { Button, TextInput } from "@mantine/core";
+import { Button, TextInput, Anchor } from "@mantine/core";
 import { logIn } from "../component/Helper/AxiosFunction";
 import { useUserForm } from "../component/Form/FormModel/FormContext";
 
@@ -51,7 +51,7 @@ const AuthForm = () => {
       <form onSubmit={submitHandler}>
         <div>
           <TextInput
-            label="Email"
+            label="電郵地址"
             type="email"
             id="email"
             required
@@ -60,7 +60,7 @@ const AuthForm = () => {
         </div>
         <div>
           <TextInput
-            label="Password"
+            label="密碼"
             type="password"
             id="password"
             required
@@ -77,9 +77,7 @@ const AuthForm = () => {
           <Button type="button" onClick={switchAuthModeHandler}>
             {isLogin ? "Create new account" : "Login with existing account"}
           </Button>
-          <Button>
-            <Link href="/forgetPassword">忘記密碼</Link>
-          </Button>
+          <Anchor>忘記密碼</Anchor>
         </div>
       </form>
     </section>
