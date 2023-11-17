@@ -81,9 +81,6 @@ function Form(props) {
     <>
       <UserFormProvider form={form}>
         <Stepper active={active}>
-          <Stepper.Step label="" description="考試成績">
-            <Grades updateForm={updateTutorHanlder} data={Tutor} />
-          </Stepper.Step>
           <Stepper.Step label="" description="個人資料">
             <PersonalInfoForm updateForm={updateFormHanlder} data={Profile} />
           </Stepper.Step>

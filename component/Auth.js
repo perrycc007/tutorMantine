@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button, TextInput, Anchor } from "@mantine/core";
 import { logIn } from "../component/Helper/AxiosFunction";
 import { useUserForm } from "../component/Form/FormModel/FormContext";
+import cookie from "js-cookie";
 
 const AuthForm = () => {
   const router = useRouter();
@@ -13,7 +14,6 @@ const AuthForm = () => {
   const loginAction = useStore((state) => state.loginUserid);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
@@ -34,7 +34,7 @@ const AuthForm = () => {
       })
       .then((res) => {
         console.log(res.accessToken);
-        localStorage.setItem("accessToken", res.accessToken);
+        cookie.set("access_token", res.accessToken, { expires: 1 / 24 }); // 1 hour expiration
         addUserid(res.userid);
         loginAction();
         router.push("/cases");

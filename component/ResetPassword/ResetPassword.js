@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import Axios from "axios";
 import ResetPasswordAxios from "../Helper/AxiosFunction";
 import ResetComplete from "./ResetComplete";
 import { Container, Paper, Text, TextInput, Button } from "@mantine/core";

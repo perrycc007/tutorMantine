@@ -1,27 +1,30 @@
 const time = [
-  { value: "08:00", label: "08" },
-  { value: "09:00", label: "09" },
-  { value: "10:00", label: "10" },
-  { value: "11:00", label: "11" },
-  { value: "12:00", label: "12" },
-  { value: "13:00", label: "13" },
-  { value: "14:00", label: "14" },
-  { value: "15:00", label: "15" },
-  { value: "16:00", label: "16" },
-  { value: "17:00", label: "17" },
-  { value: "18:00", label: "18" },
-  { value: "19:00", label: "19" },
-  { value: "20:00", label: "20" },
-  { value: "21:00", label: "21" },
-  { value: "22:00", label: "22" },
+  { value: "0800", label: "08" },
+  { value: "0900", label: "09" },
+  { value: "1000", label: "10" },
+  { value: "1100", label: "11" },
+  { value: "1200", label: "12" },
+  { value: "1300", label: "13" },
+  { value: "1400", label: "14" },
+  { value: "1500", label: "15" },
+  { value: "1600", label: "16" },
+  { value: "1700", label: "17" },
+  { value: "1800", label: "18" },
+  { value: "1900", label: "19" },
+  { value: "2000", label: "20" },
+  { value: "2100", label: "21" },
+  { value: "2200", label: "22" },
 ];
+const datetimekey = ["一", "二", "三", "四", "五", "六", "日"];
 const datetime = {
-  一: time,
-  二: time,
-  三: time,
-  四: time,
-  五: time,
-  六: time,
-  日: time,
+  MON: time,
+  TUE: time,
+  WED: time,
+  THU: time,
+  FRI: time,
+  SAT: time,
+  SUN: time,
 };
-export default datetime;
+
+const dateAndTime = [datetime, datetimekey];
+export default dateAndTime;

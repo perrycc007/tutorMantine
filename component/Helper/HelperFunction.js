@@ -13,7 +13,6 @@ export const readDate = (notFormat) => {
       dayOfWeek = "星期三";
       break;
     case "d4":
-      dayOfWeek = "星期四";
       break;
     case "d5":
       dayOfWeek = "星期五";

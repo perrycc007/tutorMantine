@@ -1,63 +1,94 @@
 import Axios from "Axios";
 import { stringify, parse } from "flatted";
-
+import userStore from "../../stores/stores";
+import cookie from "js-cookie";
 const url = "http://localhost:3001";
-
+const axiosInstance = (accesstoken) => {
+  return Axios.create({
+    baseURL: url,
+    headers: {
+      Authorization: `Bearer ${accesstoken}`,
+      "Content-Type": "application/json",
+    },
+  });
+};
 // AdminDisplay
 
 export async function toggleCheck(idmatch, checkStatus) {
-  const res = await Axios.patch(url + "/admin/toggleCheck", {
-    idmatch: idmatch,
-    checkStatus: checkStatus,
-  });
+  const res = await axiosInstance(cookie.get("access_token")).patch(
+    url + "/admin/toggleCheck",
+    {
+      idmatch: idmatch,
+      checkStatus: checkStatus,
+    }
+  );
   // console.log(res.data.result);
   return res;
 }
 export async function toggleAvail(idmatch, availability) {
-  const res = await Axios.patch(url + "/admin/toggleAvail", {
-    idmatch: idmatch,
-    availability: availability,
-  });
+  cookie.get("access_token");
+  const res = await axiosInstance(cookie.get("access_token")).patch(
+    url + "/admin/toggleAvail",
+    {
+      idmatch: idmatch,
+      availability: availability,
+    }
+  );
   // console.log(res.data.result);
   return res;
 }
 
 export async function toggleStatus(id, status, type) {
+  cookie.get("access_token");
   if (type == "cases") {
-    const response = await Axios.patch(url + `/history/updateCaseStatus`, {
-      studentid: id,
-      status: status,
-    });
+    const response = await axiosInstance(cookie.get("access_token")).patch(
+      url + `/history/updateCaseStatus`,
+      {
+        studentid: id,
+        status: status,
+      }
+    );
     response.data.result;
   } else {
-    const response = await Axios.patch(url + `/history/updateTutorStatus`, {
-      tutorid: id,
-      status: status,
-    });
+    const response = await axiosInstance(cookie.get("access_token")).patch(
+      url + `/history/updateTutorStatus`,
+      {
+        tutorid: id,
+        status: status,
+      }
+    );
     response.data.result;
   }
   return response.data.result;
 }
 export async function toggleVerify(id, verify) {
-  const response = await Axios.patch(url + `/admin/updateTutorVerify`, {
-    tutorid: id,
-    verify: verify,
-  });
+  cookie.get("access_token");
+  const response = await axiosInstance(cookie.get("access_token")).patch(
+    url + `/admin/updateTutorVerify`,
+    {
+      tutorid: id,
+      verify: verify,
+    }
+  );
   return response.data.result;
 }
 // AdminResult
 export async function getMatchResultAxios(page) {
-  const response = await Axios.get(`http://localhost:3001/result/${page - 1}`);
+  cookie.get("access_token");
+  const response = await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/result/${page - 1}`
+  );
   return response;
 }
 export async function getSingleMatchResultAxios(enteredStudentId) {
-  const response = await Axios.get(
+  const response = await axiosInstance(cookie.get("access_token")).get(
     `http://localhost:3001/result/studentid/${enteredStudentId}`
   );
   return response;
 }
 
 export async function getTutor(enteredTutorId) {
+  cookie.get("access_token");
   const response = await Axios.get(
     `http://localhost:3001/tutor/${enteredTutorId}`
   );
@@ -78,18 +109,22 @@ export async function tutorFilterAxios(preference) {
 }
 
 export async function updateTutorAxios(getUserid, values) {
-  const safeValues = parse(stringify(values));
-  const information = { userid: getUserid, ...safeValues };
-  const response = await Axios.patch(`http://localhost:3001/tutors`, {
-    information,
-  });
-  return response;
+  const accessToken = cookie.get("access_token");
+
+  // const safeValues = parse(stringify(values));
+  // const information = { userid: getUserid, ...safeValues };
+  // const response = await axiosInstance(cookie.get("access_token")).patch(`/tutors`, {
+  //   information,
+  // });
+  // return response;
+  console.log(cookie.get("access_token"));
 }
+
 // Profile
 export async function fetchProfileData(getUserid) {
   const [profileResponse, tutorResponse] = await Promise.all([
-    Axios.get(`http://localhost:3001/profile/${getUserid}`),
-    Axios.get(`http://localhost:3001/tutors/${getUserid}`),
+    axiosInstance(cookie.get("access_token")).get(`/profile/${getUserid}`),
+    axiosInstance(cookie.get("access_token")).get(`/tutors/${getUserid}`),
   ]);
   console.log(tutorResponse.data);
   return [profileResponse.data, tutorResponse.data];
@@ -98,7 +133,7 @@ export async function fetchProfileData(getUserid) {
 export async function updateProfileAxios(getUserid, values) {
   const safeValues = parse(stringify(values));
   const information = { userid: getUserid, ...safeValues };
-  const response = await Axios.patch(
+  const response = await axiosInstance(cookie.get("access_token")).patch(
     `http://localhost:3001/profile`,
     // `http://localhost:3001/profile/${getUserid}`,
     information
@@ -108,7 +143,7 @@ export async function updateProfileAxios(getUserid, values) {
 
 // history
 export async function fetchHistory(getUserid) {
-  const response = await Axios.get(
+  const response = await axiosInstance(cookie.get("access_token")).get(
     `http://localhost:3001/history/${getUserid}`
   );
   return response;
@@ -129,41 +164,51 @@ export async function caseFilterAxios(preference) {
 }
 
 export async function UpdateFavoriteCase(newFavourite, getUserid) {
-  const response = await Axios.patch("http://localhost:3001/favourite/case", {
-    caseid: newFavourite,
-    userid: getUserid,
-  });
+  const response = await axiosInstance(cookie.get("access_token")).patch(
+    "http://localhost:3001/favourite/case",
+    {
+      caseid: newFavourite,
+      userid: getUserid,
+    }
+  );
   // console.log(res.data.result);
   return response;
 }
 
 export async function UpdateFavorite(newFavourite, getUserid) {
-  const response = await Axios.patch("http://localhost:3001/favourite/tutor", {
-    caseid: newFavourite,
-    userid: getUserid,
-  });
+  const response = await axiosInstance(cookie.get("access_token")).patch(
+    "http://localhost:3001/favourite/tutor",
+    {
+      caseid: newFavourite,
+      userid: getUserid,
+    }
+  );
   // console.log(res.data.result);
   return response;
 }
 
 // Store
 export async function fetchFavouriteTutor(getUserid) {
-  return await Axios.get(`http://localhost:3001/favourite/tutors/${getUserid}`);
+  return await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/favourite/tutors/${getUserid}`
+  );
 }
 export async function fetchFavouriteCases(getUserid) {
-  return await Axios.get(`http://localhost:3001/favourite/cases/${getUserid}`);
+  return await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/favourite/cases/${getUserid}`
+  );
 }
 
 // Favourite
 export async function getFavouriteTutorListAxios(getUserid) {
-  const response = await Axios.post(
+  const response = await axiosInstance(cookie.get("access_token")).post(
     `http://localhost:3001/tutor/getFavouriteCase/${getUserid}`
   );
   return response;
 }
 
 export async function getFavouriteStudentListAxios(getUserid) {
-  const response = await Axios.post(
+  const response = await axiosInstance(cookie.get("access_token")).post(
     `http://localhost:3001/students/getFavouriteCase/${getUserid}`
   );
   return response;
@@ -210,4 +255,12 @@ export async function VerifyResetPasswordAxios(userid, token) {
     `http://localhost:3001/forgetPassword/${userid}/${token}`
   );
   return res;
+}
+
+// adminGuard
+export async function checkAdminAxios() {
+  const response = await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/admin`
+  );
+  return response;
 }

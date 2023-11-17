@@ -33,6 +33,7 @@ import {
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import classes from "./HeaderMegaMenu.module.css";
+import cookie from "js-cookie";
 
 const mockdata = [
   {
@@ -77,7 +78,11 @@ export function HeaderMegaMenu() {
     logOutAction();
     cleanFavourite();
     router.push("/");
+    localStorage.removeItem("data");
+    cookie.remove("access_token");
+    localStorage.removeItem("loginTime");
   };
+
   const loginHandler = () => {
     router.push("/auth");
   };

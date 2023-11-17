@@ -1,7 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 import { useRouter } from "next/router";
 // import { useNavigate } from 'react-router-dom';
-import Axios from "Axios";
 import { VerifyResetPasswordAxios } from "../../../../component/Helper/AxiosFunction";
 // import useStore from '../stores/stores';
 import ResetPassword from "../../../../component/ResetPassword/ResetPassword";

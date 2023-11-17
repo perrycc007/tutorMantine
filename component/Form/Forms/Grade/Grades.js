@@ -13,7 +13,7 @@ function Grades(props) {
   } = GradeFormOption;
   const loadInitialValues = (data) => {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
+      setTimeout(() => resolve(data), 1);
     });
   };
   useEffect(() => {
