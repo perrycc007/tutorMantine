@@ -20,7 +20,7 @@ function SubjectsForms(props) {
   };
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
-      setValue(values.subject || []);
+      setValue(values.subjects || []);
       form.setValues(values);
       form.resetDirty(values);
     });
@@ -32,7 +32,7 @@ function SubjectsForms(props) {
         form.setFieldValue("subject", value);
         const NewData = {
           ...props.data,
-          subject: value,
+          subjects: value,
         };
         props.updateForm(NewData);
       }}
@@ -55,7 +55,7 @@ function SubjectsForms(props) {
             >
               <Group key={`${subjects.cat}` + "Group"} justify="center">
                 {Object.entries(subjects.items).map(([key, label]) => (
-                  <Chip value={key} key={key}>
+                  <Chip value={label} key={key}>
                     {label}
                   </Chip>
                 ))}

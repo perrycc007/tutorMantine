@@ -54,9 +54,9 @@ function Form(props) {
       othercert: "",
       others: "",
       intro: "",
-      location: [],
-      availtime: [],
-      subject: [],
+      locations: [],
+      availtimes: [],
+      subjects: [],
       grade: {},
     },
   });

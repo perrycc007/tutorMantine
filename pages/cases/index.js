@@ -1,5 +1,4 @@
 import Student from "../../component/Case/Student";
-import Axios from "Axios";
 import { CaseGetAxios } from "../../component/Helper/AxiosFunction";
 const Cases = (props) => {
   return (

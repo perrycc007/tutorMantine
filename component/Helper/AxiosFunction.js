@@ -111,13 +111,44 @@ export async function tutorFilterAxios(preference) {
 export async function updateTutorAxios(getUserid, values) {
   const accessToken = cookie.get("access_token");
 
-  // const safeValues = parse(stringify(values));
-  // const information = { userid: getUserid, ...safeValues };
-  // const response = await axiosInstance(cookie.get("access_token")).patch(`/tutors`, {
-  //   information,
-  // });
-  // return response;
-  console.log(cookie.get("access_token"));
+  const safeValues = parse(stringify(values));
+  const information = { userid: getUserid, ...safeValues };
+  const response = await axiosInstance(cookie.get("access_token")).patch(
+    `/tutors`,
+    {
+      information,
+    }
+  );
+  return response;
+}
+
+// Student
+export async function updateStudentAxios(getUserid, values) {
+  const accessToken = cookie.get("access_token");
+
+  const safeValues = parse(stringify(values));
+  const information = { userid: getUserid, ...safeValues };
+  const response = await axiosInstance(cookie.get("access_token")).patch(
+    `/students`,
+    {
+      information,
+    }
+  );
+  return response;
+}
+
+export async function createStudentAxios(getUserid, values) {
+  const accessToken = cookie.get("access_token");
+
+  const safeValues = parse(stringify(values));
+  const information = { userid: getUserid, ...safeValues };
+  const response = await axiosInstance(cookie.get("access_token")).post(
+    `/students`,
+    {
+      information,
+    }
+  );
+  return response;
 }
 
 // Profile

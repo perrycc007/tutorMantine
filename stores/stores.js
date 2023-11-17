@@ -76,9 +76,9 @@ let store = (set) => ({
     othercert: "",
     others: "",
     intro: "",
-    location: [""],
-    subject: [],
-    availtime: [],
+    locations: [""],
+    subjects: [],
+    availtimes: [],
     grade: {
       HKCEE_ChineseLanguage: "",
       HKCEE_EnglishLanguage: "",
@@ -191,9 +191,9 @@ let store = (set) => ({
     major: "",
     othercert: "",
     others: "",
-    location: [],
-    subject: [],
-    availtime: [],
+    locations: [],
+    subjects: [],
+    availtimes: [],
   },
   updateProfile: (NewProfile) => {
     const updatedProfile = JSON.parse(serialize(NewProfile));

@@ -11,6 +11,7 @@ const TutorPage = (props) => {
 export async function getStaticProps() {
   // fetch data from an API
   const response = await TutorGetAxios();
+  console.log(response);
   // const result = response ? response.data : "";
   return {
     props: {

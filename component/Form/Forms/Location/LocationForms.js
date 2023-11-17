@@ -21,8 +21,8 @@ function LocationForms(props) {
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
       // Assuming 'values.location' is an array of selected locations
-      console.log(values.location);
-      setValue(values.location || [null]);
+      console.log(values);
+      setValue(values.locations || [null]);
       form.setValues(values);
       form.resetDirty(values);
     });
@@ -32,7 +32,7 @@ function LocationForms(props) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setFieldValue("location", value);
+        form.setFieldValue("locations", value);
         const NewData = { ...props.data, location: value };
         props.updateForm(NewData);
       }}
@@ -56,7 +56,7 @@ function LocationForms(props) {
             >
               <Group key={`${location.cat}` + "Group"} justify="center">
                 {Object.entries(location.items).map(([key, label]) => (
-                  <Chip value={key} key={key}>
+                  <Chip value={label} key={key}>
                     {label}
                   </Chip>
                 ))}

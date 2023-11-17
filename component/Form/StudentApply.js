@@ -21,8 +21,9 @@ function StudentApply(props) {
       highestfrequency: 4,
       others: "",
       agreewith: "",
-      location: [],
-      time: [],
+      locations: [],
+      availtimes: [],
+      subjects: [],
     },
   });
 
