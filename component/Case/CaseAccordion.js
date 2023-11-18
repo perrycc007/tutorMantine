@@ -41,8 +41,8 @@ const CaseAccordion = (props) => {
                 const fee = (items.highestfee + items.lowestfee) / 2;
 
                 let heading = {
-                  location: JSON.parse(location),
-                  subject: JSON.parse(subject),
+                  location: location,
+                  subject: subject,
                 };
                 let verifyServer = "否";
                 if (oneCase.type == "tutor") {

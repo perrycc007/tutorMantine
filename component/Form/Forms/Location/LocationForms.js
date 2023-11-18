@@ -33,7 +33,7 @@ function LocationForms(props) {
       onSubmit={(event) => {
         event.preventDefault();
         form.setFieldValue("locations", value);
-        const NewData = { ...props.data, location: value };
+        const NewData = { ...props.data, locations: value };
         props.updateForm(NewData);
       }}
     >

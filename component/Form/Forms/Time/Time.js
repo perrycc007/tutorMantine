@@ -45,7 +45,7 @@ function Time(props) {
             <Grid.Col key={key} span={1.5}>
               {value.map((item) => (
                 <Chip
-                  value={`${key}` + `${item.value}`}
+                  value={`${key}` + "-" + `${item.value}`}
                   key={`${key}` + `${item.value}`}
                   radius="xs"
                 >

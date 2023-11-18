@@ -9,13 +9,7 @@ const Cases = (props) => {
 };
 
 export async function getStaticProps() {
-  // fetch data from an API
-  // const response = await CaseGetAxios()
-  // const result = response ? response.data.result : "";
-
   const response = await CaseGetAxios();
-  // const response = await Axios.get(`http://localhost:3001/cases`);
-
   return {
     props: {
       cases: response.data,

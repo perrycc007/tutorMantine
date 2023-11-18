@@ -97,20 +97,25 @@ export async function getTutor(enteredTutorId) {
 
 // Tutor
 export async function TutorGetAxios() {
-  const response = await Axios.get(`http://localhost:3001/tutor`);
+  const response = await Axios.get(`http://localhost:3001/tutors`);
+  console.log(response.data.result);
   return response;
 }
 
+// export async function CaseGetAxios() {
+//   const response = await Axios.get(`http://localhost:3001/students`);
+//   console.log(response.data.result);
+//   return response;
+// }
+
 export async function tutorFilterAxios(preference) {
-  const response = await Axios.post(`http://localhost:3001/tutor`, {
+  const response = await Axios.post(`http://localhost:3001/tutors`, {
     preference,
   });
   return response;
 }
 
 export async function updateTutorAxios(getUserid, values) {
-  const accessToken = cookie.get("access_token");
-
   const safeValues = parse(stringify(values));
   const information = { userid: getUserid, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
@@ -124,29 +129,24 @@ export async function updateTutorAxios(getUserid, values) {
 
 // Student
 export async function updateStudentAxios(getUserid, values) {
-  const accessToken = cookie.get("access_token");
-
   const safeValues = parse(stringify(values));
   const information = { userid: getUserid, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
     `/students`,
     {
-      information,
+      userid: getUserid,
+      ...information,
     }
   );
   return response;
 }
 
 export async function createStudentAxios(getUserid, values) {
-  const accessToken = cookie.get("access_token");
-
   const safeValues = parse(stringify(values));
   const information = { userid: getUserid, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).post(
     `/students`,
-    {
-      information,
-    }
+    { userid: getUserid, ...information }
   );
   return response;
 }

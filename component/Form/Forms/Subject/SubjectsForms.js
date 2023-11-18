@@ -29,7 +29,7 @@ function SubjectsForms(props) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setFieldValue("subject", value);
+        form.setFieldValue("subjects", value);
         const NewData = {
           ...props.data,
           subjects: value,

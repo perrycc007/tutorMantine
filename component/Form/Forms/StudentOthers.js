@@ -43,8 +43,8 @@ const StudentOthers = (props) => {
 
         let NewData = {
           ...props.data,
-          lowestpay: payPerHour[0],
-          highestpay: payPerHour[1],
+          lowestfee: payPerHour[0],
+          highestfee: payPerHour[1],
           lowestduration: hourPerLesson[0],
           highestduration: hourPerLesson[1],
           lowestfrequency: lessonAWeek[0],
