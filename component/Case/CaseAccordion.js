@@ -36,13 +36,13 @@ const CaseAccordion = (props) => {
           {props.cases
             ? _DATA.currentData().map((oneCase) => {
                 const oneCaseCopy = Object.assign({}, oneCase);
-                let { location, subject, availtime, studentid, ...items } =
+                let { locations, subjects, availtimes, studentid, ...items } =
                   oneCase;
                 const fee = (items.highestfee + items.lowestfee) / 2;
 
                 let heading = {
-                  location: location,
-                  subject: subject,
+                  locations: locations ? locations.split(",") : [],
+                  subjects: subjects ? subjects.split(",") : [],
                 };
                 let verifyServer = "否";
                 if (oneCase.type == "tutor") {
@@ -64,7 +64,7 @@ const CaseAccordion = (props) => {
                           className={classes.title}
                           key={`${itemName[key]}value`}
                         >
-                          {typeof value == "object"
+                          {value
                             ? value.map((item) => {
                                 return ` ${item}`;
                               })

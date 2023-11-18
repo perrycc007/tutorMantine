@@ -3,6 +3,8 @@ import { Modal, Button } from "@mantine/core";
 import StudentApply from "../../component/Form/StudentApply";
 import userStore from "../../stores/stores";
 import { useEffect, useState } from "react";
+import { updateStudentAxios } from "../../component/Helper/AxiosFunction";
+import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
 function EditForm(props) {
   const [opened, { open, close }] = useDisclosure(false);
   const [data, setData] = useState(props.cases);
@@ -12,21 +14,29 @@ function EditForm(props) {
   const updateNewStudentApplication = userStore(
     (state) => state.updateNewStudentApplication
   );
+  const getUserid = userStore((state) => state.userId);
   const updateApplicationHandler = (value) => {
     updateNewStudentApplication(value);
-    setData(value);
+    // updateStudentAxios(
+    //   getUserid,
+    //   stripFormEventProperties({ ...data, ...value })
+    // );
+    setData((prev) => ({
+      ...prev,
+      ...value,
+    }));
   };
 
   useEffect(() => {
-    let { location, subject, availtime, ...item } = props.cases;
-    location = JSON.parse(location);
-    subject = JSON.parse(subject);
-    availtime = JSON.parse(availtime);
+    let { locations, subjects, availtimes, ...item } = props.cases;
+    locations = locations ? locations.split(",") : [];
+    subjects = subjects ? subjects.split(",") : [];
+    availtimes = availtimes ? availtimes.split(",") : [];
     const NewData = {
       ...item,
-      location: location,
-      subject: subject,
-      availtime: availtime,
+      locations: locations,
+      subjects: subjects,
+      availtimes: availtimes,
     };
     setData(NewData);
   }, []);
