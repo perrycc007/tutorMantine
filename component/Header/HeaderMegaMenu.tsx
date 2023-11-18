@@ -84,6 +84,7 @@ export function HeaderMegaMenu() {
   };
 
   const loginHandler = () => {
+    closeDrawer();
     router.push("/auth");
   };
   useEffect(() => {
@@ -250,23 +251,48 @@ export function HeaderMegaMenu() {
             </Center>
           </UnstyledButton> */}
           <Collapse in={linksOpened}>{links}</Collapse>
-          <Anchor className={classes.link} component={Link} href="/">
+          <Anchor
+            className={classes.link}
+            component={Link}
+            onClick={closeDrawer}
+            href="/"
+          >
             主頁
           </Anchor>
           {isLoggedin && (
-            <Anchor className={classes.link} component={Link} href="/apply">
+            <Anchor
+              className={classes.link}
+              component={Link}
+              onClick={closeDrawer}
+              href="/apply"
+            >
               申請補習
             </Anchor>
           )}
-          <Anchor className={classes.link} component={Link} href="/cases">
+          <Anchor
+            className={classes.link}
+            component={Link}
+            onClick={closeDrawer}
+            href="/cases"
+          >
             補習個案
           </Anchor>
-          <Anchor className={classes.link} component={Link} href="/tutor">
+          <Anchor
+            className={classes.link}
+            component={Link}
+            onClick={closeDrawer}
+            href="/tutor"
+          >
             精英導師
           </Anchor>
           {isLoggedin && (
             <div>
-              <Anchor className={classes.link} component={Link} href="/profile">
+              <Anchor
+                className={classes.link}
+                component={Link}
+                onClick={closeDrawer}
+                href="/profile"
+              >
                 個人資料
               </Anchor>
               <Anchor
@@ -276,7 +302,12 @@ export function HeaderMegaMenu() {
               >
                 我的最愛
               </Anchor>
-              <Anchor className={classes.link} component={Link} href="/history">
+              <Anchor
+                className={classes.link}
+                component={Link}
+                onClick={closeDrawer}
+                href="/history"
+              >
                 申請歷史
               </Anchor>
             </div>
@@ -285,7 +316,9 @@ export function HeaderMegaMenu() {
 
           <Group justify="center" grow pb="xl" px="md">
             {!isLoggedin ? (
-              <Button variant="default">登入</Button>
+              <Button variant="default" onClick={loginHandler}>
+                登入
+              </Button>
             ) : (
               <Button onClick={logoutHandler}>登出</Button>
             )}

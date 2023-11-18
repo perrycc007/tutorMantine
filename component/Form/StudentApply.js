@@ -30,7 +30,7 @@ function StudentApply(props) {
   useEffect(() => {
     if (props.type == "history") {
       console.log("props.data", props.data);
-      props.updateApplication(props.data);
+      // props.updateApplication(props.data);
       form.setValues(props.data);
       form.resetDirty(props.data);
     }

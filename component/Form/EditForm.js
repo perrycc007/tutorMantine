@@ -8,19 +8,14 @@ import { stripFormEventProperties } from "../../component/Helper/HelperFunction"
 function EditForm(props) {
   const [opened, { open, close }] = useDisclosure(false);
   const [data, setData] = useState(props.cases);
-  const NewStudentApplication = userStore(
-    (state) => state.NewStudentApplication
-  );
-  const updateNewStudentApplication = userStore(
-    (state) => state.updateNewStudentApplication
-  );
+
   const getUserid = userStore((state) => state.userId);
   const updateApplicationHandler = (value) => {
-    updateNewStudentApplication(value);
-    // updateStudentAxios(
-    //   getUserid,
-    //   stripFormEventProperties({ ...data, ...value })
-    // );
+    // updateNewStudentApplication(value);
+    updateStudentAxios(
+      getUserid,
+      stripFormEventProperties({ ...data, ...value })
+    );
     setData((prev) => ({
       ...prev,
       ...value,
