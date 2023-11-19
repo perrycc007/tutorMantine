@@ -15,6 +15,7 @@ function CaseItemAdminTutor(props) {
   const toggleFavoriteStatusHandler = () => {
     props.toggleFavourite(props.id);
   };
+
   const toggleCheck = () => {
     if (checkStatus == "NOT_YET_CHECKED") {
       setCheckStatus("CHECKING");
@@ -42,23 +43,23 @@ function CaseItemAdminTutor(props) {
     }
   };
   const StatusHandler = () => {
-    if (status == "open") {
-      setStatus("close");
+    if (status == "OPEN") {
+      setStatus("CLOSE");
       props.toggleStatus(
         props.type == props.cases.tutorid,
-        "close",
+        "CLOSE",
         props.type
       );
-    } else if (status == "close") {
-      setStatus("block");
+    } else if (status == "CLOSE") {
+      setStatus("BLOCK");
       props.toggleStatus(
         props.type == props.cases.tutorid,
-        "block",
+        "BLOCK",
         props.type
       );
-    } else if (status == "block") {
-      setStatus("open");
-      props.toggleStatus(props.type == props.cases.tutorid, "open", props.type);
+    } else if (status == "BLOCK") {
+      setStatus("OPEN");
+      props.toggleStatus(props.type == props.cases.tutorid, "OPEN", props.type);
     }
   };
   const toggleNotAvail = () => {
@@ -83,98 +84,103 @@ function CaseItemAdminTutor(props) {
       setCheckStatus("NOT_YET_CHECKED");
     }
     setNotAvailStatus(props.notAvailStatus);
+    console.log(props.cases);
   }, []);
 
-  // const heading = item.slice(0, 5);
-  // const sumamry = item.slice(6, 10);
-
-  let { location, subject, availtime, studentid, ...items } = props.cases;
-  const fee = (items.highestfee + items.lowestfee) / 2;
-  const availtimeArray = availtime ? JSON.parse(availtime) : [];
-  const timeForDisaply = availtimeArray
-    ? availtimeArray.map((item) => {
-        return readDate(item);
-      })
-    : [];
-  let heading = {
-    location: location ? JSON.parse(location) : [],
-    subject: subject ? JSON.parse(subject) : [],
-  };
   let verifyServer = "否";
-  verifyServer = items.verify;
-
+  console.log(props.cases);
   return (
     <div>
       <Accordion>
-        <Accordion.Item>
-          <Accordion.Control>
-            {Object.entries(heading).map(([key, value]) => (
-              <p className={classes.title} key={`${itemName[key]}value`}>
-                {typeof value == "object"
-                  ? value.map((item) => {
-                      return ` ${item}`;
-                    })
-                  : ""}
-              </p>
-            ))}
-            <p className={classes.title}>{`$${fee}/小時`}</p>
-          </Accordion.Control>
-        </Accordion.Item>
-        <Accordion.Panel>
-          <p>履歷驗證狀態:{verifyServer}</p>
-          <p className={classes.detail}>ID:{props.cases.tutorid}</p>
-          {Object.entries(items).map(
-            ([key, value]) =>
-              itemName[key] !== undefined &&
-              value !== null &&
-              key !== "subgrade" && (
-                <p className={classes.detail} key={itemName[key]}>
-                  {itemName[key]}: {value}
-                </p>
-              )
-          )}
-          {items.subgrade &&
-            JSON.parse(items.subgrade).map((item) => (
-              <p className={classes.detail} key={item.id}>
-                {item.id} : {item.value}
-              </p>
-            ))}
-
-          <div className={classes.buttonContainer}>
-            <div className={classes.summary}>
-              {timeForDisaply.map((time) => (
-                <p
-                  key={`${props.cases.studentid + time}`}
-                  className={classes.detail}
+        {props.cases &&
+          props.cases.map((item) => {
+            const info = {
+              ...item.tutor,
+              availiability: item.availiability,
+              checkSTatus: item.checkSTatus,
+              matchstatus: item.matchstatus,
+              idmatch: item.idmatch,
+            };
+            let heading = {
+              locations: info.locations ? info.locations.split(",") : [],
+              subjects: info.subjects ? info.subjects.split(",") : [],
+            };
+            return (
+              <div>
+                <Accordion.Item
+                  key={info.idmatch}
+                  value={JSON.stringify(info.idmatch)}
                 >
-                  {time}
-                </p>
-              ))}
-              <Button variant="outlined" onClick={StatusHandler}>
-                {status == "open"
-                  ? "個案已公開"
-                  : status == "close"
-                  ? "個案已隱藏"
-                  : "個案已封鎖"}
-              </Button>
-              <Button variant="outlined" onClick={verifyHandler}>
-                {verify == "已驗證" ? "教師已驗證" : "教師未驗證"}
-              </Button>
-            </div>
+                  <Accordion.Control>
+                    {Object.entries(heading).map(([key, value]) => (
+                      <p
+                        className={classes.title}
+                        key={`${itemName[key]}value`}
+                      >
+                        {typeof value == "object"
+                          ? value.map((item) => {
+                              return ` ${item}`;
+                            })
+                          : ""}
+                      </p>
+                    ))}
+                    <p
+                      className={classes.title}
+                    >{`$${info.lowestFee}/小時-${info.highestFee}/小時`}</p>
+                  </Accordion.Control>
 
-            <div>
-              <EditProfileForm userid={props.cases.userid} type={"tutor"} />
-            </div>
+                  <Accordion.Panel>
+                    <p>履歷驗證狀態:{verifyServer}</p>
+                    <p className={classes.detail}>ID:{props.cases.tutorid}</p>
+                    {Object.entries(info).map(
+                      ([key, value]) =>
+                        itemName[key] !== undefined &&
+                        value !== null &&
+                        key !== "subgrade" && (
+                          <p className={classes.detail} key={itemName[key]}>
+                            {itemName[key]}: {value}
+                          </p>
+                        )
+                    )}
+                    {/* {info.subgrade &&
+                      JSON.parse(items.subgrade).map((item) => (
+                        <p className={classes.detail} key={item.id}>
+                          {item.id} : {item.value}
+                        </p>
+                      ))} */}
 
-            <div className={classes.heading}>
-              <Button onClick={toggleCheck}>{checkStatus}</Button>
-              <Button onClick={toggleNotAvail}>
-                {notAvailStatus ? "Not Available" : "Available"}
-              </Button>
-              {props.isFavouriteTutor ? <IconHeartFilled /> : ""}
-            </div>
-          </div>
-        </Accordion.Panel>
+                    <div className={classes.buttonContainer}>
+                      <div className={classes.summary}>
+                        <p className={classes.detail}>{info.availTimes}</p>
+                        <Button variant="outlined" onClick={StatusHandler}>
+                          {status == "open"
+                            ? "個案已公開"
+                            : status == "close"
+                            ? "個案已隱藏"
+                            : "個案已封鎖"}
+                        </Button>
+                        <Button variant="outlined" onClick={verifyHandler}>
+                          {verify == "已驗證" ? "教師已驗證" : "教師未驗證"}
+                        </Button>
+                      </div>
+
+                      <div>
+                        <EditProfileForm cases={info} type={"tutor"} />
+                      </div>
+
+                      <div className={classes.heading}>
+                        <Button onClick={toggleCheck}>{checkStatus}</Button>
+                        <Button onClick={toggleNotAvail}>
+                          {notAvailStatus ? "Not Available" : "Available"}
+                          {/* {props.isFavouriteTutor ? <IconHeartFilled /> : ""} */}
+                        </Button>
+                      </div>
+                    </div>
+                  </Accordion.Panel>
+                </Accordion.Item>
+              </div>
+            );
+          })}
       </Accordion>
     </div>
   );

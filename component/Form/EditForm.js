@@ -35,7 +35,7 @@ function EditForm(props) {
       availtimes: availtimes,
     };
     setData(NewData);
-  }, []);
+  }, [props.cases]);
   return (
     <>
       <Modal

@@ -7,7 +7,7 @@ import itemName from "../itemName";
 import readDate from "../../Helper/HelperFunction";
 function CaseItemAdminStudent(props) {
   const [status, setStatus] = useState(
-    props.cases.status ? props.cases.status : "open"
+    props.cases.status ? props.cases.status : "OPEN"
   );
   const [items, setItems] = useState(props.cases);
   const [heading, setHeading] = useState({});
@@ -117,20 +117,24 @@ function CaseItemAdminStudent(props) {
               {time}
             </p>
           ))}
-          {/* <Button variant="outlined" onClick={StatusHandler}>
-                  {status == "open"
-                    ? "個案已公開"
-                    : status == "close"
-                    ? "個案已隱藏"
-                    : "個案已封鎖"}
-                </Button> */}
+          <Button variant="outlined" onClick={StatusHandler}>
+            {status == "OPEN"
+              ? "個案已公開"
+              : status == "CLOSE"
+              ? "個案已隱藏"
+              : "個案已封鎖"}
+          </Button>
           <div>
             <EditForm cases={studentCase} studentid={props.cases.studentid} />
           </div>
         </div>
 
         <div>
-          {/* <EditProfileForm userid={props.cases.userid} type={"student"} /> */}
+          <EditProfileForm
+            userid={props.cases.userid}
+            cases={studentCase}
+            type={"student"}
+          />
         </div>
       </div>
     </div>

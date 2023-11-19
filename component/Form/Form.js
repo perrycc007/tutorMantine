@@ -11,8 +11,9 @@ import userStore from "../../stores/stores";
 import SubjectsForms from "./Forms/Subject/SubjectsForms";
 function Form(props) {
   const [active, setActive] = useState(0);
-  const Profile = props.data;
-  const Tutor = props.tutorData;
+  const [profile, setProfile] = useState({});
+  const [tutor, setTutor] = useState({});
+
   const updateFormHanlder = (values) => {
     form.setValues(values);
     props.updateForm(values);
@@ -77,31 +78,48 @@ function Form(props) {
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
+  useEffect(() => {
+    setProfile(props.data);
+    setTutor(props.tutorData);
+    console.log(props.data);
+  }, [props.data]);
   return (
     <>
       <UserFormProvider form={form}>
         <Stepper active={active}>
           <Stepper.Step label="" description="個人資料">
-            <PersonalInfoForm updateForm={updateFormHanlder} data={Profile} />
+            <PersonalInfoForm updateForm={updateFormHanlder} data={profile} />
           </Stepper.Step>
-          <Stepper.Step label="" description="地點">
-            <LocationForms updateForm={updateTutorHanlder} data={Tutor} />
-          </Stepper.Step>
-          <Stepper.Step label="" description="時間">
-            <Time updateForm={updateTutorHanlder} data={Tutor} />
-          </Stepper.Step>
-          <Stepper.Step label="" description="教育水平">
-            <Education updateForm={updateTutorHanlder} data={Tutor} />
-          </Stepper.Step>
-          <Stepper.Step label="" description="科目">
-            <SubjectsForms updateForm={updateTutorHanlder} data={Tutor} />
-          </Stepper.Step>
-          <Stepper.Step label="" description="考試成績">
-            <Grades updateForm={updateTutorHanlder} data={Tutor} />
-          </Stepper.Step>
-          <Stepper.Step label="" description="薪金">
-            <BudgetForm updateForm={updateTutorHanlder} data={Tutor} />
-          </Stepper.Step>
+          {props.type == "tutor" && (
+            <Stepper.Step label="" description="地點">
+              <LocationForms updateForm={updateTutorHanlder} data={tutor} />
+            </Stepper.Step>
+          )}
+          {props.type == "tutor" && (
+            <Stepper.Step label="" description="時間">
+              <Time updateForm={updateTutorHanlder} data={tutor} />
+            </Stepper.Step>
+          )}
+          {props.type == "tutor" && (
+            <Stepper.Step label="" description="教育水平">
+              <Education updateForm={updateTutorHanlder} data={tutor} />
+            </Stepper.Step>
+          )}
+          {props.type == "tutor" && (
+            <Stepper.Step label="" description="科目">
+              <SubjectsForms updateForm={updateTutorHanlder} data={tutor} />
+            </Stepper.Step>
+          )}
+          {props.type == "tutor" && (
+            <Stepper.Step label="" description="考試成績">
+              <Grades updateForm={updateTutorHanlder} data={tutor} />
+            </Stepper.Step>
+          )}
+          {props.type == "tutor" && (
+            <Stepper.Step label="" description="薪金">
+              <BudgetForm updateForm={updateTutorHanlder} data={tutor} />
+            </Stepper.Step>
+          )}
           <Stepper.Completed>完成</Stepper.Completed>
         </Stepper>
 

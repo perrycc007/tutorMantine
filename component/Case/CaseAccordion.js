@@ -56,7 +56,7 @@ const CaseAccordion = (props) => {
                 return (
                   <Accordion.Item
                     key={oneCase.studentid}
-                    value={JSON.stringify(oneCase)}
+                    value={JSON.stringify(oneCase.studentid)}
                   >
                     <Accordion.Control>
                       {Object.entries(heading).map(([key, value]) => (
