@@ -32,7 +32,7 @@ function SubjectsForms(props) {
       form.setValues(values);
       form.resetDirty(values);
     });
-  }, []);
+  }, [props.data]);
   return (
     <form
       onSubmit={(event) => {

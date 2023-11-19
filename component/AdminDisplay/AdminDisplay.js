@@ -24,6 +24,7 @@ export default function AdminDisplay(props) {
       setStudentInfo(studentInfo);
     }
   }, [props.item]);
+
   return (
     <Fragment>
       <div>
@@ -44,15 +45,26 @@ export default function AdminDisplay(props) {
         </div>
 
         {props.item && (
-          <CaseItemAdminTutor
-            cases={props.item}
-            // adminInfo={adminInfo}
-            toggleCheckHandler={toggleCheck}
-            toggleAvailHandler={toggleAvail}
-            toggleStatusHandler={toggleStatus}
-            toggleVerifyHandler={toggleVerify}
-            type="tutor"
-          />
+          <div>
+            <CaseItemAdminTutor
+              cases={props.item}
+              // adminInfo={adminInfo}
+              toggleCheckHandler={toggleCheck}
+              toggleAvailHandler={toggleAvail}
+              toggleStatusHandler={toggleStatus}
+              toggleVerifyHandler={toggleVerify}
+              type="tutor"
+            />
+            <Group>
+              <Button
+                onClick={props.handlePreviousClick}
+                disabled={props.page === 0}
+              >
+                ← Previous
+              </Button>
+              <Button onClick={props.handleNextClick}>Next →</Button>
+            </Group>
+          </div>
         )}
       </div>
     </Fragment>

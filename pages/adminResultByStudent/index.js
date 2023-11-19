@@ -15,10 +15,22 @@ const Result = () => {
   const [item, setItem] = useState([]);
   const [studentList, setStudentList] = useState([]);
   const [id, setId] = useState(1);
-  const pageNumberHandler = (p) => {
-    setPage(p);
-    getMatchResultByStudentId(id, p);
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
+
+  const handlePreviousClickHandler = () => {
+    setPage((prev) => prev - 1);
+    getMatchResultByStudentId(id, page + 1);
+  };
+  const handleNextClickHandler = () => {
+    setPage((prev) => prev + 1);
+    getMatchResultByStudentId(id, page + 1);
+  };
+
   async function getMatchResultByStudentId(id, page) {
     setLoading(true);
     try {
@@ -63,7 +75,9 @@ const Result = () => {
             item={item}
             studentList={studentList}
             totalNumberofPage={totalNumberofPage}
-            pageNumber={pageNumberHandler}
+            handlePreviousClick={handlePreviousClickHandler}
+            handleNextClick={handleNextClickHandler}
+            page={page}
           />
         )}
       </NoSSR>

@@ -18,7 +18,7 @@ const Education = (props) => {
       form.setValues(values);
       form.resetDirty(values);
     });
-  }, []);
+  }, [props.data]);
   return (
     <>
       <form

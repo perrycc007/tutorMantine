@@ -23,7 +23,7 @@ function Grades(props) {
       form.setFieldValue("HKDSE_ChineseLanguage", "2");
       setList(values.grade);
     });
-  }, []);
+  }, [props.data]);
 
   return (
     <form

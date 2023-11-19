@@ -19,7 +19,7 @@ function Time(props) {
       form.setValues(values);
       form.resetDirty(values);
     });
-  }, []);
+  }, [props.data]);
 
   const datetime = dateAndTime[0];
   const date = dateAndTime[1];

@@ -27,7 +27,7 @@ const StudentOthers = (props) => {
         setPayPerHour([values.lowestfee, values.highestfee]);
       }
     });
-  }, []);
+  }, [props.data]);
 
   return (
     <form

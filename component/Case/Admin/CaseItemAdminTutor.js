@@ -1,11 +1,12 @@
 import classes from "./CaseItem.module.css";
-import { Accordion, Button } from "@mantine/core";
+import { Accordion, Button, Pagination } from "@mantine/core";
 import EditForm from "../../Form/EditForm";
 import { useState, useEffect } from "react";
 import { IconHeartFilled } from "@tabler/icons-react";
 import itemName from "../itemName";
 import readDate from "../../Helper/HelperFunction";
 import EditProfileForm from "../../Form/EditProfileForm";
+import usePagination from "../usePagination";
 function CaseItemAdminTutor(props) {
   const [status, setStatus] = useState(props.cases.status);
   const [verify, setVerify] = useState(props.cases.verify);
@@ -16,6 +17,20 @@ function CaseItemAdminTutor(props) {
     props.toggleFavourite(props.id);
   };
 
+  const handlePreviousClick = () => {};
+
+  const handleNextClick = () => {};
+
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const handleChange = (e, p) => {
+    props.change;
+  };
   const toggleCheck = () => {
     if (checkStatus == "NOT_YET_CHECKED") {
       setCheckStatus("CHECKING");
@@ -182,6 +197,17 @@ function CaseItemAdminTutor(props) {
             );
           })}
       </Accordion>
+      <Group>
+        <Button onClick={handlePreviousClick} disabled={currentPage === 0}>
+          ← Previous
+        </Button>
+        <Button
+          onClick={handleNextClick}
+          disabled={currentPage >= Math.ceil(totals / PerPAge) - 1}
+        >
+          Next →
+        </Button>
+      </Group>
     </div>
   );
 }

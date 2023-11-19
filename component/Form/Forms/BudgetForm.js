@@ -20,7 +20,7 @@ function BudgetForm(props) {
         setPayRange([100, 200]);
       }
     });
-  }, []);
+  }, [props.data]);
 
   return (
     <UserFormProvider form={form}>
