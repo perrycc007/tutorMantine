@@ -9,36 +9,37 @@ function CaseItemAdminStudent(props) {
   const [status, setStatus] = useState(
     props.cases.status ? props.cases.status : "open"
   );
+  const [items, setItems] = useState(props.cases);
+  const [heading, setHeading] = useState({});
+  const [fee, setFee] = useState(props.cases.fee);
+  const [availtimeArray, setAvailtimeArray] = useState([]);
+  const [studentCase, setStudentCase] = useState({});
   const [notAvailStatus, setNotAvailStatus] = useState(false);
   const [checkStatus, setCheckStatus] = useState("not yet checked");
   const StatusHandler = () => {
-    if (status == "open") {
-      setStatus("close");
+    if (status == "OPEN") {
+      setStatus("CLOSE");
       props.toggleStatus(
         props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,
-        "close",
+        "CLOAE",
         props.type
       );
-    } else if (status == "close") {
-      setStatus("block");
+    } else if (status == "CLOSE") {
+      setStatus("BLOCK");
       props.toggleStatus(
         props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,
-        "block",
+        "BLOCK",
         props.type
       );
-    } else if (status == "block") {
-      setStatus("open");
+    } else if (status == "BLOCK") {
+      setStatus("OPEN");
       props.toggleStatus(
         props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,
-        "open",
+        "OPEN",
         props.type
       );
     }
   };
-
-  // const item = Object.entries(items).map((key, value) => {
-  //   return key;
-  // });
 
   useEffect(() => {
     if (props.checkedStatus) {
@@ -51,87 +52,87 @@ function CaseItemAdminStudent(props) {
     setNotAvailStatus(props.notAvailStatus);
   }, []);
 
-  // const heading = item.slice(0, 5);
-  // const sumamry = item.slice(6, 10);
+  // const fee = (items.highestfee + items.lowestfee) / 2;
 
-  let { location, subject, availtime, studentid, ...items } = props.cases;
-  console.log(items);
-  const fee = (items.highestfee + items.lowestfee) / 2;
-  console.log(fee);
+  useEffect(() => {
+    if (props.cases.length !== 0) {
+      let {
+        studentLocations,
+        studentSubjects,
+        studentAvailTimes,
+        studentid,
+        ...items
+      } = props.cases;
+      setItems(items);
 
-  const availtimeArray = JSON.parse(availtime);
-  const timeForDisaply = availtimeArray
-    ? availtimeArray.map((item) => {
-        return readDate(item);
-      })
-    : [];
-
-  let heading = {
-    location: JSON.parse(location),
-    subject: JSON.parse(subject),
-  };
+      console.log(items);
+      let heading = {
+        locations: studentLocations ? studentLocations.split(",") : [],
+        subjects: studentSubjects ? studentSubjects.split(",") : [],
+      };
+      setStudentCase({
+        studentid: studentid,
+        ...items,
+        locations: studentLocations,
+        subjects: studentSubjects,
+        availtimes: studentAvailTimes,
+      });
+      console.log(heading);
+      setHeading(heading);
+      const availtimeArray = studentAvailTimes
+        ? studentAvailTimes.split(",")
+        : [];
+      setAvailtimeArray(availtimeArray);
+    }
+  }, [props.cases]);
 
   return (
     <div className={classes.item}>
-      <Accordion>
-        <Accordion.Item>
-          <Accordion.Control>
-            {Object.entries(heading).map(([key, value]) => (
-              <p className={classes.title} key={`${itemName[key]}value`}>
-                {typeof value == "object"
-                  ? value.map((item) => {
-                      return ` ${item}`;
-                    })
-                  : ""}
-              </p>
-            ))}
-            <p className={classes.title}>{`$${fee}/小時`}</p>
-          </Accordion.Control>
-        </Accordion.Item>
-        <Accordion.Panel>
-          <p className={classes.detail}>ID:{props.cases.studentid}</p>
-          {Object.entries(items).map(
-            ([key, value]) =>
-              itemName[key] !== undefined &&
-              value !== null &&
-              key !== "subgrade" && (
-                <p className={classes.detail} key={itemName[key]}>
-                  {itemName[key]}: {value}
-                </p>
-              )
-          )}
+      {Object.entries(heading).map(([key, value]) => (
+        <p className={classes.title} key={`${itemName[key]}value`}>
+          {value}
+        </p>
+      ))}
+      <p className={classes.title}>{`$${fee}/小時`}</p>
 
-          <div className={classes.buttonContainer}>
-            <div className={classes.summary}>
-              {timeForDisaply.map((time) => (
-                <p
-                  key={`${props.cases.studentid + time}`}
-                  className={classes.detail}
-                >
-                  {time}
-                </p>
-              ))}
-              <Button variant="outlined" onClick={StatusHandler}>
-                {status == "open"
-                  ? "個案已公開"
-                  : status == "close"
-                  ? "個案已隱藏"
-                  : "個案已封鎖"}
-              </Button>
-              <div>
-                <EditForm
-                  cases={props.cases}
-                  studentid={props.cases.studentid}
-                />
-              </div>
-            </div>
+      <p className={classes.detail}>ID:{props.cases.studentid}</p>
+      {Object.entries(items).map(
+        ([key, value]) =>
+          itemName[key] !== undefined &&
+          value !== null &&
+          key !== "subgrade" && (
+            <p className={classes.detail} key={itemName[key]}>
+              {itemName[key]}: {value}
+            </p>
+          )
+      )}
 
-            <div>
-              <EditProfileForm userid={props.cases.userid} type={"student"} />
-            </div>
+      <div className={classes.buttonContainer}>
+        <div className={classes.summary}>
+          {availtimeArray.map((time) => (
+            <p
+              key={`${props.cases.studentid + time}`}
+              className={classes.detail}
+            >
+              {time}
+            </p>
+          ))}
+          {/* <Button variant="outlined" onClick={StatusHandler}>
+                  {status == "open"
+                    ? "個案已公開"
+                    : status == "close"
+                    ? "個案已隱藏"
+                    : "個案已封鎖"}
+                </Button> */}
+          <div>
+            <EditForm cases={studentCase} studentid={props.cases.studentid} />
           </div>
-        </Accordion.Panel>
-      </Accordion>
+        </div>
+
+        <div>
+          {/* <EditProfileForm userid={props.cases.userid} type={"student"} /> */}
+        </div>
+      </div>
     </div>
   );
 }

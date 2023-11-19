@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Group } from "@mantine/core";
 
-const AdminIdNavigation = () => {
+const AdminIdNavigation = (props) => {
   const totals = 100; // Total number of s
   const PerPAge = 10; // Number of s per page
-  const Ids = Array.from({ length: totals }, (_, i) => i + 1); // Generate  IDs (1-100)
-  //   const Ids = props.Ids
+  //   const Ids = Array.from({ length: totals }, (_, i) => i + 1); // Generate  IDs (1-100)
+  const Ids = props.listIds;
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -13,9 +13,9 @@ const AdminIdNavigation = () => {
   const endIndex = startIndex + PerPAge;
   const currentIds = Ids.slice(startIndex, endIndex);
 
-  const onClickHandler = (event) => {
-    console.log(event.target.value);
-    props.passId(event.target.value);
+  const onClickHandler = (id) => {
+    console.log(id);
+    props.passId(id);
   };
 
   const handlePreviousClick = () => {
@@ -27,7 +27,7 @@ const AdminIdNavigation = () => {
       prev < Math.ceil(totals / PerPAge) - 1 ? prev + 1 : prev
     );
   };
-
+  useEffect(() => {}, [Ids]);
   return (
     <div>
       <Group>
@@ -35,7 +35,7 @@ const AdminIdNavigation = () => {
           ← Previous
         </Button>
         {currentIds.map((id) => (
-          <Button key={id} value={id} onClick={onClickHandler}>
+          <Button key={id} value={id} onClick={() => onClickHandler(id)}>
             {id}
           </Button>
         ))}

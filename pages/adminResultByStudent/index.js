@@ -9,7 +9,7 @@ import {
   getStudentList,
 } from "../../component/Helper/AxiosFunction";
 const Result = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalNumberofPage, setTotalNumberofPage] = useState(1);
   const [item, setItem] = useState([]);
@@ -23,19 +23,26 @@ const Result = () => {
     setLoading(true);
     try {
       const response = await getMatchResultByStudentIdAxios(id, page);
-      console.log(response.data);
-      // setItem(response.data);
+      setItem(response.data);
+      setLoading(false);
+      return response.data;
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   }
-  const getMatchById = (studentId) => {
+  async function getMatchById(studentId) {
     setId(studentId);
-    getMatchResultByStudentId(studentId, 1);
-  };
+    const response = await getMatchResultByStudentId(studentId, 1);
+    return response;
+  }
+
+  async function getIdList() {
+    const response = await getStudentList();
+    setStudentList(response.data[0].studentIds);
+  }
   useEffect(() => {
-    const response = getStudentList();
-    console.log(response);
+    getIdList();
     // setTotalNumberofPage(response.data.count);
     // setStudentList(response.data.studentid);
   }, [page]);
@@ -50,15 +57,15 @@ const Result = () => {
             <Button onClick={getSingleMatchResult}>Search</Button>
           </div>
         )} */}
-        {/* {loading && item && (
+        {!loading && item && (
           <AdminDisplay
             passIdHandler={getMatchById}
-            match={item}
+            item={item}
             studentList={studentList}
             totalNumberofPage={totalNumberofPage}
             pageNumber={pageNumberHandler}
           />
-        )} */}
+        )}
       </NoSSR>
     </div>
   );

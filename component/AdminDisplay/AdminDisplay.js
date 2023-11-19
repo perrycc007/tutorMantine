@@ -7,43 +7,41 @@ import {
   toggleStatus,
   toggleVerify,
 } from "../Helper/AxiosFunction.js";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 export default function AdminDisplay(props) {
-  console.log(props.match);
-
-  let {
-    tutor,
-    notavailtutor,
-    favouritetutorid,
-    availtutor,
-    checked,
-    checking,
-    idmatch,
-    ...studentInfo
-  } = props.match;
-  console.log(tutor);
-  const adminInfo = {
-    notavailtutor,
-    favouritetutorid,
-    checked,
-    checking,
-  };
-  const url = "http://localhost:3001/admin/toggleCheck";
+  const [studentInfo, setStudentInfo] = useState({});
+  useEffect(() => {
+    if (props.item.length !== 0) {
+      let {
+        tutor,
+        notavailtutor,
+        availtutor,
+        checked,
+        checking,
+        idmatch,
+        ...studentInfo
+      } = props.item[0];
+      setStudentInfo(studentInfo);
+    }
+  }, [props.item]);
 
   return (
     <Fragment>
       <div>
-        <AdminIdNavigation passId={props.passIdHandler} studentIds={[]} />
-        {/* <div>
+        <AdminIdNavigation
+          passId={props.passIdHandler}
+          listIds={props.studentList}
+        />
+        <div>
           <CaseItemAdminStudent
             cases={studentInfo}
             toggleStatus={toggleStatus}
-            adminInfo={adminInfo}
+            // adminInfo={adminInfo}
             admin="admin"
             type="cases"
           />
         </div>
-        <CaseItemAdminTutor
+        {/* <CaseItemAdminTutor
           cases={tutor}
           idmatch={idmatch}
           toggleCheckHandler={toggleCheck}
