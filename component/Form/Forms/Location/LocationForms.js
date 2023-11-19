@@ -18,9 +18,15 @@ function LocationForms(props) {
     });
   };
 
+  const onlickHandler = (event) => {
+    setValue(event);
+    if (props.type == "filter") {
+      props.updateForm({ locations: event });
+    }
+  };
+
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
-      // Assuming 'values.location' is an array of selected locations
       console.log(values);
       setValue(values.locations || [null]);
       form.setValues(values);
@@ -51,7 +57,7 @@ function LocationForms(props) {
             <Chip.Group
               multiple={true}
               value={value}
-              onChange={setValue}
+              onChange={onlickHandler}
               key={`${location.cat}` + "Chip.Group"}
             >
               <Group key={`${location.cat}` + "Group"} justify="center">
@@ -65,7 +71,7 @@ function LocationForms(props) {
           </Tabs.Panel>
         ))}
       </Tabs>
-      <Button type="submit">Submit</Button>
+      {props.type == "filter" ? "" : <Button type="submit">更新</Button>}
     </form>
   );
 }

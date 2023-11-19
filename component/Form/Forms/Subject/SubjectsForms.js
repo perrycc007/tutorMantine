@@ -18,6 +18,14 @@ function SubjectsForms(props) {
       setTimeout(() => resolve(Profile), 1000);
     });
   };
+
+  const onlickHandler = (event) => {
+    setValue(event);
+    if (props.type == "filter") {
+      props.updateForm({ subjects: event });
+    }
+  };
+
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
       setValue(values.subjects || []);
@@ -51,7 +59,7 @@ function SubjectsForms(props) {
               key={`${subjects.cat}` + "Chip.Group"}
               multiple
               value={value}
-              onChange={setValue}
+              onChange={onlickHandler}
             >
               <Group key={`${subjects.cat}` + "Group"} justify="center">
                 {Object.entries(subjects.items).map(([key, label]) => (
@@ -64,7 +72,7 @@ function SubjectsForms(props) {
           </Tabs.Panel>
         ))}
       </Tabs>
-      <Button type="submit">Submit</Button>
+      {props.type == "filter" ? "" : <Button type="submit">更新</Button>}
     </form>
   );
 }

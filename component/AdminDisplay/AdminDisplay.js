@@ -1,6 +1,6 @@
 import CaseItemAdminStudent from "../Case/Admin/CaseItemAdminStudent";
 import CaseItemAdminTutor from "../Case/Admin/CaseItemAdminTutor";
-
+import AdminIdNavigation from "../AdminIdNavigation/AdminIdNavigation";
 import {
   toggleCheck,
   toggleAvail,
@@ -33,7 +33,8 @@ export default function AdminDisplay(props) {
   return (
     <Fragment>
       <div>
-        <div>
+        <AdminIdNavigation passId={props.passIdHandler} studentIds={[]} />
+        {/* <div>
           <CaseItemAdminStudent
             cases={studentInfo}
             toggleStatus={toggleStatus}
@@ -52,7 +53,7 @@ export default function AdminDisplay(props) {
           toggleVerifyHandler={toggleVerify}
           type="tutor"
           admin="adminTutor"
-        />
+        /> */}
       </div>
     </Fragment>
   );

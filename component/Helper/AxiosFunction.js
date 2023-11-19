@@ -73,16 +73,36 @@ export async function toggleVerify(id, verify) {
   return response.data.result;
 }
 // AdminResult
-export async function getMatchResultAxios(page) {
-  cookie.get("access_token");
+// export async function getMatchResultAxios(page) {
+//   cookie.get("access_token");
+//   const response = await axiosInstance(cookie.get("access_token")).get(
+//     `http://localhost:3001/result/${page}`
+//   );
+//   return response;
+// }
+export async function getMatchResultByStudentIdAxios(enteredStudentId, page) {
   const response = await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/result/${page - 1}`
+    `http://localhost:3001/result/studentid/${enteredStudentId}?page=${page}`
   );
   return response;
 }
-export async function getSingleMatchResultAxios(enteredStudentId) {
+
+export async function getMatchResultByTutorIdAxios(enteredTutorId, page) {
   const response = await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/result/studentid/${enteredStudentId}`
+    `http://localhost:3001/result/studentid/${enteredTutorId}?page=${page}`
+  );
+  return response;
+}
+
+export async function getStudentList() {
+  const response = await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/result/studentidSorted`
+  );
+  return response;
+}
+export async function getTutorList() {
+  const response = await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/result/tutoridSorted`
   );
   return response;
 }
@@ -109,7 +129,7 @@ export async function TutorGetAxios() {
 // }
 
 export async function tutorFilterAxios(preference) {
-  const response = await Axios.post(`http://localhost:3001/tutors`, {
+  const response = await Axios.post(`http://localhost:3001/tutors/filter`, {
     preference,
   });
   return response;
@@ -188,7 +208,7 @@ export async function CaseGetAxios() {
 }
 
 export async function caseFilterAxios(preference) {
-  const response = await Axios.post(`http://localhost:3001/students`, {
+  const response = await Axios.post(`http://localhost:3001/students/filter`, {
     preference,
   });
   return response;

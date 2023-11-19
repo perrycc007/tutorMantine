@@ -6,18 +6,25 @@ import SubjectsForm from "../Form/Forms/Subject/SubjectsForms";
 export default function AccordionFilter(props) {
   const [payRange, setPayRange] = useState([100, 200]);
   const initialValues = {
-    location: [],
-    time: [],
-    lowestpay: 100,
-    highestpay: 200,
+    locations: [],
+    subjects: [],
+    lowestfee: 100,
+    highestfee: 200,
   };
   const updateFilterHanlder = (values) => {
+    console.log(values);
     props.updateFilterForm(values);
     form.setValues(values);
   };
   const form = useUserForm({
     initialValues: { ...initialValues },
   });
+
+  const RangeSliderHandler = (event) => {
+    setPayRange(event);
+    props.updateFilterForm({ lowestfee: event[0], highestfee: event[1] });
+    form.setValues({ lowestfee: event[0], highestfee: event[1] });
+  };
   return (
     <div>
       <UserFormProvider form={form}>
@@ -27,7 +34,7 @@ export default function AccordionFilter(props) {
         <RangeSlider
           id="pay-range"
           value={payRange}
-          onChange={(newValue) => setPayRange(newValue)}
+          onChange={(newValue) => RangeSliderHandler(newValue)}
           min={60}
           max={1000}
           step={10}
@@ -39,7 +46,8 @@ export default function AccordionFilter(props) {
             <Accordion.Panel>
               <LocationForms
                 updateForm={updateFilterHanlder}
-                data={initialValues}
+                data={props.preference}
+                type="filter"
               />
             </Accordion.Panel>
           </Accordion.Item>
@@ -48,11 +56,13 @@ export default function AccordionFilter(props) {
             <Accordion.Panel>
               <SubjectsForm
                 updateForm={updateFilterHanlder}
-                data={initialValues}
+                data={props.preference}
+                type="filter"
               />
             </Accordion.Panel>
           </Accordion.Item>
         </Accordion>
+        <Button onClick={props.filterClicked}>Filter</Button>
       </UserFormProvider>
     </div>
   );

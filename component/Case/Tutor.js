@@ -3,7 +3,7 @@ import userStore from "../../stores/stores";
 import AccordionFilter from "./AccordionFilter";
 import { useState, useEffect } from "react";
 import classes from "./Student.module.css";
-import { tutorFilterAxios } from "../Helper/AxiosFunction";
+import { tutorFilterAxios, UpdateFavorite } from "../Helper/AxiosFunction";
 const Tutor = (props) => {
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
@@ -11,7 +11,20 @@ const Tutor = (props) => {
   const FavouriteTutor = userStore((state) => state.favouriteTutor);
   const setfavouriteTutor = userStore((state) => state.setFavouriteTutor);
   const fetchFavouriteTutor = userStore((state) => state.fetchFavouriteTutor);
-
+  const [filterForm, setFilterForm] = useState({
+    locations: [],
+    subjects: [],
+    lowestfee: 100,
+    highestfee: 200,
+  });
+  const filterFormHandler = (values) => {
+    console.log(values);
+    // console.log({ ...filterForm, ...values });
+    setFilterForm((prev) => ({ ...prev, ...values }));
+  };
+  const filterClickedHandler = () => {
+    tutorFilter(filterForm);
+  };
   const toggleFavouriteTopHandler = (id) => {
     let newFavourite = FavouriteTutor;
     if (newFavourite.includes(id)) {
@@ -29,16 +42,11 @@ const Tutor = (props) => {
   }, []);
 
   async function tutorFilter(preference) {
-    try {
-      const result = await tutorFilterAxios(preference);
-      console.log(result.data);
-      setFiltered(true);
-      setFilteredList(result.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const result = await tutorFilterAxios(preference);
+    console.log(result.data);
+    setFiltered(true);
+    setFilteredList(result.data);
   }
-
   return (
     <div className={classes.container}>
       <div className={classes.bannerSectionTutor}>
@@ -51,7 +59,14 @@ const Tutor = (props) => {
       </div>
       <div className={classes.contentContainer}>
         <div className={classes.filter}>
-          {!props.Favourite && <AccordionFilter FilterHanlder={tutorFilter} />}
+          {!props.Favourite && (
+            <AccordionFilter
+              FilterHanlder={tutorFilter}
+              updateFilterForm={filterFormHandler}
+              preference={filterForm}
+              filterClicked={filterClickedHandler}
+            />
+          )}
         </div>
         <div className={classes.caseList}>
           {!filtered && (

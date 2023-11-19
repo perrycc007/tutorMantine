@@ -12,6 +12,20 @@ const Student = (props) => {
   const fetchFavouriteCase = userStore((state) => state.fetchFavouriteCases);
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
+  const [filterForm, setFilterForm] = useState({
+    locations: [],
+    subjects: [],
+    lowestfee: 100,
+    highestfee: 200,
+  });
+  const filterFormHandler = (values) => {
+    console.log(values);
+    // console.log({ ...filterForm, ...values });
+    setFilterForm((prev) => ({ ...prev, ...values }));
+  };
+  const filterClickedHandler = () => {
+    casesFilter(filterForm);
+  };
   const toggleFavouriteTopHandler = (id) => {
     let newFavourite = FavouriteCases;
     if (newFavourite.includes(id)) {
@@ -28,7 +42,7 @@ const Student = (props) => {
   }, []);
 
   async function casesFilter(preference) {
-    const result = await caseFilterAxios();
+    const result = await caseFilterAxios(preference);
     console.log(result.data);
     setFiltered(true);
     setFilteredList(result.data);
@@ -37,7 +51,14 @@ const Student = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.filter}>
-        {!props.Favourite && <AccordionFilter FilterHanlder={casesFilter} />}
+        {!props.Favourite && (
+          <AccordionFilter
+            FilterHanlder={casesFilter}
+            updateFilterForm={filterFormHandler}
+            preference={filterForm}
+            filterClicked={filterClickedHandler}
+          />
+        )}
       </div>
       {!filtered && (
         <CaseAccordion
