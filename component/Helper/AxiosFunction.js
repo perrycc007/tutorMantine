@@ -124,6 +124,13 @@ export async function TutorGetAxios() {
   console.log(response.data.result);
   return response;
 }
+export async function TutorGetWithFavouriteAxios() {
+  const response = await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/tutors/withFavourite`
+  );
+  console.log(response.data.result);
+  return response;
+}
 
 // export async function CaseGetAxios() {
 //   const response = await Axios.get(`http://localhost:3001/students`);
@@ -135,6 +142,16 @@ export async function tutorFilterAxios(preference) {
   const response = await Axios.post(`http://localhost:3001/tutors/filter`, {
     preference,
   });
+  return response;
+}
+
+export async function tutorFilterWithFavouriteAxios(preference) {
+  const response = await axiosInstance(cookie.get("access_token")).post(
+    `http://localhost:3001/tutors/filter`,
+    {
+      preference,
+    }
+  );
   return response;
 }
 
@@ -217,27 +234,69 @@ export async function caseFilterAxios(preference) {
   return response;
 }
 
-export async function UpdateFavoriteCase(newFavourite, getUserid) {
-  const response = await axiosInstance(cookie.get("access_token")).patch(
-    "http://localhost:3001/favourite/case",
-    {
-      caseid: newFavourite,
-      userid: getUserid,
-    }
+export async function CaseGetAxiosWithFavourite() {
+  const response = await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/students/withFavourite`
   );
-  // console.log(res.data.result);
+  console.log(response.data.result);
   return response;
 }
 
-export async function UpdateFavorite(newFavourite, getUserid) {
-  const response = await axiosInstance(cookie.get("access_token")).patch(
-    "http://localhost:3001/favourite/tutor",
+export async function caseFilterAxiosWithFavourite(preference) {
+  const response = await axiosInstance(cookie.get("access_token")).post(
+    `http://localhost:3001/students/filterWithFavourite`,
     {
-      caseid: newFavourite,
-      userid: getUserid,
+      preference,
     }
   );
-  // console.log(res.data.result);
+  return response;
+}
+
+// Favourite
+// remove favourite tutor
+export async function removeFavouriteTutorAxios(userid, tutorid) {
+  const response = await axiosInstance(cookie.get("access_token")).delete(
+    `http://localhost:3001/favourite/removeTutor`,
+    {
+      userid: userid,
+      tutorid: tutorid,
+    }
+  );
+  return response;
+}
+
+// remove favourite case
+export async function removeFavouriteCaseAxios(userid, studentid) {
+  const response = await axiosInstance(cookie.get("access_token")).delete(
+    `http://localhost:3001/favourite/removeStudent`,
+    {
+      userid: userid,
+      studentid: studentid,
+    }
+  );
+  return response;
+}
+
+// add favourite tutor
+export async function addFavouriteTutorAxios(userid, tutorid) {
+  const response = await axiosInstance(cookie.get("access_token")).post(
+    `http://localhost:3001/favourite/addTutor`,
+    {
+      userid: userid,
+      tutorid: tutorid,
+    }
+  );
+  return response;
+}
+// add favourite case
+export async function addFavouriteCaseAxios(userid, studentid) {
+  const response = await axiosInstance(cookie.get("access_token")).post(
+    `http://localhost:3001/favourite/addStudent`,
+    {
+      userid: userid,
+      studentid: studentid,
+    }
+  );
   return response;
 }
 

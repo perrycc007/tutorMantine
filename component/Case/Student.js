@@ -1,45 +1,65 @@
 import CaseAccordion from "./CaseAccordion";
-import userStore from "../../stores/stores";
 // import Filter from "./Filter";
+import { Accordion, Pagination } from "@mantine/core";
 import { useState, useEffect } from "react";
 import classes from "./Student.module.css";
-import { caseFilterAxios, UpdateFavorite } from "../Helper/AxiosFunction";
+import userStore from "../../stores/stores";
+import {
+  caseFilterAxios,
+  addFavouriteCaseAxios,
+  removeFavouriteCaseAxios,
+} from "../Helper/AxiosFunction";
+import usePagination from "./usePagination";
 import AccordionFilter from "./AccordionFilter";
 const Student = (props) => {
-  const getUserid = userStore((state) => state.userId);
-  const FavouriteCases = userStore((state) => state.favouriteCase);
-  const setfavouriteCase = userStore((state) => state.setFavouriteCase);
-  const fetchFavouriteCase = userStore((state) => state.fetchFavouriteCases);
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
+  const [page, setPage] = useState(1);
   const [filterForm, setFilterForm] = useState({
     locations: [],
     subjects: [],
     lowestfee: 100,
     highestfee: 200,
   });
+  const userid = userStore((state) => state.userId);
+  async function toggleFavouriteTopHandler(id, isFavourite) {
+    if (isFavourite) {
+      await removeFavouriteCaseAxios(userid, id);
+    } else {
+      await addFavouriteCaseAxios(userid, id);
+    }
+  }
+
   const filterFormHandler = (values) => {
-    console.log(values);
-    // console.log({ ...filterForm, ...values });
     setFilterForm((prev) => ({ ...prev, ...values }));
   };
   const filterClickedHandler = () => {
     casesFilter(filterForm);
   };
-  const toggleFavouriteTopHandler = (id) => {
-    let newFavourite = FavouriteCases;
-    if (newFavourite.includes(id)) {
-      newFavourite = newFavourite.filter((exist) => exist != id);
-    } else {
-      newFavourite = [...newFavourite, id];
-    }
-    setfavouriteCase(newFavourite);
-    UpdateFavorite(newFavourite, getUserid);
+
+  const PER_PAGE = 15;
+
+  const count =
+    props.cases !== undefined ? Math.ceil(props.cases.length / PER_PAGE) : 0;
+
+  const _DATA = filtered
+    ? usePagination(filteredList, PER_PAGE)
+    : usePagination(props.cases, PER_PAGE);
+
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
-  useEffect(() => {
-    fetchFavouriteCase(getUserid);
-  }, []);
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+    if (!props.admin) {
+      handleClick();
+    }
+  };
 
   async function casesFilter(preference) {
     const result = await caseFilterAxios(preference);
@@ -60,22 +80,27 @@ const Student = (props) => {
           />
         )}
       </div>
-      {!filtered && (
-        <CaseAccordion
-          cases={props.cases}
-          type="cases"
-          favourite={FavouriteCases}
-          toggleFavouriteHandler={toggleFavouriteTopHandler}
+
+      <div>
+        <Accordion>
+          {_DATA.currentData().map((oneCase) => {
+            return (
+              <CaseAccordion
+                cases={oneCase}
+                type="cases"
+                toggleFavourite={toggleFavouriteTopHandler}
+              />
+            );
+          })}
+        </Accordion>
+        <Pagination
+          total={count}
+          page={page}
+          onChange={handleChange}
+          variant="outlined"
+          color="primary"
         />
-      )}
-      {filtered && (
-        <CaseAccordion
-          cases={filteredList}
-          type="cases"
-          favourite={FavouriteCases}
-          toggleFavouriteHandler={toggleFavouriteTopHandler}
-        />
-      )}
+      </div>
     </div>
   );
 };
