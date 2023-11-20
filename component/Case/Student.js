@@ -86,6 +86,7 @@ const Student = (props) => {
           {_DATA.currentData().map((oneCase) => {
             return (
               <CaseAccordion
+                key={oneCase.studentid}
                 cases={oneCase}
                 type="cases"
                 toggleFavourite={toggleFavouriteTopHandler}

@@ -2,6 +2,7 @@ import Axios from "Axios";
 import { stringify, parse } from "flatted";
 import userStore from "../../stores/stores";
 import cookie from "js-cookie";
+
 const url = "http://localhost:3001";
 const axiosInstance = (accesstoken) => {
   return Axios.create({
@@ -267,6 +268,7 @@ export async function removeFavouriteTutorAxios(userid, tutorid) {
 
 // remove favourite case
 export async function removeFavouriteCaseAxios(userid, studentid) {
+  console.log(userid, studentid);
   const response = await axiosInstance(cookie.get("access_token")).delete(
     `http://localhost:3001/favourite/removeStudent`,
     {
@@ -290,6 +292,7 @@ export async function addFavouriteTutorAxios(userid, tutorid) {
 }
 // add favourite case
 export async function addFavouriteCaseAxios(userid, studentid) {
+  console.log(userid, studentid);
   const response = await axiosInstance(cookie.get("access_token")).post(
     `http://localhost:3001/favourite/addStudent`,
     {

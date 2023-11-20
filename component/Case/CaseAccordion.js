@@ -17,11 +17,10 @@ const CaseAccordion = (props) => {
     locations: locations ? locations.split(",") : [],
     subjects: subjects ? subjects.split(",") : [],
   };
-
   const id =
     props.cases.type == "tutor" ? props.cases.tutorid : props.cases.studentid;
   const toggleFavoriteStatusHandler = (id) => {
-    props.toggleFavourite(isFavourite, id);
+    props.toggleFavourite(id, isFavourite);
     setIsFavourite((prevState) => !prevState);
   };
   return (
@@ -30,7 +29,7 @@ const CaseAccordion = (props) => {
         <Accordion.Item key={id} value={JSON.stringify(id)}>
           <Accordion.Control>
             {Object.entries(heading).map(([key, value]) => (
-              <p className={classes.title} key={`${itemName[key]}value`}>
+              <p className={classes.title} key={`${value} value`}>
                 {value
                   ? value.map((item) => {
                       return ` ${item}`;

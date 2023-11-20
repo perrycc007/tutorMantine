@@ -7,12 +7,12 @@ import {
 import { useState, useEffect } from "react";
 const Cases = (props) => {
   const [dynamicData, setDynamicData] = useState(props.cases);
-  const accessToken = cookie.get("accessToken");
+  const accessToken = cookie.get("access_token");
+  console.log(accessToken);
   useEffect(() => {
     const fetchData = async () => {
       if (accessToken) {
         // Fetch data that requires the accessToken
-        console.log(accessToken);
         const response = await CaseGetAxiosWithFavourite();
         setDynamicData(response.data);
       }

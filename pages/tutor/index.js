@@ -11,7 +11,7 @@ const TutorPage = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const accessToken = cookie.get("accessToken");
+      const accessToken = cookie.get("access_token");
 
       if (accessToken) {
         // Fetch data that requires the accessToken

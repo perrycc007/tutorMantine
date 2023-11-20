@@ -4,11 +4,11 @@ import {
   fetchFavouriteCases,
   fetchFavouriteTutor,
 } from "../component/Helper/AxiosFunction";
+import cancelableookies from "js-cookie";
+import Cookies from "js-cookie";
 // Helper function to clear local storage
 function clearLocalStorage() {
-  localStorage.removeItem("data");
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("loginTime"); // Adjust this based on your client-side storage mechanism
+  localStorage.removeItem("data"); // Adjust this based on your client-side storage mechanism
 }
 const serialize = (obj) => {
   const seen = new WeakSet();
@@ -24,9 +24,6 @@ const serialize = (obj) => {
 };
 
 // Helper function to set login time in local storage
-function setLoginTime(time) {
-  localStorage.setItem("loginTime", time); // Adjust this based on your client-side storage mechanism
-}
 
 // Helper function to get login time from local storage
 function getLoginTime() {
@@ -224,13 +221,12 @@ let store = (set) => ({
   addUserid: (userid) => set({ userId: userid }),
   loginUserid: () => {
     set({ isLoggedin: true });
-    setLoginTime(Date.now());
   },
   logoutUserid: () => {
-    clearLocalStorage;
+    Cookies.remove("access_token");
+    clearLocalStorage();
     set(initialState);
-
-    // window.location.href = "/";
+    window.location.href = "/auth";
   },
   cleanFavourite: () => set({ favourite: [] }),
   removeUserid: () => set({ userId: null }),

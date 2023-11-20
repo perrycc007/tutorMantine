@@ -4,7 +4,30 @@ import { MantineProvider } from "@mantine/core";
 import { theme } from "../theme";
 import { HeaderMegaMenu } from "../component/Header/HeaderMegaMenu";
 import { FooterLinks } from "../component/Footer/FooterLinks";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import userStore from "../stores/stores";
+import { isTokenExpired } from "../component/Helper/HelperFunction";
+import cookie from "js-cookie";
 export default function App({ Component, pageProps }: any) {
+  const logout = userStore((state) => state.logoutUserid);
+  const isLoggedin = userStore((state) => state.isLoggedin);
+  useEffect(() => {
+    const token = cookie.get("access_token"); // Function to get the token from cookies
+    if ((!token && isLoggedin) || (isTokenExpired(token) && isLoggedin)) {
+      logout(); // Function to log the user out
+    }
+
+    const interval = setInterval(() => {
+      const token = cookie.get("access_token");
+      if ((!token && isLoggedin) || (isTokenExpired(token) && isLoggedin)) {
+        logout();
+      }
+    }, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <MantineProvider theme={theme}>
       <Head>

@@ -58,7 +58,7 @@ function Form(props) {
       locations: [],
       availtimes: [],
       subjects: [],
-      grade: {},
+      subjectGrade: {},
     },
   });
 

@@ -1,29 +1,20 @@
-import { Accordion } from "@mantine/core";
-import { Select } from "@mantine/core";
-function CAcccordion(props) {
-  // See groceries data above
-  const items = Object.entries(props.cat).map(([key, value]) => (
-    <Accordion.Item
-      key={`${props.childKey + key}Summary`}
-      value={`${props.childKey + key}`}
-    >
-      <Accordion.Control>{`${key}`}</Accordion.Control>
-      <Accordion.Panel>
-        {Object.entries(value).map(([key, value]) => {
-          return (
-            <Select
-              key={key}
-              label={value}
-              {...props.form.getInputProps(key)}
-              data={props.select}
-            ></Select>
-          );
-        })}
-      </Accordion.Panel>
-    </Accordion.Item>
-  ));
+import { Accordion, Select } from "@mantine/core";
 
-  return <Accordion>{items}</Accordion>;
+function CAccordion({ cat, select, form }) {
+  return (
+    <Accordion>
+      {Object.entries(cat).map(([subjectKey, subjectName]) => (
+        <Accordion.Item key={subjectKey} value={subjectKey}>
+          <Accordion.Control>{subjectKey}</Accordion.Control>
+          <Accordion.Panel>
+            {Object.entries(subjectName).map(([key, name]) => (
+              <Select label={name} {...form.getInputProps(key)} data={select} />
+            ))}
+          </Accordion.Panel>
+        </Accordion.Item>
+      ))}
+    </Accordion>
+  );
 }
 
-export default CAcccordion;
+export default CAccordion;
