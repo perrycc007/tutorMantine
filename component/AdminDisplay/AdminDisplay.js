@@ -1,7 +1,7 @@
 import CaseItemAdminStudent from "../Case/Admin/CaseItemAdminStudent";
 import CaseItemAdminTutor from "../Case/Admin/CaseItemAdminTutor";
 import AdminIdNavigation from "../AdminIdNavigation/AdminIdNavigation";
-import { Accordion } from "@mantine/core";
+import { Group, Button, Accordion } from "@mantine/core";
 import {
   toggleCheck,
   toggleAvail,
@@ -44,28 +44,48 @@ export default function AdminDisplay(props) {
           )}
         </div>
 
-        {props.item && (
-          <div>
-            <CaseItemAdminTutor
-              cases={props.item}
-              // adminInfo={adminInfo}
-              toggleCheckHandler={toggleCheck}
-              toggleAvailHandler={toggleAvail}
-              toggleStatusHandler={toggleStatus}
-              toggleVerifyHandler={toggleVerify}
-              type="tutor"
-            />
-            <Group>
-              <Button
-                onClick={props.handlePreviousClick}
-                disabled={props.page === 0}
-              >
-                ← Previous
-              </Button>
-              <Button onClick={props.handleNextClick}>Next →</Button>
-            </Group>
-          </div>
-        )}
+        <Accordion>
+          {props.item.map((item) => {
+            const info = {
+              ...item.tutor,
+              availiability: item.availiability,
+              checkSTatus: item.checkSTatus,
+              matchstatus: item.matchstatus,
+              idmatch: item.idmatch,
+            };
+
+            return (
+              <div>
+                <CaseItemAdminTutor
+                  cases={info}
+                  // adminInfo={adminInfo}
+                  toggleCheck={toggleCheck}
+                  toggleAvail={toggleAvail}
+                  toggleStatus={toggleStatus}
+                  toggleVerify={toggleVerify}
+                  type="tutor"
+                />
+                <Group>
+                  <Button
+                    onClick={props.handlePreviousClick}
+                    disabled={props.page === 1}
+                  >
+                    ← Previous
+                  </Button>
+                  <p>
+                    {props.page}/{props.totalNumberofPage}
+                  </p>
+                  <Button
+                    onClick={props.handleNextClick}
+                    disabled={props.page === props.totalNumberofPage}
+                  >
+                    Next →
+                  </Button>
+                </Group>
+              </div>
+            );
+          })}
+        </Accordion>
       </div>
     </Fragment>
   );

@@ -21,17 +21,17 @@ function CaseItemAdminStudent(props) {
       setStatus("CLOSE");
       props.toggleStatus(
         props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,
-        "CLOAE",
+        "CLOSE",
         props.type
       );
     } else if (status == "CLOSE") {
-      setStatus("BLOCK");
+      setStatus("BLOCKED");
       props.toggleStatus(
         props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,
-        "BLOCK",
+        "BLOCKED",
         props.type
       );
-    } else if (status == "BLOCK") {
+    } else if (status == "BLOCKED") {
       setStatus("OPEN");
       props.toggleStatus(
         props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,

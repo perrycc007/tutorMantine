@@ -23,12 +23,18 @@ const Result = () => {
   };
 
   const handlePreviousClickHandler = () => {
-    setPage((prev) => prev - 1);
-    getMatchResultByStudentId(id, page + 1);
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+      getMatchResultByStudentId(id, page - 1);
+    }
   };
   const handleNextClickHandler = () => {
-    setPage((prev) => prev + 1);
-    getMatchResultByStudentId(id, page + 1);
+    if (page === totalNumberofPage) {
+      return;
+    } else {
+      setPage((prev) => prev + 1);
+      getMatchResultByStudentId(id, page + 1);
+    }
   };
 
   async function getMatchResultByStudentId(id, page) {
@@ -36,6 +42,7 @@ const Result = () => {
     try {
       const response = await getMatchResultByStudentIdAxios(id, page);
       setItem(response.data);
+      setTotalNumberofPage(response.data[0].total_counts);
       setLoading(false);
       return response.data;
     } catch (err) {

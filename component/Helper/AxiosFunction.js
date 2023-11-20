@@ -15,6 +15,7 @@ const axiosInstance = (accesstoken) => {
 // AdminDisplay
 
 export async function toggleCheck(idmatch, checkStatus) {
+  console.log(idmatch, checkStatus);
   const res = await axiosInstance(cookie.get("access_token")).patch(
     url + "/admin/toggleCheck",
     {
@@ -48,7 +49,7 @@ export async function toggleStatus(id, status, type) {
         status: status,
       }
     );
-    response.data.result;
+    return response;
   } else {
     const response = await axiosInstance(cookie.get("access_token")).patch(
       url + `/history/updateTutorStatus`,
@@ -57,11 +58,11 @@ export async function toggleStatus(id, status, type) {
         status: status,
       }
     );
-    response.data.result;
+    return response;
   }
-  return response.data.result;
 }
 export async function toggleVerify(id, verify) {
+  console.log(id, verify);
   cookie.get("access_token");
   const response = await axiosInstance(cookie.get("access_token")).patch(
     url + `/admin/updateTutorVerify`,
@@ -70,8 +71,9 @@ export async function toggleVerify(id, verify) {
       verify: verify,
     }
   );
-  return response.data.result;
+  return response;
 }
+
 // AdminResult
 // export async function getMatchResultAxios(page) {
 //   cookie.get("access_token");
@@ -81,6 +83,7 @@ export async function toggleVerify(id, verify) {
 //   return response;
 // }
 export async function getMatchResultByStudentIdAxios(enteredStudentId, page) {
+  console.log(page);
   const response = await axiosInstance(cookie.get("access_token")).get(
     `http://localhost:3001/result/studentid/${enteredStudentId}?page=${page}`
   );
