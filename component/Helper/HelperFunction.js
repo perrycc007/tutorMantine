@@ -64,7 +64,8 @@ export function stripFormEventProperties(event) {
       typeof value === "string" ||
       typeof value === "number" ||
       typeof value === "boolean" ||
-      Array.isArray(value)
+      Array.isArray(value) ||
+      typeof value === "object"
     ) {
       formData[key] = value;
     }
