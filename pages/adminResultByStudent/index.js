@@ -3,7 +3,10 @@ import NoSSR from "react-no-ssr";
 import { Loader } from "@mantine/core";
 import classes from "./adminResult.module.css";
 import { useEffect, useState, useRef } from "react";
-import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
+import {
+  stripFormEventProperties,
+  cleanProfileObject,
+} from "../../component/Helper/HelperFunction";
 import {
   updateProfileAdminAxios,
   updateTutorAdminAxios,
@@ -19,7 +22,11 @@ const Result = () => {
   const [studentList, setStudentList] = useState([]);
   const [id, setId] = useState(1);
   const updateFormHanlder = (userid, values) => {
-    updateProfileAdminAxios(userid, stripFormEventProperties(values));
+    // console.log(cleanProfileObject(stripFormEventProperties(values)));
+    updateProfileAdminAxios(
+      userid,
+      cleanProfileObject(stripFormEventProperties(values))
+    );
   };
   const updateTutorFormHandler = (userid, values) => {
     console.log(stripFormEventProperties(values));

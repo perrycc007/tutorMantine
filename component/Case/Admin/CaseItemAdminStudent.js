@@ -14,6 +14,7 @@ function CaseItemAdminStudent(props) {
   const [fee, setFee] = useState(props.cases.fee);
   const [availtimeArray, setAvailtimeArray] = useState([]);
   const [studentCase, setStudentCase] = useState({});
+  const [studentProfile, setStudentProfile] = useState({});
   const [notAvailStatus, setNotAvailStatus] = useState(false);
   const [checkStatus, setCheckStatus] = useState("not yet checked");
   const StatusHandler = () => {
@@ -61,6 +62,21 @@ function CaseItemAdminStudent(props) {
         studentSubjects,
         studentAvailTimes,
         studentid,
+        address,
+        agreewith,
+        country,
+        emergencycontact,
+        emergencyphone,
+        emergencyrelationship,
+        findus,
+        idprofile,
+        language,
+        name,
+        nationality,
+        others,
+        phoneno,
+        status,
+        userid,
         ...items
       } = props.cases;
       setItems(items);
@@ -72,30 +88,29 @@ function CaseItemAdminStudent(props) {
       };
       const studentInfo = {
         studentid: studentid,
-        lowestfrequency: items.lowestfrequency,
-        lowestfee: items.lowestfee,
-        lowestduration: items.lowestduration,
-        language: items.language,
-        others: items.others,
-        expectation: items.expectation,
-        genderrequirement: items.genderrequirement,
-        status: items.status,
-        highestfee: items.highestfee,
-        highestfrequency: items.highestfrequency,
-        highestduration: items.highestduration,
-        level: items.level,
-        lastOnline: items.lastOnline,
-        userid: items.userid,
-        favourites: items.favourites,
-        matches: items.matches,
-        user: items.user,
         locations: studentLocations,
         subjects: studentSubjects,
         availtimes: studentAvailTimes,
+        ...items,
       };
-
+      const profile = {
+        address,
+        agreewith,
+        country,
+        emergencycontact,
+        emergencyphone,
+        emergencyrelationship,
+        findus,
+        idprofile,
+        language,
+        name,
+        nationality,
+        phoneno,
+        userid,
+      };
       setStudentCase(studentInfo);
-      console.log(heading);
+      setStudentProfile(profile);
+      console.log(profile);
       setHeading(heading);
       const availtimeArray = studentAvailTimes
         ? studentAvailTimes.split(",")
@@ -155,7 +170,7 @@ function CaseItemAdminStudent(props) {
           <EditProfileForm
             updateForm={props.updateForm}
             userid={props.cases.userid}
-            cases={studentCase}
+            cases={studentProfile}
             type={"student"}
           />
         </div>

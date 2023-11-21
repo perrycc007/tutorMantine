@@ -1,6 +1,7 @@
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
 import Form from "./Form";
+import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
 import userStore from "../../stores/stores";
 import { use, useEffect, useState } from "react";
 function EditProfileForm(props) {
@@ -8,10 +9,10 @@ function EditProfileForm(props) {
   const [profile, setProfile] = useState({});
   const [tutorProfile, setTutorProfile] = useState({});
   const updateTutorFormHandler = (values) => {
-    props.updateTutorForm(props.cases.userId, values);
+    props.updateTutorForm(props.cases.userId, stripFormEventProperties(values));
   };
-  const updateFormHanlder = (value) => {
-    props.updateTutorForm(props.cases.userId, value);
+  const updateFormHanlder = (values) => {
+    props.updateForm(props.cases.userId, stripFormEventProperties(values));
   };
   const selectedHandler = () => {
     open();
@@ -31,6 +32,7 @@ function EditProfileForm(props) {
       setProfile(profile);
       setTutorProfile(NewData);
     } else {
+      console.log(props.cases);
       setProfile(props.cases);
     }
   }, [props.cases]);

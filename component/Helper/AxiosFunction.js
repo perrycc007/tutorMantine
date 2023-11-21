@@ -106,7 +106,7 @@ export async function updateProfileAdminAxios(getUserid, values) {
   const safeValues = parse(stringify(values));
   const information = { userid: getUserid, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
-    `http://localhost:3001/profile`,
+    `http://localhost:3001/admin/profile`,
     // `http://localhost:3001/profile/${getUserid}`,
     information
   );

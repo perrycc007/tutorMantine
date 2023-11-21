@@ -27,7 +27,7 @@ const PersonalInfoForm = (props) => {
       onSubmit={(event) => {
         event.preventDefault();
         form.setValues((prev) => ({ ...prev, ...event }));
-        const NewData = { ...props.data, ...form.values };
+        const NewData = { ...form.values };
         props.updateForm(NewData);
       }}
     >

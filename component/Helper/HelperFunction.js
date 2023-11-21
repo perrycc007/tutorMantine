@@ -44,6 +44,10 @@ export function stripFormEventProperties(event) {
     "defaultPrevented",
     "eventPhase",
     "isTrusted",
+    "nativeEvent",
+    "currentTarget",
+    "target",
+    "_targetInst",
   ];
   function stripProperties(obj, propsToRemove) {
     // Create a shallow copy of the object
@@ -86,3 +90,29 @@ export const isTokenExpired = (token) => {
     return false;
   }
 };
+
+export function cleanProfileObject(originalObject) {
+  const cleanedObject = {};
+  const keysToKeep = [
+    "address",
+    "agreewith",
+    "country",
+    "emergencycontact",
+    "emergencyphone",
+    "emergencyrelationship",
+    "findus",
+    "idprofile",
+    "language",
+    "name",
+    "nationality",
+    "phoneno",
+    "userid",
+  ];
+  for (const key of keysToKeep) {
+    if (originalObject.hasOwnProperty(key)) {
+      cleanedObject[key] = originalObject[key];
+    }
+  }
+
+  return cleanedObject;
+}

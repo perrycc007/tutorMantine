@@ -81,7 +81,6 @@ function Form(props) {
   useEffect(() => {
     setProfile(props.data);
     setTutor(props.tutorData);
-    console.log(props.data);
   }, [props.data]);
   return (
     <>
