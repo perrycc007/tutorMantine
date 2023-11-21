@@ -125,12 +125,17 @@ function CaseItemAdminStudent(props) {
               : "個案已封鎖"}
           </Button>
           <div>
-            <EditForm cases={studentCase} studentid={props.cases.studentid} />
+            <EditForm
+              cases={studentCase}
+              studentid={props.cases.studentid}
+              updateStudentForm={props.updateStudentForm}
+            />
           </div>
         </div>
 
         <div>
           <EditProfileForm
+            updateForm={props.updateForm}
             userid={props.cases.userid}
             cases={studentCase}
             type={"student"}

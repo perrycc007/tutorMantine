@@ -37,7 +37,8 @@ export default function AdminDisplay(props) {
             <CaseItemAdminStudent
               cases={studentInfo}
               toggleStatus={toggleStatus}
-              // adminInfo={adminInfo}
+              updateForm={props.updateForm}
+              updateStudentForm={props.updateStudentForm}
               admin="admin"
               type="cases"
             />
@@ -58,34 +59,35 @@ export default function AdminDisplay(props) {
               <div>
                 <CaseItemAdminTutor
                   cases={info}
-                  // adminInfo={adminInfo}
+                  updateForm={props.updateForm}
+                  updateTutorForm={props.updateTutorForm}
                   toggleCheck={toggleCheck}
                   toggleAvail={toggleAvail}
                   toggleStatus={toggleStatus}
                   toggleVerify={toggleVerify}
                   type="tutor"
                 />
-                <Group>
-                  <Button
-                    onClick={props.handlePreviousClick}
-                    disabled={props.page === 1}
-                  >
-                    ← Previous
-                  </Button>
-                  <p>
-                    {props.page}/{props.totalNumberofPage}
-                  </p>
-                  <Button
-                    onClick={props.handleNextClick}
-                    disabled={props.page === props.totalNumberofPage}
-                  >
-                    Next →
-                  </Button>
-                </Group>
               </div>
             );
           })}
         </Accordion>
+        <Group>
+          <Button
+            onClick={props.handlePreviousClick}
+            disabled={props.page === 1}
+          >
+            ← Previous
+          </Button>
+          <p>
+            {props.page}/{props.totalNumberofPage}
+          </p>
+          <Button
+            onClick={props.handleNextClick}
+            disabled={props.page === props.totalNumberofPage}
+          >
+            Next →
+          </Button>
+        </Group>
       </div>
     </Fragment>
   );

@@ -3,8 +3,11 @@ import NoSSR from "react-no-ssr";
 import { Loader } from "@mantine/core";
 import classes from "./adminResult.module.css";
 import { useEffect, useState, useRef } from "react";
-
+import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
 import {
+  updateProfileAdminAxios,
+  updateTutorAdminAxios,
+  updateStudentAdminAxios,
   getMatchResultByStudentIdAxios,
   getStudentList,
 } from "../../component/Helper/AxiosFunction";
@@ -15,6 +18,18 @@ const Result = () => {
   const [item, setItem] = useState([]);
   const [studentList, setStudentList] = useState([]);
   const [id, setId] = useState(1);
+  const updateFormHanlder = (userid, values) => {
+    updateProfileAdminAxios(userid, stripFormEventProperties(values));
+  };
+  const updateTutorFormHandler = (userid, values) => {
+    console.log(stripFormEventProperties(values));
+    updateTutorAdminAxios(userid, stripFormEventProperties(values));
+  };
+  const updateStudentFormHanlder = (userid, values) => {
+    console.log(stripFormEventProperties(values));
+    updateStudentAdminAxios(userid, stripFormEventProperties(values));
+  };
+
   const handleClick = () => {
     window.scrollTo({
       top: 0,
@@ -42,7 +57,7 @@ const Result = () => {
     try {
       const response = await getMatchResultByStudentIdAxios(id, page);
       setItem(response.data);
-      setTotalNumberofPage(response.data[0].total_counts);
+      setTotalNumberofPage(Math.ceil(response.data[0].total_counts / 5));
       setLoading(false);
       return response.data;
     } catch (err) {
@@ -82,6 +97,9 @@ const Result = () => {
             item={item}
             studentList={studentList}
             totalNumberofPage={totalNumberofPage}
+            updateStudentForm={updateStudentFormHanlder}
+            updateForm={updateFormHanlder}
+            updateTutorForm={updateTutorFormHandler}
             handlePreviousClick={handlePreviousClickHandler}
             handleNextClick={handleNextClickHandler}
             page={page}

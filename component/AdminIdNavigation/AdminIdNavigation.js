@@ -30,7 +30,7 @@ const AdminIdNavigation = (props) => {
   useEffect(() => {}, [Ids]);
   return (
     <div>
-      <Group>
+      <Group position="center" mt="md">
         <Button onClick={handlePreviousClick} disabled={currentPage === 0}>
           ← Previous
         </Button>
@@ -39,8 +39,6 @@ const AdminIdNavigation = (props) => {
             {id}
           </Button>
         ))}
-      </Group>
-      <Group position="center" mt="md">
         <Button
           onClick={handleNextClick}
           disabled={currentPage >= Math.ceil(totals / PerPAge) - 1}

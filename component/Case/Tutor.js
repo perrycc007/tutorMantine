@@ -79,15 +79,17 @@ const Tutor = (props) => {
 
       <div>
         <Accordion>
-          {_DATA.currentData().map((oneCase) => {
-            return (
-              <CaseAccordion
-                cases={oneCase}
-                type="cases"
-                toggleFavourite={toggleFavouriteTopHandler}
-              />
-            );
-          })}
+          {_DATA &&
+            _DATA.currentData().map((oneCase) => {
+              return (
+                <CaseAccordion
+                  key={oneCase.tutorid}
+                  cases={oneCase}
+                  type="cases"
+                  toggleFavourite={toggleFavouriteTopHandler}
+                />
+              );
+            })}
         </Accordion>
         <Pagination
           total={count}

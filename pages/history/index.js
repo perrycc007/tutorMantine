@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import userStore from "../../stores/stores";
 import CaseAccordion from "../../component/Case/CaseAccordion";
+import { updateStudentAxios } from "../../component/Helper/AxiosFunction";
 import {
   fetchHistory,
   toggleStatus,
@@ -10,7 +11,9 @@ const Cases = () => {
   const [loading, setLoading] = useState(true);
   const [type, setType] = useState("student");
   const getUserid = userStore((state) => state.userId);
-
+  const updateStudentFormHanlder = (userid, values) => {
+    updateStudentAxios(userid, stripFormEventProperties(values));
+  };
   useEffect(() => {
     async function fetchData() {
       try {
@@ -49,6 +52,7 @@ const Cases = () => {
               cases={cases}
               favourite={[]}
               type="edit"
+              updateStudentForm={updateStudentFormHanlder}
               toggleStatusHandler={toggleCaseStatusHandler}
             />
           ) : (

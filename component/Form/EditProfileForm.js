@@ -8,10 +8,10 @@ function EditProfileForm(props) {
   const [profile, setProfile] = useState({});
   const [tutorProfile, setTutorProfile] = useState({});
   const updateTutorFormHandler = (values) => {
-    props.updateTutorForm(values);
+    props.updateTutorForm(props.cases.userId, values);
   };
   const updateFormHanlder = (value) => {
-    props.updateTutorForm(values);
+    props.updateTutorForm(props.cases.userId, value);
   };
   const selectedHandler = () => {
     open();
@@ -19,13 +19,13 @@ function EditProfileForm(props) {
 
   useEffect(() => {
     if (props.type == "tutor") {
-      let { locations, subjects, availtimes, profile, ...item } = props.cases;
+      let { locations, subjects, availTimes, profile, ...item } = props.cases;
 
       const NewData = {
         ...item,
         locations: locations ? locations.split(",") : [],
         subjects: subjects ? subjects.split(",") : [],
-        availtimes: availtimes ? availtimes.split(",") : [],
+        availTimes: availTimes ? availTimes.split(",") : [],
       };
       console.log(profile);
       setProfile(profile);

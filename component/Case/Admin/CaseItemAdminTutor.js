@@ -82,85 +82,84 @@ function CaseItemAdminTutor(props) {
   };
 
   return (
-    <div>
-      <div>
-        <Accordion.Item key={info.idmatch} value={JSON.stringify(info.idmatch)}>
-          <Accordion.Control>
-            {Object.entries(heading).map(([key, value]) => (
-              <p className={classes.title} key={`${itemName[key]}value`}>
-                {typeof value == "object"
-                  ? value.map((item) => {
-                      return ` ${item}`;
-                    })
-                  : ""}
+    <Accordion.Item key={info.idmatch} value={JSON.stringify(info.idmatch)}>
+      <Accordion.Control>
+        {Object.entries(heading).map(([key, value]) => (
+          <p className={classes.title} key={`${itemName[key]}value`}>
+            {typeof value == "object"
+              ? value.map((item) => {
+                  return ` ${item}`;
+                })
+              : ""}
+          </p>
+        ))}
+        <p
+          className={classes.title}
+        >{`$${info.lowestFee}/小時-${info.highestFee}/小時`}</p>
+      </Accordion.Control>
+
+      <Accordion.Panel>
+        <p>履歷驗證狀態:{verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}</p>
+        <p className={classes.detail}>ID:{props.cases.tutorId}</p>
+        {Object.entries(info).map(
+          ([key, value]) =>
+            itemName[key] !== undefined &&
+            value !== null &&
+            key !== "subjectGrade" && (
+              <p className={classes.detail} key={itemName[key]}>
+                {itemName[key]}: {value}
               </p>
-            ))}
-            <p
-              className={classes.title}
-            >{`$${info.lowestFee}/小時-${info.highestFee}/小時`}</p>
-          </Accordion.Control>
-
-          <Accordion.Panel>
-            <p>
-              履歷驗證狀態:{verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}
+            )
+        )}
+        {info.subjectGrade &&
+          Object.entries(info.subjectGrade).map(([subjectKey, grade]) => (
+            <p className={classes.detail} key={subjectKey}>
+              {subjectKey} : {grade}
             </p>
-            <p className={classes.detail}>ID:{props.cases.tutorid}</p>
-            {Object.entries(info).map(
-              ([key, value]) =>
-                itemName[key] !== undefined &&
-                value !== null &&
-                key !== "subgrade" && (
-                  <p className={classes.detail} key={itemName[key]}>
-                    {itemName[key]}: {value}
-                  </p>
-                )
-            )}
-            {/* {info.subgrade &&
-                      JSON.parse(items.subgrade).map((item) => (
-                        <p className={classes.detail} key={item.id}>
-                          {item.id} : {item.value}
-                        </p>
-                      ))} */}
+          ))}
 
-            <div className={classes.buttonContainer}>
-              <div className={classes.summary}>
-                <p className={classes.detail}>{info.availTimes}</p>
-                <Button
-                  variant="outlined"
-                  onClick={() => StatusHandler(info.tutorId)}
-                >
-                  {status == "OPEN"
-                    ? "個案已公開"
-                    : status == "CLOSE"
-                    ? "個案已隱藏"
-                    : "個案已封鎖"}
-                </Button>
-                <Button
-                  variant="outlined"
-                  onClick={() => verifyHandler(info.tutorId)}
-                >
-                  {verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}
-                </Button>
-              </div>
+        <div className={classes.buttonContainer}>
+          <div className={classes.summary}>
+            <p className={classes.detail}>{info.availTimes}</p>
+            <Button
+              variant="outlined"
+              onClick={() => StatusHandler(info.tutorId)}
+            >
+              {status == "OPEN"
+                ? "個案已公開"
+                : status == "CLOSE"
+                ? "個案已隱藏"
+                : "個案已封鎖"}
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => verifyHandler(info.tutorId)}
+            >
+              {verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}
+            </Button>
+          </div>
 
-              <div>
-                <EditProfileForm cases={info} type={"tutor"} />
-              </div>
+          <div>
+            <EditProfileForm
+              updateForm={props.updateForm}
+              updateTutorForm={props.updateTutorForm}
+              cases={info}
+              type={"tutor"}
+            />
+          </div>
 
-              <div className={classes.heading}>
-                <Button onClick={() => toggleCheck(info.idmatch)}>
-                  {checkStatus}
-                </Button>
-                <Button onClick={() => toggleNotAvail(info.idmatch)}>
-                  {notAvailStatus ? "Not Available" : "Available"}
-                  {/* {props.isFavouriteTutor ? <IconHeartFilled /> : ""} */}
-                </Button>
-              </div>
-            </div>
-          </Accordion.Panel>
-        </Accordion.Item>
-      </div>
-    </div>
+          <div className={classes.heading}>
+            <Button onClick={() => toggleCheck(info.idmatch)}>
+              {checkStatus}
+            </Button>
+            <Button onClick={() => toggleNotAvail(info.idmatch)}>
+              {notAvailStatus ? "Not Available" : "Available"}
+              {/* {props.isFavouriteTutor ? <IconHeartFilled /> : ""} */}
+            </Button>
+          </div>
+        </div>
+      </Accordion.Panel>
+    </Accordion.Item>
   );
 }
 

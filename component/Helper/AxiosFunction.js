@@ -40,11 +40,11 @@ export async function toggleAvail(idmatch, availability) {
   return res;
 }
 
-export async function toggleStatus(id, status, type) {
+export async function toggleAdminStatus(id, status, type) {
   cookie.get("access_token");
   if (type == "cases") {
     const response = await axiosInstance(cookie.get("access_token")).patch(
-      url + `/history/updateCaseStatus`,
+      url + `/admin/updateCaseStatus`,
       {
         studentid: id,
         status: status,
@@ -53,7 +53,7 @@ export async function toggleStatus(id, status, type) {
     return response;
   } else {
     const response = await axiosInstance(cookie.get("access_token")).patch(
-      url + `/history/updateTutorStatus`,
+      url + `/admin/updateTutorStatus`,
       {
         tutorid: id,
         status: status,
@@ -75,7 +75,46 @@ export async function toggleVerify(id, verify) {
   return response;
 }
 
+// updateTutor
+
+export async function updateTutorAdminAxios(getUserid, values) {
+  const safeValues = parse(stringify(values));
+  const information = { userid: getUserid, ...safeValues };
+  const response = await axiosInstance(cookie.get("access_token")).patch(
+    `/admin/updateTutor`,
+    {
+      information,
+    }
+  );
+  return response;
+}
+// update student
+export async function updateStudentAdminAxios(getUserid, values) {
+  const safeValues = parse(stringify(values));
+  const information = { userid: getUserid, ...safeValues };
+  const response = await axiosInstance(cookie.get("access_token")).patch(
+    `/admin/updateStudent`,
+    {
+      userid: getUserid,
+      ...information,
+    }
+  );
+  return response;
+}
+// admin update user profile
+export async function updateProfileAdminAxios(getUserid, values) {
+  const safeValues = parse(stringify(values));
+  const information = { userid: getUserid, ...safeValues };
+  const response = await axiosInstance(cookie.get("access_token")).patch(
+    `http://localhost:3001/profile`,
+    // `http://localhost:3001/profile/${getUserid}`,
+    information
+  );
+  return response;
+}
+
 // AdminResult
+
 // export async function getMatchResultAxios(page) {
 //   cookie.get("access_token");
 //   const response = await axiosInstance(cookie.get("access_token")).get(

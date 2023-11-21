@@ -1,41 +1,39 @@
 import CaseAccordion from "./CaseAccordion";
-// import Filter from "./Filter";
+import AccordionFilter from "./AccordionFilter";
 import { Accordion, Pagination } from "@mantine/core";
+import usePagination from "./usePagination";
 import { useState, useEffect } from "react";
 import classes from "./Student.module.css";
 import userStore from "../../stores/stores";
 import {
   caseFilterAxios,
-  addFavouriteCaseAxios,
-  removeFavouriteCaseAxios,
+  addFavouriteStudentAxios,
+  removeFavouriteStudentAxios,
 } from "../Helper/AxiosFunction";
-import usePagination from "./usePagination";
-import AccordionFilter from "./AccordionFilter";
 const Student = (props) => {
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
   const [page, setPage] = useState(1);
+  const userid = userStore((state) => state.userId);
   const [filterForm, setFilterForm] = useState({
     locations: [],
     subjects: [],
     lowestfee: 100,
     highestfee: 200,
   });
-  const userid = userStore((state) => state.userId);
-  async function toggleFavouriteTopHandler(id, isFavourite) {
-    if (isFavourite) {
-      await removeFavouriteCaseAxios(userid, id);
-    } else {
-      await addFavouriteCaseAxios(userid, id);
-    }
-  }
-
   const filterFormHandler = (values) => {
     setFilterForm((prev) => ({ ...prev, ...values }));
   };
   const filterClickedHandler = () => {
     casesFilter(filterForm);
   };
+  async function toggleFavouriteTopHandler(id, isFavourite) {
+    if (isFavourite) {
+      await removeFavouriteStudentAxios(userid, id);
+    } else {
+      await addFavouriteStudentAxios(userid, id);
+    }
+  }
 
   const PER_PAGE = 15;
 
@@ -60,7 +58,6 @@ const Student = (props) => {
       handleClick();
     }
   };
-
   async function casesFilter(preference) {
     const result = await caseFilterAxios(preference);
     console.log(result.data);
@@ -80,28 +77,26 @@ const Student = (props) => {
           />
         )}
       </div>
-
-      <div>
-        <Accordion>
-          {_DATA.currentData().map((oneCase) => {
+      <Accordion>
+        {_DATA &&
+          _DATA.currentData().map((oneCase) => {
             return (
               <CaseAccordion
-                key={oneCase.studentid}
+                key={oneCase.tutorid}
                 cases={oneCase}
                 type="cases"
                 toggleFavourite={toggleFavouriteTopHandler}
               />
             );
           })}
-        </Accordion>
-        <Pagination
-          total={count}
-          page={page}
-          onChange={handleChange}
-          variant="outlined"
-          color="primary"
-        />
-      </div>
+      </Accordion>
+      <Pagination
+        total={count}
+        page={page}
+        onChange={handleChange}
+        variant="outlined"
+        color="primary"
+      />
     </div>
   );
 };

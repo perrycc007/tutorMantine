@@ -15,7 +15,7 @@ function Time(props) {
   };
   useEffect(() => {
     loadInitialValues(props.data).then((values) => {
-      setValue(values.availtimes || []);
+      setValue(values.availTimes || []);
       form.setValues(values);
       form.resetDirty(values);
     });
@@ -27,8 +27,8 @@ function Time(props) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setFieldValue("availtimes", value);
-        const NewData = { ...props.data, availtimes: value };
+        form.setFieldValue("availTimes", value);
+        const NewData = { ...props.data, availTimes: value };
         props.updateForm(NewData);
       }}
     >

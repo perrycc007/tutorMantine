@@ -56,7 +56,7 @@ function Form(props) {
       others: "",
       intro: "",
       locations: [],
-      availtimes: [],
+      availTimes: [],
       subjects: [],
       subjectGrade: {},
     },
