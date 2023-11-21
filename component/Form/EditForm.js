@@ -11,7 +11,7 @@ function EditForm(props) {
 
   const getUserid = userStore((state) => state.userId);
   const updateApplicationHandler = (value) => {
-    props.updateStudentForm(props.cases.studentid, { ...data, value });
+    props.updateStudentForm(data.studentid, { ...data, ...value });
     setData((prev) => ({
       ...prev,
       ...value,

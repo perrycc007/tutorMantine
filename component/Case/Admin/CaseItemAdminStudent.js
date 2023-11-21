@@ -70,13 +70,31 @@ function CaseItemAdminStudent(props) {
         locations: studentLocations ? studentLocations.split(",") : [],
         subjects: studentSubjects ? studentSubjects.split(",") : [],
       };
-      setStudentCase({
+      const studentInfo = {
         studentid: studentid,
-        ...items,
+        lowestfrequency: items.lowestfrequency,
+        lowestfee: items.lowestfee,
+        lowestduration: items.lowestduration,
+        language: items.language,
+        others: items.others,
+        expectation: items.expectation,
+        genderrequirement: items.genderrequirement,
+        status: items.status,
+        highestfee: items.highestfee,
+        highestfrequency: items.highestfrequency,
+        highestduration: items.highestduration,
+        level: items.level,
+        lastOnline: items.lastOnline,
+        userid: items.userid,
+        favourites: items.favourites,
+        matches: items.matches,
+        user: items.user,
         locations: studentLocations,
         subjects: studentSubjects,
         availtimes: studentAvailTimes,
-      });
+      };
+
+      setStudentCase(studentInfo);
       console.log(heading);
       setHeading(heading);
       const availtimeArray = studentAvailTimes
