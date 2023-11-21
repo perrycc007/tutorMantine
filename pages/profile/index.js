@@ -11,25 +11,25 @@ import {
 const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [isTutor, serIsTutor] = useState("tutor");
-  const getUserid = userStore((state) => state.userId);
+  const getuserId = userStore((state) => state.userId);
   const Profile = userStore((state) => state.Profile);
   const TutorProfile = userStore((state) => state.TutorProfile);
   const updateProfile = userStore((state) => state.updateProfile);
   const updateTutor = userStore((state) => state.updateTutor);
   const updateFormHanlder = (values) => {
     updateProfile(stripFormEventProperties(values));
-    updateProfileAxios(getUserid, stripFormEventProperties(values));
+    updateProfileAxios(getuserId, stripFormEventProperties(values));
   };
   const updateTutorFormHandler = (values) => {
     updateTutor(stripFormEventProperties(values));
     console.log(stripFormEventProperties(values));
-    updateTutorAxios(getUserid, stripFormEventProperties(values));
+    updateTutorAxios(getuserId, stripFormEventProperties(values));
   };
   useEffect(() => {
     async function fetchData() {
       try {
         const [profileResponse, tutorResponse] = await fetchProfileData(
-          getUserid
+          getuserId
         );
         updateProfile(profileResponse);
         updateTutor(tutorResponse);

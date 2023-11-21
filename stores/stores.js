@@ -209,7 +209,7 @@ let store = (set) => ({
   fetchFavouriteTutor: async (id) => {
     const res = await fetchFavouriteTutor(id);
     if (res.data != null) {
-      set({ favouriteTutor: await res.data.favouritetutorid });
+      set({ favouriteTutor: await res.data.favouritetutorId });
     }
   },
   fetchFavouriteCases: async (id) => {
@@ -218,18 +218,18 @@ let store = (set) => ({
       set({ favouriteCase: await res.data.favouritecaseid });
     }
   },
-  addUserid: (userid) => set({ userId: userid }),
-  loginUserid: () => {
+  adduserId: (userId) => set({ userId: userId }),
+  loginuserId: () => {
     set({ isLoggedin: true });
   },
-  logoutUserid: () => {
+  logoutuserId: () => {
     Cookies.remove("access_token");
     clearLocalStorage();
     set(initialState);
     window.location.href = "/auth";
   },
   cleanFavourite: () => set({ favourite: [] }),
-  removeUserid: () => set({ userId: null }),
+  removeuserId: () => set({ userId: null }),
   setFavouriteTutor: (newFavourite) => set({ favouriteTutor: newFavourite }),
   setFavouriteCase: (newFavourite) => set({ favouriteCase: newFavourite }),
   toggleIstutor: (Mode) => set({ isTutor: Mode }),
@@ -239,7 +239,7 @@ let store = (set) => ({
     const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
 
     if (currentTime - loginTime > sevenDaysInMs) {
-      store.logoutUserid();
+      store.logoutuserId();
     }
   },
 });

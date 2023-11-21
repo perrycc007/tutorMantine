@@ -10,14 +10,14 @@ const Cases = () => {
   const [cases, setCases] = useState(null);
   const [loading, setLoading] = useState(true);
   const [type, setType] = useState("student");
-  const getUserid = userStore((state) => state.userId);
-  const updateStudentFormHanlder = (userid, values) => {
-    updateStudentAxios(userid, stripFormEventProperties(values));
+  const getuserId = userStore((state) => state.userId);
+  const updateStudentFormHanlder = (userId, values) => {
+    updateStudentAxios(userId, stripFormEventProperties(values));
   };
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await fetchHistory(getUserid);
+        const result = await fetchHistory(getuserId);
         console.log(result.data);
         setCases(result.data);
         setLoading(false);

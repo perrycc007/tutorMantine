@@ -9,14 +9,14 @@ import InvalidResetLink from "../../../../component/ResetPassword/InvalidResetLi
 const ResetPasswordPage = () => {
   const router = useRouter();
   const { token } = router.query;
-  const { userid } = router.query;
+  const { userId } = router.query;
   const [linkValid, setLinkValid] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    console.log(userid, token);
+    console.log(userId, token);
 
     if (token != null) {
-      VerifyResetPasswordAxios(userid, token)
+      VerifyResetPasswordAxios(userId, token)
         .then((res) => {
           console.log(res);
           setLoading(false);

@@ -33,7 +33,7 @@ const ResetPasswordForm = (props) => {
     console.log(passwordInputRef.current.value);
     async function ResetPassword() {
       const res = await Axios.post(
-        `http://localhost:3001/resetPassword/${props.userid}`,
+        `http://localhost:3001/resetPassword/${props.userId}`,
         {
           password: enteredPassword,
         }

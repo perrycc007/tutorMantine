@@ -106,7 +106,7 @@ export function cleanProfileObject(originalObject) {
     "name",
     "nationality",
     "phoneno",
-    "userid",
+    "userId",
   ];
   for (const key of keysToKeep) {
     if (originalObject.hasOwnProperty(key)) {

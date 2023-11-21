@@ -18,7 +18,7 @@ const ProfileForm = (props) => {
   const [profileData, setProfileData] = useState(props.profile);
   const [tutorData, setTutorData] = useState(props.tutor);
   const [changes, setChanges] = useState(false);
-  const getUserid = userStore((state) => state.userId);
+  const getuserId = userStore((state) => state.userId);
   const [page, setPage] = useState(1);
   const handleClick = () => {
     window.scrollTo({
@@ -47,8 +47,8 @@ const ProfileForm = (props) => {
     setProfileData(newInfo);
     setChanges(true);
     Axios.post(`http://localhost:3001/profile/`, {
-      userid: getUserid ? getUserid : props.profile.userid,
-      tutorid: getUserid ? getUserid : props.tutor.tutorid,
+      userId: getuserId ? getuserId : props.profile.userId,
+      tutorId: getuserId ? getuserId : props.tutor.tutorId,
       information: newInfo,
     })
       .then((value) => {})
@@ -66,11 +66,11 @@ const ProfileForm = (props) => {
     setTutorData(newInfo);
     setChanges(true);
     const response = await Axios.patch(`http://localhost:3001/tutor/`, {
-      userid: getUserid ? getUserid : props.profile.userid,
+      userId: getuserId ? getuserId : props.profile.userId,
       information: newInfo,
     });
     const match = await Axios.post(`http://localhost:3001/match/tutor`, {
-      userid: getUserid ? getUserid : props.profile.userid,
+      userId: getuserId ? getuserId : props.profile.userId,
       information: newInfo,
     });
     response.data.result;
@@ -82,13 +82,13 @@ const ProfileForm = (props) => {
     setTutorData(newInfo);
     setChanges(true);
     const response = await Axios.patch(`http://localhost:3001/tutor`, {
-      userid: getUserid ? getUserid : props.profile.userid,
-      // tutorid: getUserid,
+      userId: getuserId ? getuserId : props.profile.userId,
+      // tutorId: getuserId,
       information: newInfo,
     });
     const match = await Axios.patch(`http://localhost:3001/match/tutor`, {
-      userid: getUserid ? getUserid : props.profile.userid,
-      // tutorid: getUserid,
+      userId: getuserId ? getuserId : props.profile.userId,
+      // tutorId: getuserId,
       information: newInfo,
     });
     response.data;
@@ -105,7 +105,7 @@ const ProfileForm = (props) => {
                 <BasicInfo
                   submitHandler={submitHandler}
                   info={changes ? profileData : props.profile}
-                  userid={getUserid}
+                  userId={getuserId}
                 />
               )}
               {page == 2 && (

@@ -10,7 +10,7 @@ import userStore from "../stores/stores";
 import { isTokenExpired } from "../component/Helper/HelperFunction";
 import cookie from "js-cookie";
 export default function App({ Component, pageProps }: any) {
-  const logout = userStore((state) => state.logoutUserid);
+  const logout = userStore((state) => state.logoutuserId);
   const isLoggedin = userStore((state) => state.isLoggedin);
   useEffect(() => {
     const token = cookie.get("access_token"); // Function to get the token from cookies

@@ -9,9 +9,9 @@ function EditForm(props) {
   const [opened, { open, close }] = useDisclosure(false);
   const [data, setData] = useState(props.cases);
 
-  const getUserid = userStore((state) => state.userId);
+  const getuserId = userStore((state) => state.userId);
   const updateApplicationHandler = (value) => {
-    props.updateStudentForm(data.studentid, { ...data, ...value });
+    props.updateStudentForm(data.studentId, { ...data, ...value });
     setData((prev) => ({
       ...prev,
       ...value,
@@ -43,7 +43,7 @@ function EditForm(props) {
       >
         <StudentApply
           data={data}
-          studentid={props.studentid}
+          studentId={props.studentId}
           type="history"
           updateApplication={updateApplicationHandler}
         ></StudentApply>

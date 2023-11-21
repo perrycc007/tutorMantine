@@ -4,7 +4,7 @@ import { Loader } from "@mantine/core";
 import classes from "./adminResult.module.css";
 import { useEffect, useState, useRef } from "react";
 import {
-  getMatchResultByTutorIdAxios,
+  getMatchResultBytutorIdAxios,
   getTutorList,
 } from "../../component/Helper/AxiosFunction";
 const Result = () => {
@@ -16,12 +16,12 @@ const Result = () => {
   const [id, setId] = useState(1);
   const pageNumberHandler = (p) => {
     setPage(p);
-    getMatchResultByTutorId(id, page);
+    getMatchResultBytutorId(id, page);
   };
-  async function getMatchResultByTutorId(studentId, page) {
+  async function getMatchResultBytutorId(studentId, page) {
     setLoading(true);
     try {
-      const response = await getMatchResultByTutorIdAxios(studentId, page);
+      const response = await getMatchResultBytutorIdAxios(studentId, page);
       console.log(response.data);
       setItem(response.data);
       // setTotalNumberofPage(response.data[1].totalNumberofMatch);
@@ -35,13 +35,13 @@ const Result = () => {
   }
   const getMatchById = (id) => {
     setId(id);
-    getMatchResultByTutorId(id, page);
+    getMatchResultBytutorId(id, page);
   };
   useEffect(() => {
     const response = getTutorList();
     console.log(response.data);
     // setTotalNumberofPage(response.data.count);
-    // setTutorList(response.data.tutorid);
+    // setTutorList(response.data.tutorId);
   }, [page]);
   return (
     <div>
@@ -50,7 +50,7 @@ const Result = () => {
         {loading && <Loader />}
         {/* {!loading && (
           <div className={classes.searchbar}>
-            <TextInput inputRef={studentidRef} />{" "}
+            <TextInput inputRef={studentIdRef} />{" "}
             <Button onClick={getSingleMatchResult}>Search</Button>
           </div>
         )} */}

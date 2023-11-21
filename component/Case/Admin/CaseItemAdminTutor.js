@@ -30,25 +30,25 @@ function CaseItemAdminTutor(props) {
     }
   };
 
-  const verifyHandler = (tutorid) => {
+  const verifyHandler = (tutorId) => {
     if (verify == "VERIFIED") {
       setVerify("NOT_VERIFIED");
-      props.toggleVerify(tutorid, "NOT_VERIFIED");
+      props.toggleVerify(tutorId, "NOT_VERIFIED");
     } else if (verify == "NOT_VERIFIED") {
       setVerify("VERIFIED");
-      props.toggleVerify(tutorid, "VERIFIED");
+      props.toggleVerify(tutorId, "VERIFIED");
     }
   };
-  const StatusHandler = (tutorid) => {
+  const StatusHandler = (tutorId) => {
     if (status == "OPEN") {
       setStatus("CLOSE");
-      props.toggleStatus(tutorid, "CLOSE", props.type);
+      props.toggleStatus(tutorId, "CLOSE", props.type);
     } else if (status == "CLOSE") {
       setStatus("BLOCKED");
-      props.toggleStatus(tutorid, "BLOCKED", props.type);
+      props.toggleStatus(tutorId, "BLOCKED", props.type);
     } else if (status == "BLOCKED") {
       setStatus("OPEN");
-      props.toggleStatus(tutorid, "OPEN", props.type);
+      props.toggleStatus(tutorId, "OPEN", props.type);
     }
   };
   const toggleNotAvail = (idmatch) => {

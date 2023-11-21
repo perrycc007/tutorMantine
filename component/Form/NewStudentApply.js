@@ -25,7 +25,7 @@ function NewStudentApply() {
   });
   const [firstTime, setFirstTime] = useState(true);
   const [loading, setLoading] = useState(true);
-  const getUserid = userStore((state) => state.userId);
+  const getuserId = userStore((state) => state.userId);
   const updateNewStudentApplication = userStore(
     (state) => state.updateNewStudentApplication
   );
@@ -34,25 +34,25 @@ function NewStudentApply() {
 
     if (firstTime) {
       createStudentAxios(
-        getUserid,
+        getuserId,
         stripFormEventProperties({ ...data, ...values })
       ).then((response) => {
-        console.log(response.data.studentid);
+        console.log(response.data.studentId);
         updateNewStudentApplication({
           ...values,
-          studentid: response.data.studentid,
+          studentId: response.data.studentId,
         });
         setLoading(false);
         setData((prev) => ({
           ...prev,
           ...values,
-          studentid: response.data.studentid,
+          studentId: response.data.studentId,
         }));
         setFirstTime(false);
       });
     } else {
       updateStudentAxios(
-        getUserid,
+        getuserId,
         stripFormEventProperties({ ...data, ...values })
       );
       setData((prev) => ({

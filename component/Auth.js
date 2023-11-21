@@ -10,8 +10,8 @@ import cookie from "js-cookie";
 const AuthForm = () => {
   const router = useRouter();
   const form = useUserForm();
-  const addUserid = useStore((state) => state.addUserid);
-  const loginAction = useStore((state) => state.loginUserid);
+  const adduserId = useStore((state) => state.adduserId);
+  const loginAction = useStore((state) => state.loginuserId);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const switchAuthModeHandler = () => {
@@ -35,7 +35,7 @@ const AuthForm = () => {
       .then((res) => {
         console.log(res.accessToken);
         cookie.set("access_token", res.accessToken, { expires: 1 / 24 }); // 1 hour expiration
-        addUserid(res.userid);
+        adduserId(res.userId);
         loginAction();
         router.push("/cases");
       })

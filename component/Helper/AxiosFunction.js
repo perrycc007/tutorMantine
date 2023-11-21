@@ -2,6 +2,7 @@ import Axios from "Axios";
 import { stringify, parse } from "flatted";
 import userStore from "../../stores/stores";
 import cookie from "js-cookie";
+import exp from "constants";
 
 const url = "http://localhost:3001";
 const axiosInstance = (accesstoken) => {
@@ -55,7 +56,7 @@ export async function toggleAdminStatus(id, status, type) {
     const response = await axiosInstance(cookie.get("access_token")).patch(
       url + `/admin/updateTutorStatus`,
       {
-        tutorid: id,
+        tutorId: id,
         status: status,
       }
     );
@@ -68,7 +69,7 @@ export async function toggleVerify(id, verify) {
   const response = await axiosInstance(cookie.get("access_token")).patch(
     url + `/admin/updateTutorVerify`,
     {
-      tutorid: id,
+      tutorId: id,
       verify: verify,
     }
   );
@@ -77,9 +78,9 @@ export async function toggleVerify(id, verify) {
 
 // updateTutor
 
-export async function updateTutorAdminAxios(getUserid, values) {
+export async function updateTutorAdminAxios(getuserId, values) {
   const safeValues = parse(stringify(values));
-  const information = { userid: getUserid, ...safeValues };
+  const information = { userId: getuserId, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
     `/admin/updateTutor`,
     {
@@ -89,25 +90,25 @@ export async function updateTutorAdminAxios(getUserid, values) {
   return response;
 }
 // update student
-export async function updateStudentAdminAxios(getUserid, values) {
+export async function updateStudentAdminAxios(getuserId, values) {
   const safeValues = parse(stringify(values));
-  const information = { userid: getUserid, ...safeValues };
+  const information = { userId: getuserId, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
     `/admin/updateStudent`,
     {
-      userid: getUserid,
+      userId: getuserId,
       ...information,
     }
   );
   return response;
 }
 // admin update user profile
-export async function updateProfileAdminAxios(getUserid, values) {
+export async function updateProfileAdminAxios(getuserId, values) {
   const safeValues = parse(stringify(values));
-  const information = { userid: getUserid, ...safeValues };
+  const information = { userId: getuserId, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
     `http://localhost:3001/admin/profile`,
-    // `http://localhost:3001/profile/${getUserid}`,
+    // `http://localhost:3001/profile/${getuserId}`,
     information
   );
   return response;
@@ -122,38 +123,38 @@ export async function updateProfileAdminAxios(getUserid, values) {
 //   );
 //   return response;
 // }
-export async function getMatchResultByStudentIdAxios(enteredStudentId, page) {
+export async function getMatchResultBystudentIdAxios(enteredstudentId, page) {
   console.log(page);
   const response = await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/result/studentid/${enteredStudentId}?page=${page}`
+    `http://localhost:3001/result/studentId/${enteredstudentId}?page=${page}`
   );
   return response;
 }
 
-export async function getMatchResultByTutorIdAxios(enteredTutorId, page) {
+export async function getMatchResultBytutorIdAxios(enteredtutorId, page) {
   const response = await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/result/studentid/${enteredTutorId}?page=${page}`
+    `http://localhost:3001/result/studentId/${enteredtutorId}?page=${page}`
   );
   return response;
 }
 
 export async function getStudentList() {
   const response = await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/result/studentidSorted`
+    `http://localhost:3001/result/studentIdSorted`
   );
   return response;
 }
 export async function getTutorList() {
   const response = await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/result/tutoridSorted`
+    `http://localhost:3001/result/tutorIdSorted`
   );
   return response;
 }
 
-export async function getTutor(enteredTutorId) {
+export async function getTutor(enteredtutorId) {
   cookie.get("access_token");
   const response = await Axios.get(
-    `http://localhost:3001/tutor/${enteredTutorId}`
+    `http://localhost:3001/tutor/${enteredtutorId}`
   );
   return response;
 }
@@ -195,9 +196,9 @@ export async function tutorFilterWithFavouriteAxios(preference) {
   return response;
 }
 
-export async function updateTutorAxios(getUserid, values) {
+export async function updateTutorAxios(getuserId, values) {
   const safeValues = parse(stringify(values));
-  const information = { userid: getUserid, ...safeValues };
+  const information = { userId: getuserId, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
     `/tutors`,
     {
@@ -208,54 +209,54 @@ export async function updateTutorAxios(getUserid, values) {
 }
 
 // Student
-export async function updateStudentAxios(getUserid, values) {
+export async function updateStudentAxios(getuserId, values) {
   const safeValues = parse(stringify(values));
-  const information = { userid: getUserid, ...safeValues };
+  const information = { userId: getuserId, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
     `/students`,
     {
-      userid: getUserid,
+      userId: getuserId,
       ...information,
     }
   );
   return response;
 }
 
-export async function createStudentAxios(getUserid, values) {
+export async function createStudentAxios(getuserId, values) {
   const safeValues = parse(stringify(values));
-  const information = { userid: getUserid, ...safeValues };
+  const information = { userId: getuserId, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).post(
     `/students`,
-    { userid: getUserid, ...information }
+    { userId: getuserId, ...information }
   );
   return response;
 }
 
 // Profile
-export async function fetchProfileData(getUserid) {
+export async function fetchProfileData(getuserId) {
   const [profileResponse, tutorResponse] = await Promise.all([
-    axiosInstance(cookie.get("access_token")).get(`/profile/${getUserid}`),
-    axiosInstance(cookie.get("access_token")).get(`/tutors/${getUserid}`),
+    axiosInstance(cookie.get("access_token")).get(`/profile/${getuserId}`),
+    axiosInstance(cookie.get("access_token")).get(`/tutors/${getuserId}`),
   ]);
   console.log(tutorResponse.data);
   return [profileResponse.data, tutorResponse.data];
 }
 
-export async function updateProfileAxios(getUserid, values) {
+export async function updateProfileAxios(getuserId, values) {
   const safeValues = parse(stringify(values));
-  const information = { userid: getUserid, ...safeValues };
+  const information = { userId: getuserId, ...safeValues };
   const response = await axiosInstance(cookie.get("access_token")).patch(
     `http://localhost:3001/profile`,
-    // `http://localhost:3001/profile/${getUserid}`,
+    // `http://localhost:3001/profile/${getuserId}`,
     information
   );
   return response;
 }
 
 // history
-export async function fetchHistory(getUserid) {
+export async function fetchHistory(getuserId) {
   const response = await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/history/${getUserid}`
+    `http://localhost:3001/history/${getuserId}`
   );
   return response;
 }
@@ -294,77 +295,65 @@ export async function caseFilterAxiosWithFavourite(preference) {
 
 // Favourite
 // remove favourite tutor
-export async function removeFavouriteTutorAxios(userid, tutorid) {
+export async function removeFavouriteTutorAxios(userId, tutorId) {
   const response = await axiosInstance(cookie.get("access_token")).delete(
     `http://localhost:3001/favourite/removeTutor`,
     {
-      userid: userid,
-      tutorid: tutorid,
+      userId: userId,
+      tutorId: tutorId,
     }
   );
   return response;
 }
 
 // remove favourite case
-export async function removeFavouriteCaseAxios(userid, studentid) {
-  console.log(userid, studentid);
+export async function removeFavouriteCaseAxios(userId, studentId) {
+  console.log(userId, studentId);
   const response = await axiosInstance(cookie.get("access_token")).delete(
     `http://localhost:3001/favourite/removeStudent`,
     {
-      userid: userid,
-      studentid: studentid,
+      userId: userId,
+      studentId: studentId,
     }
   );
   return response;
 }
 
 // add favourite tutor
-export async function addFavouriteTutorAxios(userid, tutorid) {
+export async function addFavouriteTutorAxios(userId, tutorId) {
   const response = await axiosInstance(cookie.get("access_token")).post(
     `http://localhost:3001/favourite/addTutor`,
     {
-      userid: userid,
-      tutorid: tutorid,
+      userId: userId,
+      tutorId: tutorId,
     }
   );
   return response;
 }
 // add favourite case
-export async function addFavouriteCaseAxios(userid, studentid) {
-  console.log(userid, studentid);
+export async function addFavouriteCaseAxios(userId, studentId) {
+  console.log(userId, studentId);
   const response = await axiosInstance(cookie.get("access_token")).post(
     `http://localhost:3001/favourite/addStudent`,
     {
-      userid: userid,
-      studentid: studentid,
+      userId: userId,
+      studentId: studentId,
     }
   );
   return response;
 }
-
-// Store
-export async function fetchFavouriteTutor(getUserid) {
-  return await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/favourite/tutors/${getUserid}`
-  );
-}
-export async function fetchFavouriteCases(getUserid) {
-  return await axiosInstance(cookie.get("access_token")).get(
-    `http://localhost:3001/favourite/cases/${getUserid}`
-  );
-}
-
-// Favourite
-export async function getFavouriteTutorListAxios(getUserid) {
-  const response = await axiosInstance(cookie.get("access_token")).post(
-    `http://localhost:3001/tutor/getFavouriteCase/${getUserid}`
+// get student favourite list
+export async function getFavouriteStudentListAxios(getuserId) {
+  const response = await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/favourite/students/${getuserId}`
   );
   return response;
 }
 
-export async function getFavouriteStudentListAxios(getUserid) {
-  const response = await axiosInstance(cookie.get("access_token")).post(
-    `http://localhost:3001/students/getFavouriteCase/${getUserid}`
+// get tutor favourite list
+export async function getFavouriteTutorListAxios(getuserId) {
+  const response = await axiosInstance(cookie.get("access_token")).get(
+    `http://localhost:3001/favourite/tutors/${getuserId}`
   );
   return response;
 }
@@ -378,9 +367,9 @@ export async function resetPasswordLinkAxios(enteredEmail) {
 }
 
 // ResetPassword
-export async function ResetPasswordAxios(userid, token, enteredPassword) {
+export async function ResetPasswordAxios(userId, token, enteredPassword) {
   const res = await Axios.post(
-    `http://localhost:3001/forgetPassword/${userid}/${token}`,
+    `http://localhost:3001/forgetPassword/${userId}/${token}`,
     {
       password: enteredPassword,
     }
@@ -405,9 +394,9 @@ export async function logIn(isLogin, enteredEmail, enteredPassword) {
 }
 
 // resetPassword
-export async function VerifyResetPasswordAxios(userid, token) {
+export async function VerifyResetPasswordAxios(userId, token) {
   const res = await Axios.get(
-    `http://localhost:3001/forgetPassword/${userid}/${token}`
+    `http://localhost:3001/forgetPassword/${userId}/${token}`
   );
   return res;
 }

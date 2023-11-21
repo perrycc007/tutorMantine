@@ -14,7 +14,7 @@ const Tutor = (props) => {
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
   const [page, setPage] = useState(1);
-  const userid = userStore((state) => state.userId);
+  const userId = userStore((state) => state.userId);
   const [filterForm, setFilterForm] = useState({
     locations: [],
     subjects: [],
@@ -29,9 +29,9 @@ const Tutor = (props) => {
   };
   async function toggleFavouriteTopHandler(id, isFavourite) {
     if (isFavourite) {
-      await removeFavouriteTutorAxios(userid, id);
+      await removeFavouriteTutorAxios(userId, id);
     } else {
-      await addFavouriteTutorAxios(userid, id);
+      await addFavouriteTutorAxios(userId, id);
     }
   }
 
@@ -83,7 +83,7 @@ const Tutor = (props) => {
             _DATA.currentData().map((oneCase) => {
               return (
                 <CaseAccordion
-                  key={oneCase.tutorid}
+                  key={oneCase.tutorId}
                   cases={oneCase}
                   type="cases"
                   toggleFavourite={toggleFavouriteTopHandler}

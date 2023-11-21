@@ -59,7 +59,7 @@ const CaseAccordion = (props) => {
           {props.type == "edit" && (
             <EditForm
               cases={oneCaseCopy}
-              studentid={props.cases.studentid}
+              studentId={props.cases.studentId}
               updateStudentForm={props.updateStudentForm}
             />
           )}

@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const passwordInputRef = useRef();
   const confirmPasswordInputRef = useRef();
   const { token } = router.query;
-  const { userid } = router.query;
+  const { userId } = router.query;
   const [resetComplete, setResetComplete] = useState(false);
 
   const submitHandler = (event) => {
@@ -20,7 +20,7 @@ const ResetPassword = () => {
     const enteredConfirmPassword = confirmPasswordInputRef.current.value;
 
     if (enteredPassword === enteredConfirmPassword) {
-      ResetPasswordAxios(userid, token, enteredPassword)
+      ResetPasswordAxios(userId, token, enteredPassword)
         .then((res) => {
           if (res.status === 200) {
             setResetComplete(true);

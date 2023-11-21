@@ -21,21 +21,21 @@ function CaseItemAdminStudent(props) {
     if (status == "OPEN") {
       setStatus("CLOSE");
       props.toggleStatus(
-        props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,
+        props.type == "tutor" ? props.cases.tutorId : props.cases.studentId,
         "CLOSE",
         props.type
       );
     } else if (status == "CLOSE") {
       setStatus("BLOCKED");
       props.toggleStatus(
-        props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,
+        props.type == "tutor" ? props.cases.tutorId : props.cases.studentId,
         "BLOCKED",
         props.type
       );
     } else if (status == "BLOCKED") {
       setStatus("OPEN");
       props.toggleStatus(
-        props.type == "tutor" ? props.cases.tutorid : props.cases.studentid,
+        props.type == "tutor" ? props.cases.tutorId : props.cases.studentId,
         "OPEN",
         props.type
       );
@@ -61,7 +61,7 @@ function CaseItemAdminStudent(props) {
         studentLocations,
         studentSubjects,
         studentAvailTimes,
-        studentid,
+        studentId,
         address,
         agreewith,
         country,
@@ -76,18 +76,16 @@ function CaseItemAdminStudent(props) {
         others,
         phoneno,
         status,
-        userid,
+        userId,
         ...items
       } = props.cases;
       setItems(items);
-
-      console.log(items);
       let heading = {
         locations: studentLocations ? studentLocations.split(",") : [],
         subjects: studentSubjects ? studentSubjects.split(",") : [],
       };
       const studentInfo = {
-        studentid: studentid,
+        studentId: studentId,
         locations: studentLocations,
         subjects: studentSubjects,
         availtimes: studentAvailTimes,
@@ -106,7 +104,7 @@ function CaseItemAdminStudent(props) {
         name,
         nationality,
         phoneno,
-        userid,
+        userId,
       };
       setStudentCase(studentInfo);
       setStudentProfile(profile);
@@ -128,7 +126,7 @@ function CaseItemAdminStudent(props) {
       ))}
       <p className={classes.title}>{`$${fee}/小時`}</p>
 
-      <p className={classes.detail}>ID:{props.cases.studentid}</p>
+      <p className={classes.detail}>ID:{props.cases.studentId}</p>
       {Object.entries(items).map(
         ([key, value]) =>
           itemName[key] !== undefined &&
@@ -144,7 +142,7 @@ function CaseItemAdminStudent(props) {
         <div className={classes.summary}>
           {availtimeArray.map((time) => (
             <p
-              key={`${props.cases.studentid + time}`}
+              key={`${props.cases.studentId + time}`}
               className={classes.detail}
             >
               {time}
@@ -160,7 +158,7 @@ function CaseItemAdminStudent(props) {
           <div>
             <EditForm
               cases={studentCase}
-              studentid={props.cases.studentid}
+              studentId={props.cases.studentId}
               updateStudentForm={props.updateStudentForm}
             />
           </div>
@@ -169,7 +167,7 @@ function CaseItemAdminStudent(props) {
         <div>
           <EditProfileForm
             updateForm={props.updateForm}
-            userid={props.cases.userid}
+            userId={props.cases.userId}
             cases={studentProfile}
             type={"student"}
           />

@@ -11,7 +11,7 @@ import {
   updateProfileAdminAxios,
   updateTutorAdminAxios,
   updateStudentAdminAxios,
-  getMatchResultByStudentIdAxios,
+  getMatchResultBystudentIdAxios,
   getStudentList,
 } from "../../component/Helper/AxiosFunction";
 const Result = () => {
@@ -21,20 +21,20 @@ const Result = () => {
   const [item, setItem] = useState([]);
   const [studentList, setStudentList] = useState([]);
   const [id, setId] = useState(1);
-  const updateFormHanlder = (userid, values) => {
+  const updateFormHanlder = (userId, values) => {
     // console.log(cleanProfileObject(stripFormEventProperties(values)));
     updateProfileAdminAxios(
-      userid,
+      userId,
       cleanProfileObject(stripFormEventProperties(values))
     );
   };
-  const updateTutorFormHandler = (userid, values) => {
+  const updateTutorFormHandler = (userId, values) => {
     console.log(stripFormEventProperties(values));
-    updateTutorAdminAxios(userid, stripFormEventProperties(values));
+    updateTutorAdminAxios(userId, stripFormEventProperties(values));
   };
-  const updateStudentFormHanlder = (userid, values) => {
+  const updateStudentFormHanlder = (userId, values) => {
     console.log(stripFormEventProperties(values));
-    updateStudentAdminAxios(userid, stripFormEventProperties(values));
+    updateStudentAdminAxios(userId, stripFormEventProperties(values));
   };
 
   const handleClick = () => {
@@ -47,7 +47,7 @@ const Result = () => {
   const handlePreviousClickHandler = () => {
     if (page > 1) {
       setPage((prev) => prev - 1);
-      getMatchResultByStudentId(id, page - 1);
+      getMatchResultBystudentId(id, page - 1);
     }
   };
   const handleNextClickHandler = () => {
@@ -55,14 +55,14 @@ const Result = () => {
       return;
     } else {
       setPage((prev) => prev + 1);
-      getMatchResultByStudentId(id, page + 1);
+      getMatchResultBystudentId(id, page + 1);
     }
   };
 
-  async function getMatchResultByStudentId(id, page) {
+  async function getMatchResultBystudentId(id, page) {
     setLoading(true);
     try {
-      const response = await getMatchResultByStudentIdAxios(id, page);
+      const response = await getMatchResultBystudentIdAxios(id, page);
       setItem(response.data);
       setTotalNumberofPage(Math.ceil(response.data[0].total_counts / 5));
       setLoading(false);
@@ -74,7 +74,7 @@ const Result = () => {
   }
   async function getMatchById(studentId) {
     setId(studentId);
-    const response = await getMatchResultByStudentId(studentId, 1);
+    const response = await getMatchResultBystudentId(studentId, 1);
     return response;
   }
 
@@ -85,7 +85,7 @@ const Result = () => {
   useEffect(() => {
     getIdList();
     // setTotalNumberofPage(response.data.count);
-    // setStudentList(response.data.studentid);
+    // setStudentList(response.data.studentId);
   }, [page]);
   return (
     <div>
@@ -94,7 +94,7 @@ const Result = () => {
         {loading && <Loader />}
         {/* {!loading && (
           <div className={classes.searchbar}>
-            <TextInput inputRef={studentidRef} />{" "}
+            <TextInput inputRef={studentIdRef} />{" "}
             <Button onClick={getSingleMatchResult}>Search</Button>
           </div>
         )} */}
