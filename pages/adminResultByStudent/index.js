@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import {
   stripFormEventProperties,
   cleanProfileObject,
+  cleanStudentObject,
 } from "../../component/Helper/HelperFunction";
 import {
   updateProfileAdminAxios,
@@ -22,19 +23,42 @@ const Result = () => {
   const [studentList, setStudentList] = useState([]);
   const [id, setId] = useState(1);
   const updateFormHanlder = (userId, values) => {
-    // console.log(cleanProfileObject(stripFormEventProperties(values)));
     updateProfileAdminAxios(
       userId,
       cleanProfileObject(stripFormEventProperties(values))
     );
   };
   const updateTutorFormHandler = (userId, values) => {
-    console.log(stripFormEventProperties(values));
-    updateTutorAdminAxios(userId, stripFormEventProperties(values));
+    const { matchstatus, idmatch, ...tutor } = values;
+    updateTutorAdminAxios(userId, stripFormEventProperties(tutor));
+    const updatedArray = item.map((item) => {
+      if (item.tutorid === tutor.tutorId) {
+        // Create a new object with the desired changes
+        return {
+          ...item,
+          // Add or update properties as needed
+          tutor: {
+            ...item.tutor,
+            // Update properties within the 'tutor' object
+            // For example, change the 'status' property
+            ...values,
+            // Add or update other properties within the 'tutor' object if needed
+          },
+          // Add or update other properties in the main object if needed
+        };
+      } else {
+        // If the tutorid does not match, return the original object as is
+        return item;
+      }
+    });
+    setItem(updatedArray);
   };
   const updateStudentFormHanlder = (userId, values) => {
-    console.log(stripFormEventProperties(values));
-    updateStudentAdminAxios(userId, stripFormEventProperties(values));
+    updateStudentAdminAxios(
+      userId,
+      cleanStudentObject(stripFormEventProperties(values))
+    );
+    // setItem
   };
 
   const handleClick = () => {
@@ -87,6 +111,8 @@ const Result = () => {
     // setTotalNumberofPage(response.data.count);
     // setStudentList(response.data.studentId);
   }, [page]);
+
+  useEffect(() => {}, [item]);
   return (
     <div>
       <NoSSR>

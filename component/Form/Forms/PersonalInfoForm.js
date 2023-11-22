@@ -9,17 +9,9 @@ const selectfield = formField.selectfield.BasicInfo;
 const PersonalInfoForm = (props) => {
   const form = useUserForm();
 
-  const loadInitialValues = (data) => {
-    console.log("load");
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
-    });
-  };
   useEffect(() => {
-    loadInitialValues(props.data).then((values) => {
-      form.setValues(values);
-      form.resetDirty(values);
-    });
+    form.setValues(props.data);
+    form.resetDirty(props.data);
   }, [props.data]);
 
   return (

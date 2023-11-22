@@ -21,9 +21,22 @@ function EditForm(props) {
   useEffect(() => {
     let { locations, subjects, availtimes, ...item } = props.cases;
     console.log(props.cases);
-    locations = locations ? locations.split(",") : [];
-    subjects = subjects ? subjects.split(",") : [];
-    availtimes = availtimes ? availtimes.split(",") : [];
+    locations = locations
+      ? typeof locations == "object"
+        ? locations
+        : locations.split(",")
+      : [];
+
+    subjects = subjects
+      ? typeof subjects == "object"
+        ? subjects
+        : subjects.split(",")
+      : [];
+    availtimes = availtimes
+      ? typeof availtimes == "object"
+        ? availtimes
+        : availtimes.split(",")
+      : [];
     const NewData = {
       ...item,
       locations: locations,

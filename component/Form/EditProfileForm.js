@@ -20,19 +20,30 @@ function EditProfileForm(props) {
 
   useEffect(() => {
     if (props.type == "tutor") {
-      let { locations, subjects, availTimes, profile, ...item } = props.cases;
+      let { locations, subjects, availtimes, profile, ...item } = props.cases;
 
       const NewData = {
         ...item,
-        locations: locations ? locations.split(",") : [],
-        subjects: subjects ? subjects.split(",") : [],
-        availTimes: availTimes ? availTimes.split(",") : [],
+        locations: locations
+          ? typeof locations == "object"
+            ? locations
+            : locations.split(",")
+          : [],
+
+        subjects: subjects
+          ? typeof subjects == "object"
+            ? subjects
+            : subjects.split(",")
+          : [],
+        availtimes: availtimes
+          ? typeof availtimes == "object"
+            ? availtimes
+            : availtimes.split(",")
+          : [],
       };
-      console.log(profile);
       setProfile(profile);
       setTutorProfile(NewData);
     } else {
-      console.log(props.cases);
       setProfile(props.cases);
     }
   }, [props.cases]);

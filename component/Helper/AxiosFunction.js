@@ -47,7 +47,7 @@ export async function toggleAdminStatus(id, status, type) {
     const response = await axiosInstance(cookie.get("access_token")).patch(
       url + `/admin/updateCaseStatus`,
       {
-        studentid: id,
+        studentId: id,
         status: status,
       }
     );

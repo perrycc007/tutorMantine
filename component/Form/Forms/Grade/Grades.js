@@ -18,7 +18,6 @@ function Grades(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const newData = { ...props.data, subjectGrade: form.values };
-    console.log(newData);
     props.updateForm(newData);
   };
 

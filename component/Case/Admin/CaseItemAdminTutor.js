@@ -73,19 +73,29 @@ function CaseItemAdminTutor(props) {
       setCheckStatus("NOT_YET_CHECKED");
     }
     setNotAvailStatus(props.notAvailStatus);
-    console.log(props.cases);
   }, []);
 
   let heading = {
-    locations: info.locations ? info.locations.split(",") : [],
-    subjects: info.subjects ? info.subjects.split(",") : [],
+    locations: info.locations
+      ? typeof info.locations == "object"
+        ? info.locations
+        : info.locations.split(",")
+      : [],
+    subjects: info.subjects
+      ? typeof info.subjects == "object"
+        ? info.subjects
+        : info.subjects.split(",")
+      : [],
   };
 
   return (
-    <Accordion.Item key={info.idmatch} value={JSON.stringify(info.idmatch)}>
+    <Accordion.Item
+      key={info.idmatch}
+      value={JSON.stringify(info.idmatch) + "accordion"}
+    >
       <Accordion.Control>
         {Object.entries(heading).map(([key, value]) => (
-          <p className={classes.title} key={`${itemName[key]}value`}>
+          <p className={classes.title} key={`${key} value`}>
             {typeof value == "object"
               ? value.map((item) => {
                   return ` ${item}`;
@@ -95,7 +105,7 @@ function CaseItemAdminTutor(props) {
         ))}
         <p
           className={classes.title}
-        >{`$${info.lowestFee}/小時-${info.highestFee}/小時`}</p>
+        >{`$${info.lowestfee}/小時-${info.highestfee}/小時`}</p>
       </Accordion.Control>
 
       <Accordion.Panel>
@@ -106,7 +116,7 @@ function CaseItemAdminTutor(props) {
             itemName[key] !== undefined &&
             value !== null &&
             key !== "subjectGrade" && (
-              <p className={classes.detail} key={itemName[key]}>
+              <p className={classes.detail} key={key}>
                 {itemName[key]}: {value}
               </p>
             )
@@ -120,7 +130,7 @@ function CaseItemAdminTutor(props) {
 
         <div className={classes.buttonContainer}>
           <div className={classes.summary}>
-            <p className={classes.detail}>{info.availTimes}</p>
+            <p className={classes.detail}>{info.availtimes}</p>
             <Button
               variant="outlined"
               onClick={() => StatusHandler(info.tutorId)}

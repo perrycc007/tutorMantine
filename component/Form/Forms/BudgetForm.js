@@ -5,21 +5,15 @@ import { UserFormProvider, useUserForm } from "../FormModel/FormContext";
 function BudgetForm(props) {
   const [payRange, setPayRange] = useState([100, 200]);
   const form = useUserForm();
-  const loadInitialValues = (data) => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
-    });
-  };
+
   useEffect(() => {
-    loadInitialValues(props.data).then((values) => {
-      if (values.lowestfee && values.highestfee) {
-        form.setValues(values);
-        form.resetDirty(values);
-        setPayRange([values.lowestfee, values.highestfee]);
-      } else {
-        setPayRange([100, 200]);
-      }
-    });
+    if (props.data.lowestfee && props.data.highestfee) {
+      form.setValues(props.data);
+      form.resetDirty(props.data);
+      setPayRange([props.data.lowestfee, props.data.highestfee]);
+    } else {
+      setPayRange([100, 200]);
+    }
   }, [props.data]);
 
   return (

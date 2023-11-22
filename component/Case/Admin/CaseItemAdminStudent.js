@@ -15,8 +15,6 @@ function CaseItemAdminStudent(props) {
   const [availtimeArray, setAvailtimeArray] = useState([]);
   const [studentCase, setStudentCase] = useState({});
   const [studentProfile, setStudentProfile] = useState({});
-  const [notAvailStatus, setNotAvailStatus] = useState(false);
-  const [checkStatus, setCheckStatus] = useState("not yet checked");
   const StatusHandler = () => {
     if (status == "OPEN") {
       setStatus("CLOSE");
@@ -41,17 +39,6 @@ function CaseItemAdminStudent(props) {
       );
     }
   };
-
-  useEffect(() => {
-    if (props.checkedStatus) {
-      setCheckStatus("checking");
-    } else if (props.checkingStatus) {
-      setCheckStatus("checked");
-    } else {
-      setCheckStatus("not yet checked");
-    }
-    setNotAvailStatus(props.notAvailStatus);
-  }, []);
 
   // const fee = (items.highestfee + items.lowestfee) / 2;
 
@@ -108,7 +95,6 @@ function CaseItemAdminStudent(props) {
       };
       setStudentCase(studentInfo);
       setStudentProfile(profile);
-      console.log(profile);
       setHeading(heading);
       const availtimeArray = studentAvailTimes
         ? studentAvailTimes.split(",")
@@ -120,11 +106,13 @@ function CaseItemAdminStudent(props) {
   return (
     <div className={classes.item}>
       {Object.entries(heading).map(([key, value]) => (
-        <p className={classes.title} key={`${itemName[key]}value`}>
+        <p className={classes.title} key={`${key} value`}>
           {value}
         </p>
       ))}
-      <p className={classes.title}>{`$${fee}/小時`}</p>
+      <p
+        className={classes.title}
+      >{`$${items.lowestfee} - ${items.highestfee}/小時`}</p>
 
       <p className={classes.detail}>ID:{props.cases.studentId}</p>
       {Object.entries(items).map(

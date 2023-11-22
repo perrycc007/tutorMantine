@@ -229,7 +229,6 @@ let store = (set) => ({
     window.location.href = "/auth";
   },
   cleanFavourite: () => set({ favourite: [] }),
-  removeuserId: () => set({ userId: null }),
   setFavouriteTutor: (newFavourite) => set({ favouriteTutor: newFavourite }),
   setFavouriteCase: (newFavourite) => set({ favouriteCase: newFavourite }),
   toggleIstutor: (Mode) => set({ isTutor: Mode }),

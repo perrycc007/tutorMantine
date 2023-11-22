@@ -11,13 +11,6 @@ function LocationForms(props) {
   const [value, setValue] = useState([""]);
 
   const cat = Object.entries(locations).map(([key, value]) => value);
-
-  const loadInitialValues = (data) => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
-    });
-  };
-
   const onlickHandler = (event) => {
     setValue(event);
     if (props.type == "filter") {
@@ -26,12 +19,9 @@ function LocationForms(props) {
   };
 
   useEffect(() => {
-    loadInitialValues(props.data).then((values) => {
-      console.log(values);
-      setValue(values.locations || [null]);
-      form.setValues(values);
-      form.resetDirty(values);
-    });
+    setValue(props.data.locations || [null]);
+    form.setValues(props.data);
+    form.resetDirty(props.data);
   }, [props.data]);
 
   return (

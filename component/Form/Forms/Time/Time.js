@@ -7,18 +7,10 @@ import userStore from "../../../../stores/stores"; // import { loadInitialValues
 function Time(props) {
   const [value, setValue] = useState([""]);
   const form = useUserForm();
-  const loadInitialValues = (data) => {
-    console.log("load");
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
-    });
-  };
   useEffect(() => {
-    loadInitialValues(props.data).then((values) => {
-      setValue(values.availTimes || []);
-      form.setValues(values);
-      form.resetDirty(values);
-    });
+    setValue(props.data.availtimes || []);
+    form.setValues(props.data);
+    form.resetDirty(props.data);
   }, [props.data]);
 
   const datetime = dateAndTime[0];
@@ -27,8 +19,8 @@ function Time(props) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setFieldValue("availTimes", value);
-        const NewData = { ...props.data, availTimes: value };
+        form.setFieldValue("availtimes", value);
+        const NewData = { ...props.data, availtimes: value };
         props.updateForm(NewData);
       }}
     >

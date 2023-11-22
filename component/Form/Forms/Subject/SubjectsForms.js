@@ -13,12 +13,6 @@ function SubjectsForms(props) {
     return value;
   });
 
-  const loadInitialValues = (Profile) => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(Profile), 1000);
-    });
-  };
-
   const onlickHandler = (event) => {
     setValue(event);
     if (props.type == "filter") {
@@ -27,11 +21,9 @@ function SubjectsForms(props) {
   };
 
   useEffect(() => {
-    loadInitialValues(props.data).then((values) => {
-      setValue(values.subjects || []);
-      form.setValues(values);
-      form.resetDirty(values);
-    });
+    setValue(props.data.subjects || []);
+    form.setValues(props.data);
+    form.resetDirty(props.data);
   }, [props.data]);
   return (
     <form

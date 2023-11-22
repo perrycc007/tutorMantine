@@ -116,3 +116,29 @@ export function cleanProfileObject(originalObject) {
 
   return cleanedObject;
 }
+
+export function cleanStudentObject(originalObject) {
+  const cleanedObject = {};
+  const keysToKeep = [
+    "lowestfrequency",
+    "lowestfee",
+    "lowestduration",
+    "expectation",
+    "genderrequirement",
+    "highestfee",
+    "highestfrequency",
+    "highestduration",
+    "level",
+    "availtimes",
+    "locations",
+    "subjects",
+    "studentId",
+  ];
+  for (const key of keysToKeep) {
+    if (originalObject.hasOwnProperty(key)) {
+      cleanedObject[key] = originalObject[key];
+    }
+  }
+
+  return cleanedObject;
+}

@@ -5,7 +5,7 @@ const AdminIdNavigation = (props) => {
   const totals = 100; // Total number of s
   const PerPAge = 10; // Number of s per page
   //   const Ids = Array.from({ length: totals }, (_, i) => i + 1); // Generate  IDs (1-100)
-  const Ids = props.listIds;
+  const Ids = props.listIds ? props.listIds : [];
 
   const [currentPage, setCurrentPage] = useState(0);
 

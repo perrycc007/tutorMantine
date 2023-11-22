@@ -10,23 +10,14 @@ const StudentOthers = (props) => {
   const [hourPerLesson, setHourPerLesson] = useState([60, 200]);
   const inputfield = formField.inputfield.StudentOthers;
   const selectfield = formField.selectfield.StudentOthers;
-
-  const loadInitialValues = (data) => {
-    console.log("load", data);
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(data), 1000);
-    });
-  };
   useEffect(() => {
-    loadInitialValues(props.data).then((values) => {
-      if (values.lowestfrequency && values.highestfrequency) {
-        form.setValues(values);
-        form.resetDirty(values);
-        setLessonAWeek([values.lowestfrequency, values.highestfrequency]);
-        setHourPerLesson([values.lowestduration, values.highestduration]);
-        setPayPerHour([values.lowestfee, values.highestfee]);
-      }
-    });
+    if (values.lowestfrequency && values.highestfrequency) {
+      form.setValues(props.data);
+      form.resetDirty(props.data);
+      setLessonAWeek([props.data.lowestfrequency, props.data.highestfrequency]);
+      setHourPerLesson([props.data.lowestduration, props.data.highestduration]);
+      setPayPerHour([props.data.lowestfee, props.data.highestfee]);
+    }
   }, [props.data]);
 
   return (

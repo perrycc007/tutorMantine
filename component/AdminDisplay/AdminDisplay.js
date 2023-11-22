@@ -59,6 +59,7 @@ export default function AdminDisplay(props) {
               <div>
                 <CaseItemAdminTutor
                   cases={info}
+                  key={item.idmatch}
                   updateForm={props.updateForm}
                   updateTutorForm={props.updateTutorForm}
                   toggleCheck={toggleCheck}
