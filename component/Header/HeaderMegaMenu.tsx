@@ -70,7 +70,7 @@ const mockdata = [
 
 export function HeaderMegaMenu() {
   const Loggedin = userStore((state) => state.isLoggedin);
-  const logOutAction = userStore((state) => state.logoutUserid);
+  const logOutAction = userStore((state) => state.logoutuserId);
   const cleanFavourite = userStore((state) => state.cleanFavourite);
   const [isLoggedin, setIsLoggedin] = useState(false);
   const router = useRouter();

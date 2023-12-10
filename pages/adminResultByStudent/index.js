@@ -33,21 +33,14 @@ const Result = () => {
     updateTutorAdminAxios(userId, stripFormEventProperties(tutor));
     const updatedArray = item.map((item) => {
       if (item.tutorid === tutor.tutorId) {
-        // Create a new object with the desired changes
         return {
           ...item,
-          // Add or update properties as needed
           tutor: {
             ...item.tutor,
-            // Update properties within the 'tutor' object
-            // For example, change the 'status' property
             ...values,
-            // Add or update other properties within the 'tutor' object if needed
           },
-          // Add or update other properties in the main object if needed
         };
       } else {
-        // If the tutorid does not match, return the original object as is
         return item;
       }
     });
