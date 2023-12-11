@@ -21,14 +21,16 @@ function BudgetForm(props) {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          form.setFieldValue("lowestfee", payRange[0]);
-          form.setFieldValue("highestfee", payRange[1]);
-          const NewData = {
-            ...props.data,
-            lowestfee: payRange[0],
-            highestfee: payRange[1],
-          };
-          props.updateForm(NewData);
+          if (form.isValid()) {
+            form.setFieldValue("lowestfee", payRange[0]);
+            form.setFieldValue("highestfee", payRange[1]);
+            const NewData = {
+              ...props.data,
+              lowestfee: payRange[0],
+              highestfee: payRange[1],
+            };
+            props.updateForm(NewData);
+          }
         }}
       >
         <p>

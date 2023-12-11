@@ -17,8 +17,10 @@ function Grades(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newData = { ...props.data, subjectGrade: form.values };
-    props.updateForm(newData);
+    if (form.isValid()) {
+      const newData = { ...props.data, subjectGrade: form.values };
+      props.updateForm(newData);
+    }
   };
 
   return (

@@ -7,7 +7,28 @@ const checkboxfield = formField.checkboxfieldfield.agreewith;
 const selectfield = formField.selectfield.BasicInfo;
 
 const PersonalInfoForm = (props) => {
-  const form = useUserForm();
+  const form = useUserForm({
+    initialValues: { ...props.data },
+    validateInputOnBlur: true,
+    validate: {
+      findus: (value) => (value.length > 0 ? null : "This field is required"),
+      language: (value) =>
+        value.length > 0 ? null : "Please select a language",
+      name: (value) =>
+        /^[a-zA-Z ]+$/.test(value) ? null : "Name should only contain letters",
+      nationality: (value) =>
+        value.length > 0 ? null : "Nationality is required",
+      phoneno: (value) =>
+        /^\d{8}$/.test(value) ? null : "Invalid phone number",
+      address: (value) => (value.length > 5 ? null : "Address must be longer"),
+      emergencycontact: (value) =>
+        value.length > 0 ? null : "Emergency contact is required",
+      emergencyrelationship: (value) =>
+        value.length > 0 ? null : "Relationship is required",
+      emergencyphone: (value) =>
+        /^\d{8}$/.test(value) ? null : "Invalid phone number",
+    },
+  });
 
   useEffect(() => {
     form.setValues(props.data);
@@ -18,9 +39,11 @@ const PersonalInfoForm = (props) => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setValues((prev) => ({ ...prev, ...event }));
-        const NewData = { ...form.values };
-        props.updateForm(NewData);
+        if (form.isValid()) {
+          form.setValues((prev) => ({ ...prev, ...event }));
+          const NewData = { ...form.values };
+          props.updateForm(NewData);
+        }
       }}
     >
       {Object.entries(inputfield).map(([key, value]) => (

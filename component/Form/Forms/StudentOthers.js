@@ -24,28 +24,30 @@ const StudentOthers = (props) => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setValues((prev) => ({ ...prev, ...event }));
-        form.setFieldValue("lowestfee", payPerHour[0]);
-        form.setFieldValue("highestfee", payPerHour[1]);
-        form.setFieldValue("lowestduration", hourPerLesson[0]);
-        form.setFieldValue("highestduration", hourPerLesson[1]);
-        form.setFieldValue("lowestfrequency", lessonAWeek[0]);
-        form.setFieldValue("highestfrequency", lessonAWeek[1]);
+        if (form.isValid()) {
+          form.setValues((prev) => ({ ...prev, ...event }));
+          form.setFieldValue("lowestfee", payPerHour[0]);
+          form.setFieldValue("highestfee", payPerHour[1]);
+          form.setFieldValue("lowestduration", hourPerLesson[0]);
+          form.setFieldValue("highestduration", hourPerLesson[1]);
+          form.setFieldValue("lowestfrequency", lessonAWeek[0]);
+          form.setFieldValue("highestfrequency", lessonAWeek[1]);
 
-        let NewData = {
-          ...props.data,
-          lowestfee: payPerHour[0],
-          highestfee: payPerHour[1],
-          lowestduration: hourPerLesson[0],
-          highestduration: hourPerLesson[1],
-          lowestfrequency: lessonAWeek[0],
-          highestfrequency: lessonAWeek[1],
-        };
-        NewData = {
-          ...NewData,
-          ...form.values,
-        };
-        props.updateForm(NewData);
+          let NewData = {
+            ...props.data,
+            lowestfee: payPerHour[0],
+            highestfee: payPerHour[1],
+            lowestduration: hourPerLesson[0],
+            highestduration: hourPerLesson[1],
+            lowestfrequency: lessonAWeek[0],
+            highestfrequency: lessonAWeek[1],
+          };
+          NewData = {
+            ...NewData,
+            ...form.values,
+          };
+          props.updateForm(NewData);
+        }
       }}
     >
       {Object.entries(inputfield).map(([key, value]) => (

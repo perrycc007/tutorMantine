@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { Tabs, Chip, Button, Group } from "@mantine/core";
+import { Tabs, Chip, Button, Group, Alert } from "@mantine/core";
 import locations from "./location.js";
 import { useUserForm } from "../../FormModel/FormContext";
 
 function LocationForms(props) {
   const [activeTab, setActiveTab] = useState("香港島");
-  const form = useUserForm();
+  const [showError, setShowError] = useState(false);
+
+  const form = useUserForm({});
 
   // Ensure the initial state is an array to support multiple selections.
   const [value, setValue] = useState([""]);
@@ -17,7 +19,17 @@ function LocationForms(props) {
       props.updateForm({ locations: event });
     }
   };
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (Array.isArray(value) && value.length > 0) {
+      form.setFieldValue("locations", value);
+      const NewData = { ...props.data, locations: value };
+      props.updateForm(NewData);
+      setShowError(false); // Reset error state if submission is successful
+    } else {
+      setShowError(true); // Show error if validation fails
+    }
+  };
   useEffect(() => {
     setValue(props.data.locations || [null]);
     form.setValues(props.data);
@@ -27,10 +39,7 @@ function LocationForms(props) {
   return (
     <form
       onSubmit={(event) => {
-        event.preventDefault();
-        form.setFieldValue("locations", value);
-        const NewData = { ...props.data, locations: value };
-        props.updateForm(NewData);
+        handleSubmit(event);
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>
@@ -41,6 +50,11 @@ function LocationForms(props) {
             </Tabs.Tab>
           ))}
         </Tabs.List>
+        {showError && (
+          <Alert color="red" title="Error">
+            Please select at least one location.
+          </Alert>
+        )}
 
         {cat.map((location) => (
           <Tabs.Panel key={location.cat} value={location.cat}>
@@ -61,6 +75,7 @@ function LocationForms(props) {
           </Tabs.Panel>
         ))}
       </Tabs>
+
       {props.type == "filter" ? "" : <Button type="submit">更新</Button>}
     </form>
   );

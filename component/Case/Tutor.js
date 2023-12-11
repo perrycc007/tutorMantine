@@ -1,4 +1,4 @@
-import CaseAccordion from "./CaseAccordion2";
+import CaseAccordion from "./CaseAccordion";
 import AccordionFilter from "./AccordionFilter";
 
 import { useState, useEffect } from "react";

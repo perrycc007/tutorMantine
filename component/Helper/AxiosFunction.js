@@ -307,7 +307,7 @@ export async function removeFavouriteTutorAxios(userId, tutorId) {
 }
 
 // remove favourite case
-export async function removeFavouriteCaseAxios(userId, studentId) {
+export async function removeFavouriteStudentAxios(userId, studentId) {
   console.log(userId, studentId);
   const response = await axiosInstance(cookie.get("access_token")).delete(
     `http://localhost:3001/favourite/removeStudent`,
@@ -331,7 +331,7 @@ export async function addFavouriteTutorAxios(userId, tutorId) {
   return response;
 }
 // add favourite case
-export async function addFavouriteCaseAxios(userId, studentId) {
+export async function addFavouriteStudentAxios(userId, studentId) {
   console.log(userId, studentId);
   const response = await axiosInstance(cookie.get("access_token")).post(
     `http://localhost:3001/favourite/addStudent`,

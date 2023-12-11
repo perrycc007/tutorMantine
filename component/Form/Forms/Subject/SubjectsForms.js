@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Tabs, Chip, Button, Group } from "@mantine/core";
+import { Tabs, Chip, Button, Group, Alert } from "@mantine/core";
 import subjects from "./Subject";
 import { useUserForm } from "../../FormModel/FormContext";
 import userStore from "../../../../stores/stores";
 
 function SubjectsForms(props) {
   const [activeTab, setActiveTab] = useState("補習");
+  const [showError, setShowError] = useState(false);
   const [value, setValue] = useState([""]);
   const form = useUserForm();
 
@@ -29,12 +30,17 @@ function SubjectsForms(props) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        form.setFieldValue("subjects", value);
-        const NewData = {
-          ...props.data,
-          subjects: value,
-        };
-        props.updateForm(NewData);
+        if (Array.isArray(value) && value.length > 0) {
+          form.setFieldValue("subjects", value);
+          const NewData = {
+            ...props.data,
+            subjects: value,
+          };
+          props.updateForm(NewData);
+          setShowError(false); // Reset error state if submission is successful
+        } else {
+          setShowError(true); // Show error if validation fails
+        }
       }}
     >
       <Tabs value={activeTab} onChange={setActiveTab}>
@@ -45,6 +51,11 @@ function SubjectsForms(props) {
             </Tabs.Tab>
           ))}
         </Tabs.List>
+        {showError && (
+          <Alert color="red" title="Error">
+            Please select at least one subject.
+          </Alert>
+        )}
         {cat.map((subjects) => (
           <Tabs.Panel key={subjects.cat} value={subjects.cat}>
             <Chip.Group

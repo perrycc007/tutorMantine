@@ -1,4 +1,4 @@
-import CaseAccordion from "./CaseAccordion2";
+import CaseAccordion from "./CaseAccordion";
 import AccordionFilter from "./AccordionFilter";
 import { Accordion, Pagination } from "@mantine/core";
 import usePagination from "./usePagination";
