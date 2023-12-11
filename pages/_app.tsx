@@ -18,14 +18,14 @@ export default function App({ Component, pageProps }: any) {
       logout(); // Function to log the user out
     }
 
-    const interval = setInterval(() => {
-      const token = cookie.get("access_token");
-      if ((!token && isLoggedin) || (isTokenExpired(token) && isLoggedin)) {
-        logout();
-      }
-    }, 60000); // Check every minute
+    // const interval = setInterval(() => {
+    //   const token = cookie.get("access_token");
+    //   if ((!token && isLoggedin) || (isTokenExpired(token) && isLoggedin)) {
+    //     logout();
+    //   }
+    // }, 60000); // Check every minute
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   return (

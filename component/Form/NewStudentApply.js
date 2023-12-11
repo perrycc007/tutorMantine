@@ -3,11 +3,16 @@ import StudentApply from "./StudentApply"; // Replace with the correct path to y
 import userStore from "../../stores/stores";
 import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import {
   updateStudentAxios,
   createStudentAxios,
 } from "../../component/Helper/AxiosFunction";
 function NewStudentApply() {
+  const router = useRouter();
+  const toCasePage = () => {
+    router.push("/cases");
+  };
   const [data, setData] = useState({
     genderrequirement: "",
     expectation: "",
@@ -23,7 +28,6 @@ function NewStudentApply() {
     availtimes: [],
     subjects: [],
   });
-  const [firstTime, setFirstTime] = useState(true);
   const [loading, setLoading] = useState(true);
   const getuserId = userStore((state) => state.userId);
   const updateNewStudentApplication = userStore(
@@ -31,38 +35,38 @@ function NewStudentApply() {
   );
   const updateApplicationHandler = (values) => {
     updateNewStudentApplication(values);
-
-    if (firstTime) {
-      createStudentAxios(
-        getuserId,
-        stripFormEventProperties({ ...data, ...values })
-      ).then((response) => {
-        console.log(response.data.studentId);
-        updateNewStudentApplication({
-          ...values,
-          studentId: response.data.studentId,
-        });
-        setLoading(false);
-        setData((prev) => ({
-          ...prev,
-          ...values,
-          studentId: response.data.studentId,
-        }));
-        setFirstTime(false);
-      });
-    } else {
-      updateStudentAxios(
-        getuserId,
-        stripFormEventProperties({ ...data, ...values })
-      );
-      setData((prev) => ({
-        ...prev,
-        ...values,
-      }));
-    }
+    setData((prev) => ({
+      ...prev,
+      ...values,
+    }));
   };
+  const handInHandler = (values) => {
+    setLoading(true);
+    createStudentAxios(
+      getuserId,
+      stripFormEventProperties({ ...data, ...values })
+    ).then((response) => {
+      // updateNewStudentApplication({
+      //   ...values,
+      //   studentId: response.data.studentId,
+      // });
+      // setLoading(false);
+      // setData((prev) => ({
+      //   ...prev,
+      //   ...values,
+      //   studentId: response.data.studentId,
+      // }));
+      toCasePage();
+    });
+  };
+
   return (
-    <StudentApply data={data} updateApplication={updateApplicationHandler} />
+    <StudentApply
+      data={data}
+      updateApplication={updateApplicationHandler}
+      handIn={handInHandler}
+      type="newApplication"
+    />
   );
 }
 

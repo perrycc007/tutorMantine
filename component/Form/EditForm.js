@@ -58,6 +58,7 @@ function EditForm(props) {
           data={data}
           studentId={props.studentId}
           type="history"
+          handIn={""}
           updateApplication={updateApplicationHandler}
         ></StudentApply>
       </Modal>

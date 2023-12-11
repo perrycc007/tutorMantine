@@ -1,22 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { TextInput, Select, Button, RangeSlider } from "@mantine/core";
+import { TextInput, Select, Button, RangeSlider, Alert } from "@mantine/core";
 import { useUserForm } from "../FormModel/FormContext";
 import formField from "../FormModel/formField";
 
 const StudentOthers = (props) => {
-  const form = useUserForm();
+  const form = useUserForm({
+    validateInputOnBlur: true,
+    validation: {
+      genderrequirement: (value) => (value ? null : "Required"),
+      expectation: (value) => (value ? null : "Required"),
+      // lowestfrequency: (value) => (value ? null : "Required"),
+      // highestfrequency: (value) => (value ? null : "Required"),
+      // lowestfee: (value) => (value ? null : "Required"),
+      // highestfee: (value) => (value ? null : "Required"),
+      // lowestduration: (value) => (value ? null : "Required"),
+      // highestduration: (value) => (value ? null : "Required"),
+    },
+  });
   const [lessonAWeek, setLessonAWeek] = useState([1, 5]);
   const [payPerHour, setPayPerHour] = useState([100, 200]);
   const [hourPerLesson, setHourPerLesson] = useState([60, 200]);
+  const [showError, setShowError] = useState(false);
   const inputfield = formField.inputfield.StudentOthers;
   const selectfield = formField.selectfield.StudentOthers;
   useEffect(() => {
-    if (values.lowestfrequency && values.highestfrequency) {
-      form.setValues(props.data);
-      form.resetDirty(props.data);
-      setLessonAWeek([props.data.lowestfrequency, props.data.highestfrequency]);
-      setHourPerLesson([props.data.lowestduration, props.data.highestduration]);
-      setPayPerHour([props.data.lowestfee, props.data.highestfee]);
+    if (props.data) {
+      if (props.data.lowestfrequency && props.data.highestfrequency) {
+        form.setValues(props.data);
+        form.resetDirty(props.data);
+        setLessonAWeek([
+          props.data.lowestfrequency,
+          props.data.highestfrequency,
+        ]);
+        setHourPerLesson([
+          props.data.lowestduration,
+          props.data.highestduration,
+        ]);
+        setPayPerHour([props.data.lowestfee, props.data.highestfee]);
+      }
     }
   }, [props.data]);
 
@@ -47,6 +68,9 @@ const StudentOthers = (props) => {
             ...form.values,
           };
           props.updateForm(NewData);
+          setShowError(false); // Reset error state if submission is successful
+        } else {
+          setShowError(true); // Show error if validation fails
         }
       }}
     >
@@ -99,7 +123,9 @@ const StudentOthers = (props) => {
         min={30}
         label={(value) => `${value}`}
       />
-      <Button type="submit">Submit</Button>
+      <Button type="submit">
+        {props.types == "newApplication" ? "提交" : "更新"}
+      </Button>
     </form>
   );
 };

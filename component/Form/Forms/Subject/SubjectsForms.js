@@ -37,6 +37,7 @@ function SubjectsForms(props) {
             subjects: value,
           };
           props.updateForm(NewData);
+          props.types == "newApplication" ? props.nextStep() : "";
           setShowError(false); // Reset error state if submission is successful
         } else {
           setShowError(true); // Show error if validation fails
@@ -75,7 +76,13 @@ function SubjectsForms(props) {
           </Tabs.Panel>
         ))}
       </Tabs>
-      {props.type == "filter" ? "" : <Button type="submit">更新</Button>}
+      {props.type == "filter" ? (
+        ""
+      ) : (
+        <Button type="submit">
+          {props.types == "newApplication" ? "下一步" : "更新"}
+        </Button>
+      )}
     </form>
   );
 }

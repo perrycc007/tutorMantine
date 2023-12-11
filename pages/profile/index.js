@@ -16,13 +16,21 @@ const UserProfile = () => {
   const TutorProfile = userStore((state) => state.TutorProfile);
   const updateProfile = userStore((state) => state.updateProfile);
   const updateTutor = userStore((state) => state.updateTutor);
+  const [TutorDate, setTutorData] = useState({ ...TutorProfile });
+  const [ProfileData, setProfileData] = useState({ ...Profile });
   const updateFormHanlder = (values) => {
+    console.log("ProfileData", values);
     updateProfile(stripFormEventProperties(values));
     updateProfileAxios(getuserId, stripFormEventProperties(values));
+    setProfileData((prev) => ({
+      ...prev,
+      ...stripFormEventProperties(values),
+    }));
   };
   const updateTutorFormHandler = (values) => {
     updateTutor(stripFormEventProperties(values));
     updateTutorAxios(getuserId, stripFormEventProperties(values));
+    setTutorData((prev) => ({ ...prev, ...stripFormEventProperties(values) }));
   };
   useEffect(() => {
     async function fetchData() {
@@ -31,7 +39,9 @@ const UserProfile = () => {
           getuserId
         );
         updateProfile(profileResponse);
+        setProfileData(profileResponse);
         updateTutor(tutorResponse);
+        setTutorData(tutorResponse);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching user profile:", error);
@@ -46,8 +56,8 @@ const UserProfile = () => {
     <>
       {/* {loading && <p>Loading...</p>} */}
       <Form
-        data={Profile}
-        tutorData={TutorProfile}
+        data={ProfileData}
+        tutorData={TutorDate}
         updateForm={updateFormHanlder}
         updateTutorForm={updateTutorFormHandler}
         type={isTutor}

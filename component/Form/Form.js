@@ -131,7 +131,7 @@ function Form(props) {
           {active !== 6 && props.type == "tutor" && (
             <Button onClick={nextStep}>下一步</Button>
           )}
-          {props.type == "tutor" && <Button onClick={nextStep}>完成</Button>}
+          {props.type == "student" && <Button onClick={nextStep}>完成</Button>}
         </Group>
       </UserFormProvider>
     </>

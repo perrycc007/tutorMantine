@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TextInput, Select, Button } from "@mantine/core";
+import { TextInput, Select, Button, Alert } from "@mantine/core";
 import formField from "../FormModel/formField";
 import { useUserForm } from "../FormModel/FormContext";
 
@@ -7,6 +7,7 @@ const inputfield = formField.inputfield.Education;
 const selectfield = formField.selectfield.Education;
 
 const Education = (props) => {
+  const [showError, setShowError] = useState(false);
   const form = useUserForm({
     validateInputOnBlur: true,
     initialValues: { ...props.data },
@@ -90,9 +91,18 @@ const Education = (props) => {
             form.setValues((prev) => ({ ...prev, ...event }));
             const NewData = { ...props.data, ...form.values };
             props.updateForm(NewData);
+            setShowError(false); // Reset error state if submission is successful
+          } else {
+            setShowError(true); // Show error if validation fails
           }
         }}
       >
+        {" "}
+        {showError && (
+          <Alert color="red" title="Error">
+            Please fill in all the required fields
+          </Alert>
+        )}
         {Object.entries(inputfield).map(([key, value]) => (
           <TextInput
             key={value.name}

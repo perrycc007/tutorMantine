@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TextInput, Select, Button } from "@mantine/core";
+import { TextInput, Select, Button, Alert } from "@mantine/core";
 import formField from "../FormModel/formField";
 import { useUserForm } from "../FormModel/FormContext";
 const inputfield = formField.inputfield.BasicInfo;
@@ -29,7 +29,7 @@ const PersonalInfoForm = (props) => {
         /^\d{8}$/.test(value) ? null : "Invalid phone number",
     },
   });
-
+  const [showError, setShowError] = useState(false);
   useEffect(() => {
     form.setValues(props.data);
     form.resetDirty(props.data);
@@ -43,9 +43,17 @@ const PersonalInfoForm = (props) => {
           form.setValues((prev) => ({ ...prev, ...event }));
           const NewData = { ...form.values };
           props.updateForm(NewData);
+          setShowError(false); // Reset error state if submission is successful
+        } else {
+          setShowError(true); // Show error if validation fails
         }
       }}
     >
+      {showError && (
+        <Alert color="red" title="Error">
+          Please fill in all the required fields
+        </Alert>
+      )}
       {Object.entries(inputfield).map(([key, value]) => (
         <TextInput
           label={value.label}
@@ -64,7 +72,6 @@ const PersonalInfoForm = (props) => {
           //   value={formData[formField.selectfield.BasicInfo.name]}
         />
       ))}
-
       <Button type="submit">Submit</Button>
     </form>
   );

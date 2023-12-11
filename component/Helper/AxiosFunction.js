@@ -238,13 +238,13 @@ export async function fetchProfileData(getuserId) {
     axiosInstance(cookie.get("access_token")).get(`/profile/${getuserId}`),
     axiosInstance(cookie.get("access_token")).get(`/tutors/${getuserId}`),
   ]);
-  console.log(tutorResponse.data);
   return [profileResponse.data, tutorResponse.data];
 }
 
 export async function updateProfileAxios(getuserId, values) {
   const safeValues = parse(stringify(values));
   const information = { userId: getuserId, ...safeValues };
+  console.log(information);
   const response = await axiosInstance(cookie.get("access_token")).patch(
     `http://localhost:3001/profile`,
     // `http://localhost:3001/profile/${getuserId}`,

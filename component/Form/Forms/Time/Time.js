@@ -24,6 +24,7 @@ function Time(props) {
           form.setFieldValue("availtimes", value);
           const NewData = { ...props.data, availtimes: value };
           props.updateForm(NewData);
+          props.types == "newApplication" ? props.nextStep() : "";
           setShowError(false); // Reset error state if submission is successful
         } else {
           setShowError(true); // Show error if validation fails
@@ -59,7 +60,9 @@ function Time(props) {
           ))}
         </Grid>
       </Chip.Group>
-      <Button type="submit">Submit</Button>
+      <Button type="submit">
+        {props.types == "newApplication" ? "下一步" : "更新"}
+      </Button>
     </form>
   );
 }

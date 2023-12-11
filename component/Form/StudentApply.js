@@ -29,7 +29,6 @@ function StudentApply(props) {
 
   useEffect(() => {
     if (props.type == "history") {
-      console.log("props.data", props.data);
       // props.updateApplication(props.data);
       form.setValues(props.data);
       form.resetDirty(props.data);
@@ -47,6 +46,13 @@ function StudentApply(props) {
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
+  const updateApplicationHandler = (values) => {
+    props.updateApplication(values);
+  };
+
+  const handInHanlder = (values) => {
+    props.type == "newApplication" && props.handIn(values);
+  };
   return (
     <>
       <UserFormProvider form={form}>
@@ -54,25 +60,34 @@ function StudentApply(props) {
           <Stepper.Step label="" description="地點">
             <LocationForms
               data={props.data}
-              updateForm={props.updateApplication}
+              updateForm={updateApplicationHandler}
+              types={props.type}
+              nextStep={nextStep}
             />
           </Stepper.Step>
           <Stepper.Step label="" description="時間">
-            <Time data={props.data} updateForm={props.updateApplication} />
+            <Time
+              data={props.data}
+              updateForm={updateApplicationHandler}
+              types={props.type}
+              nextStep={nextStep}
+            />
           </Stepper.Step>
           <Stepper.Step label="" description="科目">
             <SubjectsForms
               data={props.data}
-              updateForm={props.updateApplication}
+              updateForm={updateApplicationHandler}
+              types={props.type}
+              nextStep={nextStep}
             />
           </Stepper.Step>
           <Stepper.Step label="" description="要求">
             <StudentOthers
               data={props.data}
-              updateForm={props.updateApplication}
+              updateForm={props.type ? handInHanlder : updateApplicationHandler}
+              types={props.type}
             />
           </Stepper.Step>
-          <Stepper.Completed>完成</Stepper.Completed>
         </Stepper>
 
         <Group justify="flex-end" mt="xl">
@@ -81,7 +96,9 @@ function StudentApply(props) {
               返回
             </Button>
           )}
-          {active !== 6 && <Button onClick={nextStep}>下一步</Button>}
+          {active !== 3 && props.type !== "newApplication" && (
+            <Button onClick={nextStep}>下一步</Button>
+          )}
         </Group>
       </UserFormProvider>
     </>

@@ -25,6 +25,7 @@ function LocationForms(props) {
       form.setFieldValue("locations", value);
       const NewData = { ...props.data, locations: value };
       props.updateForm(NewData);
+      props.types == "newApplication" ? props.nextStep() : "";
       setShowError(false); // Reset error state if submission is successful
     } else {
       setShowError(true); // Show error if validation fails
@@ -76,7 +77,13 @@ function LocationForms(props) {
         ))}
       </Tabs>
 
-      {props.type == "filter" ? "" : <Button type="submit">更新</Button>}
+      {props.type == "filter" ? (
+        ""
+      ) : (
+        <Button type="submit">
+          {props.types == "newApplication" ? "下一步" : "更新"}
+        </Button>
+      )}
     </form>
   );
 }

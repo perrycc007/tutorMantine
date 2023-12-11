@@ -4,7 +4,7 @@ import usePagination from "./usePagination";
 import itemName from "./itemName";
 import classes from "./CaseItem.module.css";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
-
+import EditForm from "../Form/EditForm";
 const CaseAccordion = (props) => {
   const [favourites, setFavourites] = useState(
     props.cases.map((cases) => (cases.idfavourite ? true : false))
@@ -48,6 +48,8 @@ const CaseAccordion = (props) => {
         <Accordion>
           {props.cases
             ? _DATA.currentData().map((oneCase, index) => {
+                const oneCaseCopy = Object.assign({}, oneCase);
+
                 let {
                   locations,
                   subjects,
@@ -57,9 +59,18 @@ const CaseAccordion = (props) => {
                 } = oneCase;
                 const fee = (items.highestfee + items.lowestfee) / 2;
                 const isFavourite = favourites[index];
+                console.log(locations);
                 let heading = {
-                  locations: locations ? locations.split(",") : [],
-                  subjects: subjects ? subjects.split(",") : [],
+                  locations: locations
+                    ? Array.isArray(locations)
+                      ? locations
+                      : locations.split(",")
+                    : [],
+                  subjects: subjects
+                    ? Array.isArray(subjects)
+                      ? subjects
+                      : subjects.split(",")
+                    : [],
                 };
                 const id =
                   props.type == "tutor" ? oneCase.tutorId : oneCase.studentId;
@@ -113,12 +124,16 @@ const CaseAccordion = (props) => {
                           updateStudentForm={props.updateStudentForm}
                         />
                       )}
-                      <Button
-                        variant="outlined"
-                        onClick={() => toggleFavoriteStatusHandler(id)}
-                      >
-                        {isFavourite ? <IconHeartFilled /> : <IconHeart />}
-                      </Button>
+                      {oneCase.type == "tutor" || oneCase.type == "cases" ? (
+                        <Button
+                          variant="outlined"
+                          onClick={() => toggleFavoriteStatusHandler(id)}
+                        >
+                          {isFavourite ? <IconHeartFilled /> : <IconHeart />}
+                        </Button>
+                      ) : (
+                        ""
+                      )}
                     </Accordion.Panel>
                   </Accordion.Item>
                 );
