@@ -28,19 +28,24 @@ export default function AccordionFilter(props) {
   return (
     <div>
       <UserFormProvider form={form}>
-        <p>
-          工資: ${payRange[0]} - ${payRange[1]} 每小時
-        </p>
-        <RangeSlider
-          id="pay-range"
-          value={payRange}
-          onChange={(newValue) => RangeSliderHandler(newValue)}
-          min={60}
-          max={1000}
-          step={10}
-          label={(value) => `$${value}`}
-          className="my-4"
-        />
+        <div>
+          <div className="flex justify-between">
+            <p>
+              工資: ${payRange[0]} - ${payRange[1]} 每小時
+            </p>
+            <Button onClick={props.filterClicked}>Filter</Button>
+          </div>
+          <RangeSlider
+            id="pay-range"
+            value={payRange}
+            onChange={(newValue) => RangeSliderHandler(newValue)}
+            min={60}
+            max={1000}
+            step={10}
+            label={(value) => `$${value}`}
+            className="my-4"
+          />
+        </div>
         <Accordion className="mt-4" variant="contained">
           <Accordion.Item key={"location"} value="location">
             <Accordion.Control>Location</Accordion.Control>
@@ -63,7 +68,6 @@ export default function AccordionFilter(props) {
             </Accordion.Panel>
           </Accordion.Item>
         </Accordion>
-        <Button onClick={props.filterClicked}>Filter</Button>
       </UserFormProvider>
     </div>
   );

@@ -49,13 +49,7 @@ function EditProfileForm(props) {
   }, [props.cases]);
   return (
     <>
-      <Modal
-        opened={opened}
-        size="auto"
-        onClose={close}
-        title="Authentication"
-        centered
-      >
+      <Modal opened={opened} size="auto" onClose={close} centered>
         {props.type == "student" && (
           <Form
             data={profile}

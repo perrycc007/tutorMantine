@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import useStore from "../stores/stores";
-import Link from "next/link";
-import { Button, TextInput, Anchor } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { Button, TextInput, Anchor, LoadingOverlay, Box } from "@mantine/core";
 import { logIn } from "../component/Helper/AxiosFunction";
 import { useUserForm } from "../component/Form/FormModel/FormContext";
 import cookie from "js-cookie";
@@ -10,6 +10,7 @@ import cookie from "js-cookie";
 const AuthForm = () => {
   const router = useRouter();
   const form = useUserForm();
+  const [visible, { toggle }] = useDisclosure(false);
   const adduserId = useStore((state) => state.adduserId);
   const loginAction = useStore((state) => state.loginuserId);
   const [isLogin, setIsLogin] = useState(true);
@@ -20,11 +21,11 @@ const AuthForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    toggle();
     setIsLoading(true);
     form.setValues((prev) => ({ ...prev, ...event }));
     logIn(isLogin, form.values.email, form.values.password)
       .then((res) => {
-        setIsLoading(false);
         if (res.status === 201) {
           return res.data;
         } else {
@@ -41,17 +42,21 @@ const AuthForm = () => {
       })
       .catch((err) => {
         alert(err.message);
-        setIsLoading(false);
+        toggle();
       });
   };
 
   return (
-    <section className="flex mt-10  bg-login-page justify-center bg-cover bg-center">
-      {/* Adjusted card container with responsive padding */}
-      <div className="w-full max-w-md px-4 py-8 bg-white rounded-lg shadow-md sm:px-20 lg:px-20">
-        <h1 className="text-xl font-bold mb-8">{isLogin ? "登入" : "登記"}</h1>
-        <form onSubmit={submitHandler} className="space-y-4">
-          {/* Email input */}
+    <section>
+      <h1 className="text-xl font-bold mb-8">{isLogin ? "登入" : "登記"}</h1>
+      <form onSubmit={submitHandler} className="">
+        {/* Email input */}
+        <Box pos="relative">
+          <LoadingOverlay
+            visible={visible}
+            zIndex={1000}
+            overlayProps={{ radius: "sm", blur: 2 }}
+          />
           <div>
             <TextInput
               label="電郵地址"
@@ -90,8 +95,8 @@ const AuthForm = () => {
             </Button>
             <Anchor className="self-center">忘記密碼</Anchor>
           </div>
-        </form>
-      </div>
+        </Box>
+      </form>
     </section>
   );
 };

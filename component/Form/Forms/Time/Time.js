@@ -18,6 +18,7 @@ function Time(props) {
   const date = dateAndTime[1];
   return (
     <form
+      className="mt-4 flex flex-col justify-center items-center w-150 min-w-150"
       onSubmit={(event) => {
         event.preventDefault();
         if (Array.isArray(value) && value.length > 0) {
@@ -31,38 +32,40 @@ function Time(props) {
         }
       }}
     >
-      <Chip.Group multiple value={value} onChange={setValue}>
-        <Grid>
-          {date.map((value) => (
-            <Grid.Col key={value} span={1.5}>
-              {value}
-            </Grid.Col>
-          ))}
-        </Grid>
-        {showError && (
-          <Alert color="red" title="Error">
-            Please select at least one timeslot.
-          </Alert>
-        )}
-        <Grid>
-          {Object.entries(datetime).map(([key, value]) => (
-            <Grid.Col key={key} span={1.5}>
-              {value.map((item) => (
-                <Chip
-                  value={`${key}` + "-" + `${item.value}`}
-                  key={`${key}` + `${item.value}`}
-                  radius="xs"
-                >
-                  {item.label}
-                </Chip>
-              ))}
-            </Grid.Col>
-          ))}
-        </Grid>
-      </Chip.Group>
-      <Button type="submit">
-        {props.types == "newApplication" ? "下一步" : "更新"}
-      </Button>
+      <div className="">
+        <Chip.Group multiple value={value} onChange={setValue}>
+          <Grid columns={7}>
+            {date.map((value) => (
+              <Grid.Col key={value} span={1}>
+                {value}
+              </Grid.Col>
+            ))}
+          </Grid>
+          {showError && (
+            <Alert color="red" title="Error">
+              Please select at least one timeslot.
+            </Alert>
+          )}
+          <Grid columns={7}>
+            {Object.entries(datetime).map(([key, value]) => (
+              <Grid.Col key={key} span={1}>
+                {value.map((item) => (
+                  <Chip
+                    value={`${key}` + "-" + `${item.value}`}
+                    key={`${key}` + `${item.value}`}
+                    radius="xs"
+                  >
+                    {item.label}
+                  </Chip>
+                ))}
+              </Grid.Col>
+            ))}
+          </Grid>
+        </Chip.Group>
+        <Button type="submit">
+          {props.types == "newApplication" ? "下一步" : "更新"}
+        </Button>
+      </div>
     </form>
   );
 }

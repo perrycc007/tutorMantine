@@ -53,16 +53,20 @@ function StudentApply(props) {
   const handInHanlder = (values) => {
     props.type == "newApplication" && props.handIn(values);
   };
+
+  const css =
+    props.type == "history"
+      ? "w-full px-4 "
+      : "w-full px-4 py-8 bg-white rounded-lg shadow-md sm:px-20 w-10/12 lg:px-20 w-12/12";
   return (
     <div className="flex justify-center mt-8 md:px-8 2xl:px-4 max-w-7xl mx-auto ">
-      <div className="w-full px-4 py-8 bg-white rounded-lg shadow-md sm:px-20 w-10/12 lg:px-20 w-12/12">
+      <div className={css}>
         <UserFormProvider form={form}>
           <Stepper
             iconSize={32}
             size="sm"
             active={active}
-            {...(props.type == "newApplication" &&
-              (onStepClick = { setActive }))}
+            onStepClick={props.type == "history" ? setActive : ""}
           >
             <Stepper.Step label="" description="地點">
               <LocationForms

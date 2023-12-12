@@ -56,8 +56,8 @@ const Cases = () => {
   }
 
   return (
-    <div>
-      <h1>補習申請歷史</h1>
+    <div className="flex flex-col mt-4  md:px-8 2xl:px-4 max-w-7xl mx-auto ">
+      <h1 className="text-3xl my-8">補習申請歷史</h1>
       {loading && <p>Loading...</p>}
 
       {!loading && (

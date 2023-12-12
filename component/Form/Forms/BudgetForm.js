@@ -19,6 +19,7 @@ function BudgetForm(props) {
   return (
     <UserFormProvider form={form}>
       <form
+        className="h-full"
         onSubmit={(event) => {
           event.preventDefault();
           if (form.isValid()) {

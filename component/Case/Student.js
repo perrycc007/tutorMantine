@@ -44,7 +44,7 @@ const Student = (props) => {
 
   return (
     <div className="mt-8  md:px-8 2xl:px-4 max-w-7xl mx-auto ">
-      <h1 className="text-3xl my-8">補習個案</h1>
+      {!props.Favourite && <h1 className="text-3xl my-8">補習個案</h1>}
       <div>
         {!props.Favourite && (
           <AccordionFilter

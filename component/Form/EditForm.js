@@ -47,13 +47,7 @@ function EditForm(props) {
   }, [props.cases]);
   return (
     <>
-      <Modal
-        opened={opened}
-        size="auto"
-        onClose={close}
-        title="Authentication"
-        centered
-      >
+      <Modal opened={opened} size="auto" onClose={close} centered>
         <StudentApply
           data={data}
           studentId={props.studentId}

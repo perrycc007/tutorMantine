@@ -83,7 +83,7 @@ function Form(props) {
     setTutor(props.tutorData);
   }, [props.data]);
   return (
-    <>
+    <div className="max-w-3xl">
       <UserFormProvider form={form}>
         <Stepper
           active={active}
@@ -91,6 +91,7 @@ function Form(props) {
           size="md"
           iconPosition="right"
           iconSize={25}
+          className="mt-2"
         >
           <Stepper.Step label="" description="個人資料">
             <PersonalInfoForm updateForm={updateFormHanlder} data={profile} />
@@ -140,7 +141,7 @@ function Form(props) {
           {props.type == "student" && <Button onClick={nextStep}>完成</Button>}
         </Group>
       </UserFormProvider>
-    </>
+    </div>
   );
 }
 

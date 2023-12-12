@@ -8,6 +8,7 @@ import {
   updateProfileAxios,
   updateTutorAxios,
 } from "../../component/Helper/AxiosFunction";
+import { Card } from "@mantine/core";
 const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [isTutor, serIsTutor] = useState("tutor");
@@ -55,16 +56,21 @@ const UserProfile = () => {
   return (
     <>
       {/* {loading && <p>Loading...</p>} */}
-      <section className="flex mt-10  bg-login-page justify-center bg-cover bg-center">
+      <section
+        className="flex max-w-screen py-10  min-h-screen
+       bg-login-page justify-center align-middle bg-cover bg-center "
+      >
         {/* Adjusted card container with responsive padding */}
-        <div className="w-full px-4 py-8 bg-white rounded-lg shadow-md sm:px-20 w-12/12 lg:px-20 w-12/12">
-          <Form
-            data={ProfileData}
-            tutorData={TutorDate}
-            updateForm={updateFormHanlder}
-            updateTutorForm={updateTutorFormHandler}
-            type={isTutor}
-          />
+        <div className="mt-4">
+          <Card className="flex  justify-center  px-4  bg-white rounded-lg shadow-md sm:px-20 w-12/12 lg:px-20 w-12/12">
+            <Form
+              data={ProfileData}
+              tutorData={TutorDate}
+              updateForm={updateFormHanlder}
+              updateTutorForm={updateTutorFormHandler}
+              type={isTutor}
+            />
+          </Card>
         </div>
       </section>
       {/* {!loading && <ProfileForm profile={profile} tutor={tutor} />}

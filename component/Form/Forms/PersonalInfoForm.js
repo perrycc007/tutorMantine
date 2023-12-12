@@ -37,6 +37,7 @@ const PersonalInfoForm = (props) => {
 
   return (
     <form
+      className="mt-2"
       onSubmit={(event) => {
         event.preventDefault();
         if (form.isValid()) {

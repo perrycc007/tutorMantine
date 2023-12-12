@@ -39,8 +39,8 @@ const FavouriteList = () => {
   }, []);
 
   return (
-    <div className={classes.container}>
-      <h1>我的最愛</h1>
+    <div className="flex flex-col mt-4  md:px-8 2xl:px-4 max-w-7xl mx-auto ">
+      <h1 className="text-3xl my-8">我的最愛</h1>
       <SegmentedControl
         value={type}
         onChange={setType}
