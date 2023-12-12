@@ -2,7 +2,7 @@ import Tutor from "../../component/Case/Tutor";
 import {
   TutorGetAxios,
   TutorGetWithFavouriteAxios,
-} from "../../component/Helper/AxiosFunction";
+} from "../../component/Helper/AxiosFunctionOld";
 import { useState, useEffect } from "react";
 import cookie from "js-cookie";
 

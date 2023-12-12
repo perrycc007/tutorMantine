@@ -39,8 +39,9 @@ export default function AccordionFilter(props) {
           max={1000}
           step={10}
           label={(value) => `$${value}`}
+          className="my-4"
         />
-        <Accordion>
+        <Accordion className="mt-4" variant="contained">
           <Accordion.Item key={"location"} value="location">
             <Accordion.Control>Location</Accordion.Control>
             <Accordion.Panel>

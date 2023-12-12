@@ -1,4 +1,3 @@
-import classes from "./CaseItem.module.css";
 import { Accordion, Button } from "@mantine/core";
 
 import { useState, useEffect } from "react";

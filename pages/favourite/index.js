@@ -1,10 +1,9 @@
-import FavouriteList from '../../components/FavouriteList'
+import FavouriteList from "../../component/FavouriteList";
 
 const Favourite = () => {
-
   return (
     <>
-         <FavouriteList />
+      <FavouriteList />
     </>
   );
 };

@@ -198,7 +198,7 @@ export function HeaderMegaMenu() {
               <Anchor
                 className={classes.link}
                 component={Link}
-                href="/favorite"
+                href="/favourite"
               >
                 我的最愛
               </Anchor>
@@ -298,7 +298,7 @@ export function HeaderMegaMenu() {
               <Anchor
                 className={classes.link}
                 component={Link}
-                href="/favorite"
+                href="/favourite"
               >
                 我的最愛
               </Anchor>

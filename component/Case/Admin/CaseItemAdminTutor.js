@@ -1,4 +1,3 @@
-import classes from "./CaseItem.module.css";
 import { Accordion, Button, Pagination } from "@mantine/core";
 import EditForm from "../../Form/EditForm";
 import { useState, useEffect } from "react";
@@ -95,7 +94,7 @@ function CaseItemAdminTutor(props) {
     >
       <Accordion.Control>
         {Object.entries(heading).map(([key, value]) => (
-          <p className={classes.title} key={`${key} value`}>
+          <p key={`${key} value`}>
             {typeof value == "object"
               ? value.map((item) => {
                   return ` ${item}`;
@@ -103,34 +102,32 @@ function CaseItemAdminTutor(props) {
               : ""}
           </p>
         ))}
-        <p
-          className={classes.title}
-        >{`$${info.lowestfee}/小時-${info.highestfee}/小時`}</p>
+        <p>{`$${info.lowestfee}/小時-${info.highestfee}/小時`}</p>
       </Accordion.Control>
 
       <Accordion.Panel>
         <p>履歷驗證狀態:{verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}</p>
-        <p className={classes.detail}>ID:{props.cases.tutorId}</p>
+        <p>ID:{props.cases.tutorId}</p>
         {Object.entries(info).map(
           ([key, value]) =>
             itemName[key] !== undefined &&
             value !== null &&
             key !== "subjectGrade" && (
-              <p className={classes.detail} key={key}>
+              <p key={key}>
                 {itemName[key]}: {value}
               </p>
             )
         )}
         {info.subjectGrade &&
           Object.entries(info.subjectGrade).map(([subjectKey, grade]) => (
-            <p className={classes.detail} key={subjectKey}>
+            <p key={subjectKey}>
               {subjectKey} : {grade}
             </p>
           ))}
 
-        <div className={classes.buttonContainer}>
-          <div className={classes.summary}>
-            <p className={classes.detail}>{info.availtimes}</p>
+        <div>
+          <div>
+            <p>{info.availtimes}</p>
             <Button
               variant="outlined"
               onClick={() => StatusHandler(info.tutorId)}
@@ -158,7 +155,7 @@ function CaseItemAdminTutor(props) {
             />
           </div>
 
-          <div className={classes.heading}>
+          <div>
             <Button onClick={() => toggleCheck(info.idmatch)}>
               {checkStatus}
             </Button>

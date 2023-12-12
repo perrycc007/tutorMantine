@@ -5,7 +5,8 @@ import { theme } from "../theme";
 import { HeaderMegaMenu } from "../component/Header/HeaderMegaMenu";
 import { FooterLinks } from "../component/Footer/FooterLinks";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import "./input.css";
+
 import userStore from "../stores/stores";
 import { isTokenExpired } from "../component/Helper/HelperFunction";
 import cookie from "js-cookie";
@@ -39,7 +40,9 @@ export default function App({ Component, pageProps }: any) {
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
       <HeaderMegaMenu />
-      <Component {...pageProps} />
+      <div className="max-w-none px-3   2xl: max-w-7xl mx-auto  ">
+        <Component {...pageProps} />
+      </div>
       <FooterLinks />
     </MantineProvider>
   );

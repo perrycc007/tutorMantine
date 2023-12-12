@@ -3,11 +3,11 @@ import userStore from "../../stores/stores";
 import CaseAccordion from "../../component/Case/CaseAccordion";
 import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
 
-import { updateStudentAxios } from "../../component/Helper/AxiosFunction";
+import { updateStudentAxios } from "../../component/Helper/AxiosFunctionOld";
 import {
   fetchHistory,
   toggleStatus,
-} from "../../component/Helper/AxiosFunction";
+} from "../../component/Helper/AxiosFunctionOld";
 const Cases = () => {
   const [cases, setCases] = useState(null);
   const [loading, setLoading] = useState(true);

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Accordion, Button, Pagination } from "@mantine/core";
 import usePagination from "./usePagination";
 import itemName from "./itemName";
-import classes from "./CaseItem.module.css";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import EditForm from "../Form/EditForm";
 const CaseAccordion = (props) => {
@@ -45,7 +44,7 @@ const CaseAccordion = (props) => {
   return (
     <>
       <section>
-        <Accordion>
+        <Accordion variant="separated">
           {props.cases
             ? _DATA.currentData().map((oneCase, index) => {
                 const oneCaseCopy = Object.assign({}, oneCase);
@@ -86,7 +85,7 @@ const CaseAccordion = (props) => {
                   <Accordion.Item key={id} value={JSON.stringify(id)}>
                     <Accordion.Control>
                       {Object.entries(heading).map(([key, value]) => (
-                        <p className={classes.title} key={`${value} value`}>
+                        <p key={`${value} value`}>
                           {typeof value == "object"
                             ? value.map((item) => {
                                 return ` ${item}`;
@@ -94,10 +93,10 @@ const CaseAccordion = (props) => {
                             : ""}
                         </p>
                       ))}
-                      <p className={classes.title}>{`$${fee}/小時`}</p>
+                      <p>{`$${fee}/小時`}</p>
                     </Accordion.Control>
                     <Accordion.Panel>
-                      <p className={classes.detail}>ID:{id}</p>
+                      <p>ID:{id}</p>
                       {props.type == "tutor" && (
                         <p>履歷驗證狀態:{oneCase.verify}</p>
                       )}
@@ -106,14 +105,14 @@ const CaseAccordion = (props) => {
                           itemName[key] !== undefined &&
                           value !== null &&
                           key !== "subjectGrade" && (
-                            <p className={classes.detail} key={itemName[key]}>
+                            <p key={itemName[key]}>
                               {itemName[key]}: {value}
                             </p>
                           )
                       )}
                       {oneCase.type == "tutor" &&
                         JSON.parse(oneCase.subgrade).map((item) => (
-                          <p className={classes.detail} key={item.id}>
+                          <p key={item.id}>
                             {item.id} : {item.value}
                           </p>
                         ))}
@@ -124,9 +123,9 @@ const CaseAccordion = (props) => {
                           updateStudentForm={props.updateStudentForm}
                         />
                       )}
-                      {oneCase.type == "tutor" || oneCase.type == "cases" ? (
+                      {props.type == "tutor" || props.type == "cases" ? (
                         <Button
-                          variant="outlined"
+                          variant="transparent"
                           onClick={() => toggleFavoriteStatusHandler(id)}
                         >
                           {isFavourite ? <IconHeartFilled /> : <IconHeart />}
@@ -140,13 +139,15 @@ const CaseAccordion = (props) => {
               })
             : []}
         </Accordion>
-        <Pagination
-          total={count}
-          page={page}
-          onChange={handleChange}
-          variant="outlined"
-          color="primary"
-        />
+        <div className="flex justify-center mt-8">
+          <Pagination
+            total={count}
+            page={page}
+            onChange={handleChange}
+            variant="outlined"
+            color="primary"
+          />
+        </div>
       </section>
     </>
   );

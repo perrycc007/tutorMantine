@@ -1,7 +1,6 @@
 import AdminDisplay from "../../component/AdminDisplay/AdminDisplay";
 import NoSSR from "react-no-ssr";
 import { Loader } from "@mantine/core";
-import classes from "./adminResult.module.css";
 import { useEffect, useState, useRef } from "react";
 import {
   stripFormEventProperties,
@@ -109,7 +108,7 @@ const Result = () => {
   return (
     <div>
       <NoSSR>
-        <h1 className={classes.h1}>補習搜尋</h1>
+        <h1>補習搜尋</h1>
         {loading && <Loader />}
         {/* {!loading && (
           <div className={classes.searchbar}>

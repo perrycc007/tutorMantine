@@ -3,7 +3,7 @@ import { Modal, Button } from "@mantine/core";
 import StudentApply from "../../component/Form/StudentApply";
 import userStore from "../../stores/stores";
 import { useEffect, useState } from "react";
-import { updateStudentAxios } from "../../component/Helper/AxiosFunction";
+import { updateStudentAxios } from "../Helper/AxiosFunctionOld";
 import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
 function EditForm(props) {
   const [opened, { open, close }] = useDisclosure(false);
@@ -58,7 +58,6 @@ function EditForm(props) {
           data={data}
           studentId={props.studentId}
           type="history"
-          handIn={""}
           updateApplication={updateApplicationHandler}
         ></StudentApply>
       </Modal>

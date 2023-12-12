@@ -3,7 +3,7 @@ import { devtools, persist } from "zustand/middleware";
 import {
   fetchFavouriteCases,
   fetchFavouriteTutor,
-} from "../component/Helper/AxiosFunction";
+} from "../component/Helper/AxiosFunctionOld";
 import cancelableookies from "js-cookie";
 import Cookies from "js-cookie";
 // Helper function to clear local storage

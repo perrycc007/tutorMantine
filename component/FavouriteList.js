@@ -3,16 +3,14 @@ import userStore from "../stores/stores";
 import {
   getFavouriteTutorListAxios,
   getFavouriteStudentListAxios,
-} from "./Helper/AxiosFunction";
+} from "./Helper/AxiosFunctionOld";
 import { SegmentedControl } from "@mantine/core";
-import { useState } from "react";
-
 import Student from "./Case/Student";
 import Tutor from "./Case/Tutor";
 import classes from "./Case/Student.module.css";
 // And now we can use these
 const FavouriteList = () => {
-  const [type, setType] = useState("cases");
+  const [type, setType] = useState("student");
   const getuserId = userStore((state) => state.userId);
 
   const [favouriteCase, setFavouriteCase] = useState([]);
@@ -21,15 +19,17 @@ const FavouriteList = () => {
   async function getFavouriteTutorList(getuserId) {
     try {
       const response = await getFavouriteTutorListAxios(getuserId);
-      setFavouriteTutor(response.data.result);
-      return response.data.result;
+
+      setFavouriteTutor(response.data);
+      return response.data;
     } catch (err) {}
   }
   async function getFavouriteStudentList(getuserId) {
     try {
       const response = await getFavouriteStudentListAxios(getuserId);
-      setFavouriteCase(response.data.result);
-      return response.data.result;
+      setFavouriteCase(response.data);
+      console.log(response.data);
+      return response.data;
     } catch (err) {}
   }
 
@@ -50,9 +50,9 @@ const FavouriteList = () => {
         ]}
       />
       {type == "student" ? (
-        <Student cases={favouriteCase} Favourite={true} />
+        <Student cases={favouriteCase} Favourite={true} type="tutor" />
       ) : (
-        <Tutor cases={favouriteTutor} Favourite={true} />
+        <Tutor cases={favouriteTutor} Favourite={true} type="cases" />
       )}
     </div>
   );

@@ -1,4 +1,3 @@
-import classes from "./CaseItem.module.css";
 import { Accordion, Button, Pagination } from "@mantine/core";
 import EditForm from "../../Form/EditForm";
 import { useState, useEffect } from "react";
@@ -104,34 +103,30 @@ function CaseItemAdminStudent(props) {
   }, [props.cases]);
 
   return (
-    <div className={classes.item}>
+    <div>
       {Object.entries(heading).map(([key, value]) => (
-        <p className={classes.title} key={`${key} value`}>
-          {value}
-        </p>
+        <p key={`${key} value`}>{value}</p>
       ))}
-      <p
-        className={classes.title}
-      >{`$${items.lowestfee} - ${items.highestfee}/小時`}</p>
+      <p>{`$${items.lowestfee} - ${items.highestfee}/小時`}</p>
 
-      <p className={classes.detail}>ID:{props.cases.studentId}</p>
+      <p>ID:{props.cases.studentId}</p>
       {Object.entries(items).map(
         ([key, value]) =>
           itemName[key] !== undefined &&
           value !== null &&
           key !== "subgrade" && (
-            <p className={classes.detail} key={itemName[key]}>
+            <p key={itemName[key]}>
               {itemName[key]}: {value}
             </p>
           )
       )}
 
-      <div className={classes.buttonContainer}>
-        <div className={classes.summary}>
+      <div>
+        <div>
           {availtimeArray.map((time) => (
             <p
               key={`${props.cases.studentId + time}`}
-              className={classes.detail}
+              // className={classes.detail}
             >
               {time}
             </p>

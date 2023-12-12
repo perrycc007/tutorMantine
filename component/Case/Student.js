@@ -3,13 +3,12 @@ import AccordionFilter from "./AccordionFilter";
 import { Accordion, Pagination } from "@mantine/core";
 import usePagination from "./usePagination";
 import { useState, useEffect } from "react";
-import classes from "./Student.module.css";
 import userStore from "../../stores/stores";
 import {
   caseFilterAxios,
   addFavouriteStudentAxios,
   removeFavouriteStudentAxios,
-} from "../Helper/AxiosFunction";
+} from "../Helper/AxiosFunctionOld";
 const Student = (props) => {
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
@@ -44,8 +43,9 @@ const Student = (props) => {
   }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.filter}>
+    <div className="mt-8">
+      <h1 className="text-3xl my-8">補習個案</h1>
+      <div>
         {!props.Favourite && (
           <AccordionFilter
             FilterHanlder={casesFilter}
@@ -57,7 +57,6 @@ const Student = (props) => {
       </div>
       {_DATA && (
         <CaseAccordion
-          // key={oneCase.tutorId}
           cases={_DATA}
           type="cases"
           toggleFavourite={toggleFavouriteTopHandler}

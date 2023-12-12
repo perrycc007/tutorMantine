@@ -2,13 +2,12 @@ import CaseAccordion from "./CaseAccordion";
 import AccordionFilter from "./AccordionFilter";
 
 import { useState, useEffect } from "react";
-import classes from "./Student.module.css";
 import userStore from "../../stores/stores";
 import {
   tutorFilterAxios,
   removeFavouriteTutorAxios,
   addFavouriteTutorAxios,
-} from "../Helper/AxiosFunction";
+} from "../Helper/AxiosFunctionOld";
 const Tutor = (props) => {
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
@@ -41,8 +40,8 @@ const Tutor = (props) => {
     setFilteredList(result.data);
   }
   return (
-    <div className={classes.container}>
-      <div className={classes.filter}>
+    <div>
+      <div>
         {!props.Favourite && (
           <AccordionFilter
             FilterHanlder={tutorFilter}
