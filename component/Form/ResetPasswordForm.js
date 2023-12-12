@@ -97,9 +97,9 @@ const ResetPasswordForm = (props) => {
               inputRef={ConfirmPasswordInputRef}
             />
             <div className={classes.buttonContainer}>
-              <button type="submit" className={classes.button}>
+              <Button type="submit" className={classes.button}>
                 重設密碼
-              </button>
+              </Button>
             </div>
           </form>
         </Box>

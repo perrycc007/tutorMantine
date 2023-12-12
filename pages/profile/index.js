@@ -55,13 +55,18 @@ const UserProfile = () => {
   return (
     <>
       {/* {loading && <p>Loading...</p>} */}
-      <Form
-        data={ProfileData}
-        tutorData={TutorDate}
-        updateForm={updateFormHanlder}
-        updateTutorForm={updateTutorFormHandler}
-        type={isTutor}
-      />
+      <section className="flex mt-10  bg-login-page justify-center bg-cover bg-center">
+        {/* Adjusted card container with responsive padding */}
+        <div className="w-full px-4 py-8 bg-white rounded-lg shadow-md sm:px-20 w-12/12 lg:px-20 w-12/12">
+          <Form
+            data={ProfileData}
+            tutorData={TutorDate}
+            updateForm={updateFormHanlder}
+            updateTutorForm={updateTutorFormHandler}
+            type={isTutor}
+          />
+        </div>
+      </section>
       {/* {!loading && <ProfileForm profile={profile} tutor={tutor} />}
        */}
     </>

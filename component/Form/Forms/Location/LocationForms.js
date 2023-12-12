@@ -58,7 +58,7 @@ function LocationForms(props) {
         )}
 
         {cat.map((location) => (
-          <Tabs.Panel key={location.cat} value={location.cat}>
+          <Tabs.Panel key={location.cat} value={location.cat} className="mt-4">
             <Chip.Group
               multiple={true}
               value={value}

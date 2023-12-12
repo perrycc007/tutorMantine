@@ -58,7 +58,7 @@ function SubjectsForms(props) {
           </Alert>
         )}
         {cat.map((subjects) => (
-          <Tabs.Panel key={subjects.cat} value={subjects.cat}>
+          <Tabs.Panel key={subjects.cat} value={subjects.cat} className="mt-4">
             <Chip.Group
               key={`${subjects.cat}` + "Chip.Group"}
               multiple

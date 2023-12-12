@@ -84,16 +84,18 @@ const CaseAccordion = (props) => {
                 return (
                   <Accordion.Item key={id} value={JSON.stringify(id)}>
                     <Accordion.Control>
-                      {Object.entries(heading).map(([key, value]) => (
-                        <p key={`${value} value`}>
-                          {typeof value == "object"
-                            ? value.map((item) => {
-                                return ` ${item}`;
-                              })
-                            : ""}
-                        </p>
-                      ))}
-                      <p>{`$${fee}/小時`}</p>
+                      <div className="block sm:grid grid-cols-3 gap-4   ">
+                        {Object.entries(heading).map(([key, value]) => (
+                          <p key={`${value} value`} className="">
+                            {typeof value == "object"
+                              ? value.map((item) => {
+                                  return ` ${item}`;
+                                })
+                              : ""}
+                          </p>
+                        ))}
+                        <p>{`$${fee}/小時`}</p>
+                      </div>
                     </Accordion.Control>
                     <Accordion.Panel>
                       <p>ID:{id}</p>

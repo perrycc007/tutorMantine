@@ -46,40 +46,52 @@ const AuthForm = () => {
   };
 
   return (
-    <section>
-      <h1>{isLogin ? "登入" : "登記"}</h1>
-      <form onSubmit={submitHandler}>
-        <div>
-          <TextInput
-            label="電郵地址"
-            type="email"
-            id="email"
-            required
-            {...form.getInputProps("email")}
-          />
-        </div>
-        <div>
-          <TextInput
-            label="密碼"
-            type="password"
-            id="password"
-            required
-            {...form.getInputProps("password")}
-          />
-        </div>
-        <div>
-          {!isLoading && (
-            <Button variant="outlined" onClick={submitHandler}>
-              {isLogin ? "Login" : "Create Account"}
+    <section className="flex mt-10  bg-login-page justify-center bg-cover bg-center">
+      {/* Adjusted card container with responsive padding */}
+      <div className="w-full max-w-md px-4 py-8 bg-white rounded-lg shadow-md sm:px-20 lg:px-20">
+        <h1 className="text-xl font-bold mb-8">{isLogin ? "登入" : "登記"}</h1>
+        <form onSubmit={submitHandler} className="space-y-4">
+          {/* Email input */}
+          <div>
+            <TextInput
+              label="電郵地址"
+              type="email"
+              id="email"
+              required
+              {...form.getInputProps("email")}
+              className="w-full"
+            />
+          </div>
+          {/* Password input */}
+          <div>
+            <TextInput
+              label="密碼"
+              type="password"
+              id="password"
+              required
+              {...form.getInputProps("password")}
+              className="w-full"
+            />
+          </div>
+          {/* Buttons and link */}
+          <div className="flex flex-col space-y-2">
+            {!isLoading && (
+              <Button variant="deafult" onClick={submitHandler}>
+                {isLogin ? "Login" : "Create Account"}
+              </Button>
+            )}
+            {isLoading && <p>Sending request...</p>}
+            <Button
+              type="button"
+              variant="deafult"
+              onClick={switchAuthModeHandler}
+            >
+              {isLogin ? "Create new account" : "Login with existing account"}
             </Button>
-          )}
-          {isLoading && <p>Sending request...</p>}
-          <Button type="button" onClick={switchAuthModeHandler}>
-            {isLogin ? "Create new account" : "Login with existing account"}
-          </Button>
-          <Anchor>忘記密碼</Anchor>
-        </div>
-      </form>
+            <Anchor className="self-center">忘記密碼</Anchor>
+          </div>
+        </form>
+      </div>
     </section>
   );
 };

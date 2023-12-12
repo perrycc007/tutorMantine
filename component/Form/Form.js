@@ -85,7 +85,13 @@ function Form(props) {
   return (
     <>
       <UserFormProvider form={form}>
-        <Stepper active={active}>
+        <Stepper
+          active={active}
+          onStepClick={setActive}
+          size="md"
+          iconPosition="right"
+          iconSize={25}
+        >
           <Stepper.Step label="" description="個人資料">
             <PersonalInfoForm updateForm={updateFormHanlder} data={profile} />
           </Stepper.Step>

@@ -40,7 +40,8 @@ const Tutor = (props) => {
     setFilteredList(result.data);
   }
   return (
-    <div>
+    <div className="mt-8  md:px-8 2xl:px-4 max-w-7xl mx-auto ">
+      <h1 className="text-3xl my-8">精英導師</h1>
       <div>
         {!props.Favourite && (
           <AccordionFilter

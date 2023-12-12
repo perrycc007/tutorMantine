@@ -54,54 +54,64 @@ function StudentApply(props) {
     props.type == "newApplication" && props.handIn(values);
   };
   return (
-    <>
-      <UserFormProvider form={form}>
-        <Stepper active={active}>
-          <Stepper.Step label="" description="地點">
-            <LocationForms
-              data={props.data}
-              updateForm={updateApplicationHandler}
-              types={props.type}
-              nextStep={nextStep}
-            />
-          </Stepper.Step>
-          <Stepper.Step label="" description="時間">
-            <Time
-              data={props.data}
-              updateForm={updateApplicationHandler}
-              types={props.type}
-              nextStep={nextStep}
-            />
-          </Stepper.Step>
-          <Stepper.Step label="" description="科目">
-            <SubjectsForms
-              data={props.data}
-              updateForm={updateApplicationHandler}
-              types={props.type}
-              nextStep={nextStep}
-            />
-          </Stepper.Step>
-          <Stepper.Step label="" description="要求">
-            <StudentOthers
-              data={props.data}
-              updateForm={props.type ? handInHanlder : updateApplicationHandler}
-              types={props.type}
-            />
-          </Stepper.Step>
-        </Stepper>
+    <div className="flex justify-center mt-8 md:px-8 2xl:px-4 max-w-7xl mx-auto ">
+      <div className="w-full px-4 py-8 bg-white rounded-lg shadow-md sm:px-20 w-10/12 lg:px-20 w-12/12">
+        <UserFormProvider form={form}>
+          <Stepper
+            iconSize={32}
+            size="sm"
+            active={active}
+            {...(props.type == "newApplication" &&
+              (onStepClick = { setActive }))}
+          >
+            <Stepper.Step label="" description="地點">
+              <LocationForms
+                data={props.data}
+                updateForm={updateApplicationHandler}
+                types={props.type}
+                nextStep={nextStep}
+              />
+            </Stepper.Step>
+            <Stepper.Step label="" description="時間">
+              <Time
+                data={props.data}
+                updateForm={updateApplicationHandler}
+                types={props.type}
+                nextStep={nextStep}
+              />
+            </Stepper.Step>
+            <Stepper.Step label="" description="科目">
+              <SubjectsForms
+                data={props.data}
+                updateForm={updateApplicationHandler}
+                types={props.type}
+                nextStep={nextStep}
+              />
+            </Stepper.Step>
+            <Stepper.Step label="" description="要求">
+              <StudentOthers
+                data={props.data}
+                updateForm={
+                  props.type ? handInHanlder : updateApplicationHandler
+                }
+                types={props.type}
+              />
+            </Stepper.Step>
+          </Stepper>
 
-        <Group justify="flex-end" mt="xl">
-          {active !== 0 && (
-            <Button variant="default" onClick={prevStep}>
-              返回
-            </Button>
-          )}
-          {active !== 3 && props.type !== "newApplication" && (
-            <Button onClick={nextStep}>下一步</Button>
-          )}
-        </Group>
-      </UserFormProvider>
-    </>
+          <Group justify="flex-end" mt="xl">
+            {active !== 0 && (
+              <Button variant="default" onClick={prevStep}>
+                返回
+              </Button>
+            )}
+            {active !== 3 && props.type !== "newApplication" && (
+              <Button onClick={nextStep}>下一步</Button>
+            )}
+          </Group>
+        </UserFormProvider>
+      </div>
+    </div>
   );
 }
 

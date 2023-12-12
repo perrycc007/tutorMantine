@@ -1,11 +1,11 @@
 import "@mantine/core/styles.css";
 import Head from "next/head";
+import "./input.css";
 import { MantineProvider } from "@mantine/core";
 import { theme } from "../theme";
 import { HeaderMegaMenu } from "../component/Header/HeaderMegaMenu";
 import { FooterLinks } from "../component/Footer/FooterLinks";
 import { useEffect } from "react";
-import "./input.css";
 
 import userStore from "../stores/stores";
 import { isTokenExpired } from "../component/Helper/HelperFunction";
@@ -39,9 +39,11 @@ export default function App({ Component, pageProps }: any) {
         />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
-      <HeaderMegaMenu />
-      <div className="max-w-none px-3   2xl: max-w-7xl mx-auto  ">
-        <Component {...pageProps} />
+      <div className="flex flex-col min-h-screen">
+        <HeaderMegaMenu />
+        <div className="max-w-none    2xl: max-w-7xl mx-auto flex-grow ">
+          <Component {...pageProps} />
+        </div>
       </div>
       <FooterLinks />
     </MantineProvider>

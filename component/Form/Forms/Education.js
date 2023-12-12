@@ -103,25 +103,27 @@ const Education = (props) => {
             Please fill in all the required fields
           </Alert>
         )}
-        {Object.entries(inputfield).map(([key, value]) => (
-          <TextInput
-            key={value.name}
-            label={value.label}
-            placeholder={value.label}
-            {...form.getInputProps(value.name)}
-          />
-        ))}
-        {Object.entries(selectfield).map(([key, value]) => {
-          return (
-            <Select
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Object.entries(inputfield).map(([key, value]) => (
+            <TextInput
               key={value.name}
               label={value.label}
-              data={value.option}
               placeholder={value.label}
               {...form.getInputProps(value.name)}
             />
-          );
-        })}
+          ))}
+          {Object.entries(selectfield).map(([key, value]) => {
+            return (
+              <Select
+                key={value.name}
+                label={value.label}
+                data={value.option}
+                placeholder={value.label}
+                {...form.getInputProps(value.name)}
+              />
+            );
+          })}
+        </div>
         <Button type="submit">Submit</Button>
       </form>
     </>
