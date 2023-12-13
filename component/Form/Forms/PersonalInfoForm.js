@@ -29,7 +29,11 @@ const PersonalInfoForm = (props) => {
         /^\d{8}$/.test(value) ? null : "Invalid phone number",
     },
   });
-  const [showError, setShowError] = useState(false);
+  const submitHanlder = (event) => {
+    form.setValues((prev) => ({ ...prev, ...event }));
+    const NewData = { ...form.values };
+    props.updateForm(NewData);
+  };
   useEffect(() => {
     form.setValues(props.data);
     form.resetDirty(props.data);
@@ -38,23 +42,8 @@ const PersonalInfoForm = (props) => {
   return (
     <form
       className="mt-2"
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (form.isValid()) {
-          form.setValues((prev) => ({ ...prev, ...event }));
-          const NewData = { ...form.values };
-          props.updateForm(NewData);
-          setShowError(false); // Reset error state if submission is successful
-        } else {
-          setShowError(true); // Show error if validation fails
-        }
-      }}
+      onSubmit={form.onSubmit((values) => submitHanlder(values))}
     >
-      {showError && (
-        <Alert color="red" title="Error">
-          Please fill in all the required fields
-        </Alert>
-      )}
       {Object.entries(inputfield).map(([key, value]) => (
         <TextInput
           label={value.label}

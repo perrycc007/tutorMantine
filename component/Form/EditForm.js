@@ -47,7 +47,13 @@ function EditForm(props) {
   }, [props.cases]);
   return (
     <>
-      <Modal opened={opened} size="auto" onClose={close} centered>
+      <Modal
+        opened={opened}
+        size="xl"
+        title="編輯申請"
+        onClose={close}
+        centered
+      >
         <StudentApply
           data={data}
           studentId={props.studentId}

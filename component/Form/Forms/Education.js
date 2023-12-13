@@ -7,7 +7,6 @@ const inputfield = formField.inputfield.Education;
 const selectfield = formField.selectfield.Education;
 
 const Education = (props) => {
-  const [showError, setShowError] = useState(false);
   const form = useUserForm({
     validateInputOnBlur: true,
     initialValues: { ...props.data },
@@ -70,39 +69,27 @@ const Education = (props) => {
             ? null
             : "Certification details should be less than 200 characters"
           : null,
-      intro: (value) =>
-        value
-          ? value.length > 10
-            ? null
-            : "Introduction should be more descriptive"
-          : "Introduction should be more descriptive",
+      // intro: (value) =>
+      //   value
+      //     ? value.length > 10
+      //       ? null
+      //       : "Introduction should be more descriptive"
+      //     : "Introduction should be more descriptive",
     },
   });
+
+  const submitHanlder = (event) => {
+    form.setValues((prev) => ({ ...prev, ...event }));
+    const NewData = { ...props.data, ...form.values };
+    props.updateForm(NewData);
+  };
   useEffect(() => {
     form.setValues(props.data);
     form.resetDirty(props.data);
   }, [props.data]);
   return (
     <>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (form.isValid()) {
-            form.setValues((prev) => ({ ...prev, ...event }));
-            const NewData = { ...props.data, ...form.values };
-            props.updateForm(NewData);
-            setShowError(false); // Reset error state if submission is successful
-          } else {
-            setShowError(true); // Show error if validation fails
-          }
-        }}
-      >
-        {" "}
-        {showError && (
-          <Alert color="red" title="Error">
-            Please fill in all the required fields
-          </Alert>
-        )}
+      <form onSubmit={form.onSubmit((values) => submitHanlder(values))}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Object.entries(inputfield).map(([key, value]) => (
             <TextInput

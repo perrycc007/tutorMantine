@@ -6,7 +6,7 @@ function CAccordion({ cat, select, form }) {
       {Object.entries(cat).map(([subjectKey, subjectName]) => (
         <Accordion.Item key={subjectKey} value={subjectKey}>
           <Accordion.Control>{subjectKey}</Accordion.Control>
-          <Accordion.Panel>
+          <Accordion.Panel key={subjectKey + "panel"}>
             {Object.entries(subjectName).map(([key, name]) => (
               <Select label={name} {...form.getInputProps(key)} data={select} />
             ))}
