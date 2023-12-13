@@ -19,7 +19,7 @@ const FavouriteList = () => {
   async function getFavouriteTutorList(getuserId) {
     try {
       const response = await getFavouriteTutorListAxios(getuserId);
-
+      console.log(response.data);
       setFavouriteTutor(response.data);
       return response.data;
     } catch (err) {}
@@ -28,7 +28,7 @@ const FavouriteList = () => {
     try {
       const response = await getFavouriteStudentListAxios(getuserId);
       setFavouriteCase(response.data);
-      console.log(response.data);
+
       return response.data;
     } catch (err) {}
   }

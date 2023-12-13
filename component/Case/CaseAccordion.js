@@ -58,7 +58,6 @@ const CaseAccordion = (props) => {
                 } = oneCase;
                 const fee = (items.highestfee + items.lowestfee) / 2;
                 const isFavourite = favourites[index];
-                console.log(locations);
                 let heading = {
                   locations: locations
                     ? Array.isArray(locations)

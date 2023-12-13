@@ -57,7 +57,6 @@ function Time(props) {
         }
       }}
     >
-      {" "}
       <ScrollArea
         w={viewportSize.width > 550 ? 500 : viewportSize.width - 40}
         type={viewportSize.width > 550 ? "" : "always"}
@@ -79,28 +78,31 @@ function Time(props) {
                 Please select at least one timeslot.
               </Alert>
             )}
-
-            <div className="grid grid-cols-7 gap-x-2">
-              {Object.entries(datetime).map(([key, value]) => (
-                <div key={key} className="col-span-1">
-                  {value.map((item) => (
-                    <Chip
-                      value={`${key}-${item.value}`}
-                      key={`${key}${item.value}`}
-                      radius="xs"
-                    >
-                      {item.label}
-                    </Chip>
-                  ))}
-                </div>
-              ))}
-            </div>
+            <Chip.Group multiple={true} value={value} onChange={setValue}>
+              <div className="grid grid-cols-7 gap-x-2">
+                {Object.entries(datetime).map(([key, value]) => (
+                  <div key={key} className="col-span-1">
+                    {value.map((item) => (
+                      <Chip
+                        value={`${key}-${item.value}`}
+                        key={`${key}${item.value}`}
+                        radius="xs"
+                      >
+                        {item.label}
+                      </Chip>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </Chip.Group>
           </div>
         </div>
       </ScrollArea>
-      <Button type="submit">
-        {props.types == "newApplication" ? "下一步" : "更新"}
-      </Button>
+      <div className="flex flex-col justify-end w-full">
+        <Button type="submit">
+          {props.types == "newApplication" ? "下一步" : "更新"}
+        </Button>
+      </div>
     </form>
   );
 }
