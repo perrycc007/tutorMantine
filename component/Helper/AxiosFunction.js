@@ -61,7 +61,28 @@ export async function toggleAvail(idmatch, availability) {
     throw error;
   }
 }
-
+export async function toggleStatus(id, status, type) {
+  console.log(id, status);
+  try {
+    const axiosFunc = () => {
+      if (type == "cases") {
+        return axiosInstance(cookie.get("access_token")).patch(
+          url + `/students/updateCaseStatus`,
+          { studentId: id, status: status }
+        );
+      } else {
+        return axiosInstance(cookie.get("access_token")).patch(
+          url + `/tutors/updateTutorStatus`,
+          { tutorId: id, status: status }
+        );
+      }
+    };
+    return await axiosRetry(axiosFunc);
+  } catch (error) {
+    console.error("Error in toggleAdminStatus:", error);
+    throw error;
+  }
+}
 export async function toggleAdminStatus(id, status, type) {
   try {
     const axiosFunc = () => {

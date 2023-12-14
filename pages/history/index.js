@@ -7,7 +7,7 @@ import { updateStudentAxios } from "../../component/Helper/AxiosFunctionOld";
 import {
   fetchHistory,
   toggleStatus,
-} from "../../component/Helper/AxiosFunctionOld";
+} from "../../component/Helper/AxiosFunction";
 const Cases = () => {
   const [cases, setCases] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -50,10 +50,9 @@ const Cases = () => {
   }, []);
 
   async function toggleCaseStatusHandler(id, status) {
-    console.log(id, status);
     try {
-      toggleStatus(id, status, type);
-      response.data.result;
+      const result = await toggleStatus(id, status, "cases");
+      result;
     } catch (error) {
       console.error("Error toggling case status:", error);
     }
@@ -72,7 +71,7 @@ const Cases = () => {
               favourite={[]}
               type="edit"
               updateStudentForm={updateStudentFormHanlder}
-              toggleStatusHandler={toggleCaseStatusHandler}
+              toggleStatus={toggleCaseStatusHandler}
             />
           ) : (
             <p>並沒有任何歷史</p>

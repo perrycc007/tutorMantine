@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Accordion, Button, Pagination } from "@mantine/core";
+import { Accordion, Button, Pagination, Switch } from "@mantine/core";
 import usePagination from "./usePagination";
 import itemName from "./itemName";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
@@ -10,11 +10,17 @@ const CaseAccordion = (props) => {
   );
   const [page, setPage] = useState(1);
   const PER_PAGE = 15;
-
+  const [status, setStatus] = useState(
+    props.cases.map((cases) => (cases.status == "OPEN" ? true : false))
+  );
   const count =
     props.cases !== undefined ? Math.ceil(props.cases.length / PER_PAGE) : 0;
   const _DATA = usePagination(props.cases, PER_PAGE);
-
+  const statusHandler = (index, openStatus) => {
+    const updatedStatus = [...status];
+    updatedStatus[index] = openStatus;
+    setStatus(updatedStatus);
+  };
   const handleClick = () => {
     window.scrollTo({
       top: 0,
@@ -58,6 +64,7 @@ const CaseAccordion = (props) => {
                 } = oneCase;
                 const fee = (items.highestfee + items.lowestfee) / 2;
                 const isFavourite = favourites[index];
+                const isStatus = status[index];
                 let heading = {
                   locations: locations
                     ? Array.isArray(locations)
@@ -79,6 +86,14 @@ const CaseAccordion = (props) => {
                 const toggleFavoriteStatusHandler = (id) => {
                   props.toggleFavourite(id, isFavourite);
                   toggleFavoriteStatusStateyHandler(index);
+                };
+                const toggleCaseStatusHandler = (id, status) => {
+                  props.toggleStatus(
+                    id,
+                    status == "OPEN" ? "OPEN" : "CLOSE",
+                    "cases"
+                  );
+                  statusHandler(index, status == "OPEN" ? true : false);
                 };
                 return (
                   <Accordion.Item key={id} value={JSON.stringify(id)}>
@@ -118,11 +133,23 @@ const CaseAccordion = (props) => {
                           </p>
                         ))}
                       {props.type == "edit" && (
-                        <EditForm
-                          cases={oneCaseCopy}
-                          studentId={oneCase.studentId}
-                          updateStudentForm={props.updateStudentForm}
-                        />
+                        <div>
+                          <Switch
+                            checked={isStatus}
+                            label="開放申請"
+                            onChange={(event) =>
+                              toggleCaseStatusHandler(
+                                id,
+                                event.currentTarget.checked
+                              )
+                            }
+                          />
+                          <EditForm
+                            cases={oneCaseCopy}
+                            studentId={oneCase.studentId}
+                            updateStudentForm={props.updateStudentForm}
+                          />
+                        </div>
                       )}
                       {props.type == "tutor" || props.type == "cases" ? (
                         <button

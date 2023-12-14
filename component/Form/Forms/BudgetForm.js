@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { RangeSlider, Button, TextInput } from "@mantine/core";
+import { RangeSlider, Switch, Button, TextInput } from "@mantine/core";
 import { UserFormProvider, useUserForm } from "../FormModel/FormContext";
 
 function BudgetForm(props) {
   const [payRange, setPayRange] = useState([100, 200]);
+  const [checked, setChecked] = useState(false);
   const form = useUserForm();
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function BudgetForm(props) {
               ...props.data,
               lowestfee: payRange[0],
               highestfee: payRange[1],
+              status: checked ? "OPEN" : "CLOSE",
             };
             props.updateForm(NewData);
           }
@@ -46,6 +48,13 @@ function BudgetForm(props) {
           step={10}
           label={(value) => `$${value}`}
         />
+
+        <Switch
+          checked={checked}
+          label="公開導師檔案"
+          onChange={(event) => setChecked(event.currentTarget.checked)}
+        />
+
         <button type="submit">Submit</button>
       </form>
     </UserFormProvider>
