@@ -16,6 +16,11 @@ function EditProfileForm(props) {
   };
   const selectedHandler = () => {
     open();
+    if (props.type == "tutor") {
+      props.passIndex(props.index);
+    } else if (props.type == "student") {
+      props.passIndex(-1);
+    }
   };
 
   useEffect(() => {

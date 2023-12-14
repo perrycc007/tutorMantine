@@ -20,7 +20,6 @@ function EditForm(props) {
 
   useEffect(() => {
     let { locations, subjects, availtimes, ...item } = props.cases;
-    console.log(props.cases);
     locations = locations
       ? typeof locations == "object"
         ? locations

@@ -151,7 +151,9 @@ function CaseItemAdminTutor(props) {
               updateForm={props.updateForm}
               updateTutorForm={props.updateTutorForm}
               cases={info}
+              index={props.index}
               type={"tutor"}
+              passIndex={props.passIndex}
             />
           </div>
 

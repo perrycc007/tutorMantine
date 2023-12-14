@@ -14,7 +14,6 @@ const AdminIdNavigation = (props) => {
   const currentIds = Ids.slice(startIndex, endIndex);
 
   const onClickHandler = (id) => {
-    console.log(id);
     props.passId(id);
   };
 

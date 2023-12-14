@@ -161,6 +161,7 @@ function CaseItemAdminStudent(props) {
             cases={studentProfile}
             type={"student"}
             edit={true}
+            passIndex={props.passIndex}
           />
         </div>
       </div>

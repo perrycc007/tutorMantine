@@ -21,6 +21,10 @@ const Result = () => {
   const [item, setItem] = useState([]);
   const [studentList, setStudentList] = useState([]);
   const [id, setId] = useState(1);
+  const [index, setIndex] = useState(0);
+  const indexPass = (value) => {
+    setIndex(value);
+  };
 
   const updateFormHanlder = async (userId, values) => {
     try {
@@ -28,6 +32,24 @@ const Result = () => {
         userId,
         cleanProfileObject(stripFormEventProperties(values))
       );
+      console.log(item, "before");
+      if (index >= 0) {
+        const updatedArray = [...item]; // Create a shallow copy of the array
+        updatedArray[index].tutor.profile = {
+          ...updatedArray[0].tutor.profile,
+          ...cleanProfileObject(stripFormEventProperties(values)),
+        };
+
+        setItem(updatedArray);
+      } else {
+        const updatedArray = [...item]; // Create a shallow copy of the array
+        updatedArray[0] = {
+          ...updatedArray[0],
+          ...cleanProfileObject(stripFormEventProperties(values)),
+        };
+
+        setItem(updatedArray);
+      }
     } catch (error) {
       alert(`Failed to update profile: ${error.message}`);
     }
@@ -36,22 +58,16 @@ const Result = () => {
     try {
       const { matchstatus, idmatch, ...tutor } = values;
       await updateTutorAdminAxios(userId, stripFormEventProperties(tutor));
-      const updatedArray = item.map((item) => {
-        if (item.tutorid === tutor.tutorId) {
-          return {
-            ...item,
-            tutor: {
-              ...item.tutor,
-              ...values,
-            },
-          };
-        } else {
-          return item;
-        }
-      });
+
+      const updatedArray = [...item]; // Create a shallow copy of the array
+      updatedArray[index].tutor = {
+        ...updatedArray[index].tutor,
+        ...item.tutor,
+        ...values,
+      };
       setItem(updatedArray);
     } catch (error) {
-      alert(`Failed to update student: ${error.message}`);
+      alert(`Failed to update tutor: ${error.message}`);
     }
   };
   const updateStudentFormHanlder = async (userId, values) => {
@@ -158,6 +174,7 @@ const Result = () => {
             handlePreviousClick={handlePreviousClickHandler}
             handleNextClick={handleNextClickHandler}
             page={page}
+            passIndex={indexPass}
           />
         )}
       </NoSSR>

@@ -11,6 +11,7 @@ import {
 import { useState, useEffect } from "react";
 
 export default function AdminDisplay({
+  passIndex,
   updateTutorForm,
   item,
   passIdHandler,
@@ -80,6 +81,7 @@ export default function AdminDisplay({
             toggleStatus={handleToggleStatus}
             updateForm={updateForm}
             updateStudentForm={updateStudentForm}
+            passIndex={passIndex}
             admin="admin"
             type="cases"
           />
@@ -87,9 +89,13 @@ export default function AdminDisplay({
 
         <Accordion>
           {item.map(
-            ({ idmatch, tutor, availiability, checkSTatus, matchstatus }) => (
+            (
+              { idmatch, tutor, availiability, checkSTatus, matchstatus },
+              index
+            ) => (
               <CaseItemAdminTutor
                 key={idmatch}
+                index={index}
                 cases={{
                   ...tutor,
                   availiability,
@@ -104,6 +110,7 @@ export default function AdminDisplay({
                 toggleStatus={handleToggleStatus}
                 toggleVerify={handleToggleVerify}
                 type="tutor"
+                passIndex={passIndex}
               />
             )
           )}
