@@ -29,22 +29,22 @@ const AdminIdNavigation = (props) => {
   };
   useEffect(() => {}, [Ids]);
   return (
-    <div>
+    <div className="flex justify-center">
       <Group position="center" mt="md">
-        <Button onClick={handlePreviousClick} disabled={currentPage === 0}>
+        <button onClick={handlePreviousClick} disabled={currentPage === 0}>
           ← Previous
-        </Button>
+        </button>
         {currentIds.map((id) => (
-          <Button key={id} value={id} onClick={() => onClickHandler(id)}>
+          <button key={id} value={id} onClick={() => onClickHandler(id)}>
             {id}
-          </Button>
+          </button>
         ))}
-        <Button
+        <button
           onClick={handleNextClick}
           disabled={currentPage >= Math.ceil(totals / PerPAge) - 1}
         >
           Next →
-        </Button>
+        </button>
       </Group>
     </div>
   );

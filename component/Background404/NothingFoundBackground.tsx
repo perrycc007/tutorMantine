@@ -20,7 +20,7 @@ export function NothingFoundBackground() {
             this is an error contact support.
           </Text>
           <Group justify="center">
-            <Button size="md">Take me back to home page</Button>
+            <button size="md">Take me back to home page</button>
           </Group>
         </div>
       </div>

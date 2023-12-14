@@ -61,7 +61,7 @@ function EditForm(props) {
           updateApplication={updateApplicationHandler}
         ></StudentApply>
       </Modal>
-      <Button onClick={open}>編輯</Button>
+      <button onClick={open}>編輯</button>
     </>
   );
 }

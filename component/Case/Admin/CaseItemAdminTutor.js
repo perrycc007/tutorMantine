@@ -128,7 +128,7 @@ function CaseItemAdminTutor(props) {
         <div>
           <div>
             <p>{info.availtimes}</p>
-            <Button
+            <button
               variant="outlined"
               onClick={() => StatusHandler(info.tutorId)}
             >
@@ -137,13 +137,13 @@ function CaseItemAdminTutor(props) {
                 : status == "CLOSE"
                 ? "個案已隱藏"
                 : "個案已封鎖"}
-            </Button>
-            <Button
+            </button>
+            <button
               variant="outlined"
               onClick={() => verifyHandler(info.tutorId)}
             >
               {verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}
-            </Button>
+            </button>
           </div>
 
           <div>
@@ -156,13 +156,13 @@ function CaseItemAdminTutor(props) {
           </div>
 
           <div>
-            <Button onClick={() => toggleCheck(info.idmatch)}>
+            <button onClick={() => toggleCheck(info.idmatch)}>
               {checkStatus}
-            </Button>
-            <Button onClick={() => toggleNotAvail(info.idmatch)}>
+            </button>
+            <button onClick={() => toggleNotAvail(info.idmatch)}>
               {notAvailStatus ? "Not Available" : "Available"}
               {/* {props.isFavouriteTutor ? <IconHeartFilled /> : ""} */}
-            </Button>
+            </button>
           </div>
         </div>
       </Accordion.Panel>

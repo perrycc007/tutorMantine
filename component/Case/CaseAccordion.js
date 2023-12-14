@@ -125,12 +125,12 @@ const CaseAccordion = (props) => {
                         />
                       )}
                       {props.type == "tutor" || props.type == "cases" ? (
-                        <Button
+                        <button
                           variant="transparent"
                           onClick={() => toggleFavoriteStatusHandler(id)}
                         >
                           {isFavourite ? <IconHeartFilled /> : <IconHeart />}
-                        </Button>
+                        </button>
                       ) : (
                         ""
                       )}

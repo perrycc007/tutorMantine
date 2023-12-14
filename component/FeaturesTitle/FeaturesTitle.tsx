@@ -79,7 +79,7 @@ export function FeaturesTitle() {
               hooks to cover you in any situation
             </Text>
 
-            <Button
+            <button
               variant="gradient"
               gradient={{ deg: 133, from: "blue", to: "cyan" }}
               size="lg"
@@ -87,7 +87,7 @@ export function FeaturesTitle() {
               mt="xl"
             >
               Get started
-            </Button>
+            </button>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 7 }}>
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={30}>

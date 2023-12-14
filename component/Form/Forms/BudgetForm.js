@@ -46,7 +46,7 @@ function BudgetForm(props) {
           step={10}
           label={(value) => `$${value}`}
         />
-        <Button type="submit">Submit</Button>
+        <button type="submit">Submit</button>
       </form>
     </UserFormProvider>
   );

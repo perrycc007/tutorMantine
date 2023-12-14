@@ -131,14 +131,13 @@ function Form(props) {
 
         <Group justify="flex-end" mt="xl">
           {active !== 0 && (
-            <Button variant="default" onClick={prevStep}>
+            <button variant="default" onClick={prevStep}>
               返回
-            </Button>
+            </button>
           )}
           {active !== 6 && props.type == "tutor" && (
-            <Button onClick={nextStep}>下一步</Button>
+            <button onClick={nextStep}>下一步</button>
           )}
-          {props.type == "student" && <Button onClick={nextStep}>完成</Button>}
         </Group>
       </UserFormProvider>
     </div>

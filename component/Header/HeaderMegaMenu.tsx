@@ -173,7 +173,7 @@ export function HeaderMegaMenu() {
                         Their food sources have decreased, and their numbers
                       </Text>
                     </div>
-                    <Button  variant="default">Get started</Button>
+                    <button  variant="default">Get started</button>
                   </Group>
                 </div>
               </HoverCard.Dropdown>
@@ -212,11 +212,11 @@ export function HeaderMegaMenu() {
 
           <Group visibleFrom="sm">
             {!isLoggedin ? (
-              <Button variant="default" onClick={loginHandler}>
+              <button variant="default" onClick={loginHandler}>
                 登入
-              </Button>
+              </button>
             ) : (
-              <Button onClick={logoutHandler}>登出</Button>
+              <button onClick={logoutHandler}>登出</button>
             )}
           </Group>
 
@@ -316,11 +316,11 @@ export function HeaderMegaMenu() {
 
           <Group justify="center" grow pb="xl" px="md">
             {!isLoggedin ? (
-              <Button variant="default" onClick={loginHandler}>
+              <button variant="default" onClick={loginHandler}>
                 登入
-              </Button>
+              </button>
             ) : (
-              <Button onClick={logoutHandler}>登出</Button>
+              <button onClick={logoutHandler}>登出</button>
             )}
           </Group>
         </ScrollArea>

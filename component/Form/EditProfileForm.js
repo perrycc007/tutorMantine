@@ -21,7 +21,6 @@ function EditProfileForm(props) {
   useEffect(() => {
     if (props.type == "tutor") {
       let { locations, subjects, availtimes, profile, ...item } = props.cases;
-
       const NewData = {
         ...item,
         locations: locations
@@ -67,7 +66,7 @@ function EditProfileForm(props) {
           ></Form>
         )}
       </Modal>
-      <Button onClick={selectedHandler}>編輯個人檔案</Button>
+      <button onClick={selectedHandler}>編輯個人檔案</button>
     </>
   );
 }

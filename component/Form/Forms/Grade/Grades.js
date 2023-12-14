@@ -50,7 +50,7 @@ function Grades(props) {
           </Tabs.Panel>
         ))}
       </Tabs>
-      <Button type="submit">Submit</Button>
+      <button type="submit">Submit</button>
     </form>
   );
 }

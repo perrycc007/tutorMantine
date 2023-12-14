@@ -15,8 +15,6 @@ const axiosInstance = (accesstoken) => {
   });
 };
 
-// ... [previous imports and setup code]
-
 // Helper function for retry mechanism
 async function axiosRetry(axiosFunc, maxAttempts = 3) {
   let attempts = 0;

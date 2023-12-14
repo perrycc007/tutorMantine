@@ -33,7 +33,7 @@ export default function AccordionFilter(props) {
             <p>
               工資: ${payRange[0]} - ${payRange[1]} 每小時
             </p>
-            <Button onClick={props.filterClicked}>Filter</Button>
+            <button onClick={props.filterClicked}>Filter</button>
           </div>
           <RangeSlider
             id="pay-range"

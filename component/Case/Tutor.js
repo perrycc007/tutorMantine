@@ -1,13 +1,13 @@
 import CaseAccordion from "./CaseAccordion";
 import AccordionFilter from "./AccordionFilter";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import userStore from "../../stores/stores";
 import {
   tutorFilterAxios,
   removeFavouriteTutorAxios,
   addFavouriteTutorAxios,
 } from "../Helper/AxiosFunctionOld";
+
 const Tutor = (props) => {
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
@@ -19,51 +19,63 @@ const Tutor = (props) => {
     highestfee: 200,
   });
   const _DATA = filtered ? filteredList : props.cases;
+
   const filterFormHandler = (values) => {
     setFilterForm((prev) => ({ ...prev, ...values }));
   };
+
   const filterClickedHandler = () => {
-    tutorFilter(filterForm);
+    tutorFilter(filterForm).catch((error) => {
+      alert(`Error applying filter: ${error.message}`);
+    });
   };
+
   async function toggleFavouriteTopHandler(id, isFavourite) {
-    if (isFavourite) {
-      await removeFavouriteTutorAxios(userId, id);
-    } else {
-      await addFavouriteTutorAxios(userId, id);
+    try {
+      if (isFavourite) {
+        await removeFavouriteTutorAxios(userId, id);
+      } else {
+        await addFavouriteTutorAxios(userId, id);
+      }
+    } catch (error) {
+      alert(`Error toggling favourite: ${error.message}`);
     }
   }
 
   async function tutorFilter(preference) {
-    const result = await tutorFilterAxios(preference);
-    console.log(result.data);
-    setFiltered(true);
-    setFilteredList(result.data);
+    try {
+      const result = await tutorFilterAxios(preference);
+      setFiltered(true);
+      setFilteredList(result.data);
+    } catch (error) {
+      showNotification({
+        title: "Error",
+        message: "Failed to fetch filtered tutors",
+        color: "red",
+      });
+    }
   }
+
   return (
     <div className="mt-8  md:px-8 2xl:px-4 max-w-7xl mx-auto ">
       {!props.Favourite && <h1 className="text-3xl my-8">精英導師</h1>}
-      <div>
-        {!props.Favourite && (
-          <AccordionFilter
-            FilterHanlder={tutorFilter}
-            updateFilterForm={filterFormHandler}
-            preference={filterForm}
-            filterClicked={filterClickedHandler}
-          />
-        )}
-      </div>
-
-      <div>
-        {_DATA && (
-          <CaseAccordion
-            // key={oneCase.tutorId}
-            cases={_DATA}
-            type="tutor"
-            toggleFavourite={toggleFavouriteTopHandler}
-          />
-        )}
-      </div>
+      {!props.Favourite && (
+        <AccordionFilter
+          filterHandler={tutorFilter} // Renamed for correct naming convention
+          updateFilterForm={filterFormHandler}
+          preference={filterForm}
+          filterClicked={filterClickedHandler}
+        />
+      )}
+      {_DATA && (
+        <CaseAccordion
+          cases={_DATA}
+          type="tutor"
+          toggleFavourite={toggleFavouriteTopHandler}
+        />
+      )}
     </div>
   );
 };
+
 export default Tutor;

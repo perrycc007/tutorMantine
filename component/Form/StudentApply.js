@@ -105,12 +105,12 @@ function StudentApply(props) {
 
           <Group justify="flex-end" mt="xl">
             {active !== 0 && (
-              <Button variant="default" onClick={prevStep}>
+              <button variant="default" onClick={prevStep}>
                 返回
-              </Button>
+              </button>
             )}
             {active !== 3 && props.type !== "newApplication" && (
-              <Button onClick={nextStep}>下一步</Button>
+              <button onClick={nextStep}>下一步</button>
             )}
           </Group>
         </UserFormProvider>

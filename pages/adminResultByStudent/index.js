@@ -21,35 +21,60 @@ const Result = () => {
   const [item, setItem] = useState([]);
   const [studentList, setStudentList] = useState([]);
   const [id, setId] = useState(1);
-  const updateFormHanlder = (userId, values) => {
-    updateProfileAdminAxios(
-      userId,
-      cleanProfileObject(stripFormEventProperties(values))
-    );
+
+  const updateFormHanlder = async (userId, values) => {
+    try {
+      await updateProfileAdminAxios(
+        userId,
+        cleanProfileObject(stripFormEventProperties(values))
+      );
+    } catch (error) {
+      alert(`Failed to update profile: ${error.message}`);
+    }
   };
-  const updateTutorFormHandler = (userId, values) => {
-    const { matchstatus, idmatch, ...tutor } = values;
-    updateTutorAdminAxios(userId, stripFormEventProperties(tutor));
-    const updatedArray = item.map((item) => {
-      if (item.tutorid === tutor.tutorId) {
-        return {
-          ...item,
-          tutor: {
-            ...item.tutor,
+  const updateTutorFormHandler = async (userId, values) => {
+    try {
+      const { matchstatus, idmatch, ...tutor } = values;
+      await updateTutorAdminAxios(userId, stripFormEventProperties(tutor));
+      const updatedArray = item.map((item) => {
+        if (item.tutorid === tutor.tutorId) {
+          return {
+            ...item,
+            tutor: {
+              ...item.tutor,
+              ...values,
+            },
+          };
+        } else {
+          return item;
+        }
+      });
+      setItem(updatedArray);
+    } catch (error) {
+      alert(`Failed to update student: ${error.message}`);
+    }
+  };
+  const updateStudentFormHanlder = async (userId, values) => {
+    try {
+      await updateStudentAdminAxios(
+        userId,
+        cleanStudentObject(stripFormEventProperties(values))
+      );
+      const updatedStudent = item.map((item) => {
+        if (item.studentid === values.studentId) {
+          return {
+            ...item,
             ...values,
-          },
-        };
-      } else {
-        return item;
-      }
-    });
-    setItem(updatedArray);
-  };
-  const updateStudentFormHanlder = (userId, values) => {
-    updateStudentAdminAxios(
-      userId,
-      cleanStudentObject(stripFormEventProperties(values))
-    );
+          };
+        } else {
+          return item;
+        }
+      });
+      console.log(updatedStudent);
+      setItem(updatedStudent);
+    } catch (error) {
+      alert(`Failed to update student: ${error.message}`);
+    }
     // setItem
   };
 
@@ -84,7 +109,7 @@ const Result = () => {
       setLoading(false);
       return response.data;
     } catch (err) {
-      console.log(err);
+      console.log(`Failed to fetch match results: ${error}`);
       setLoading(false);
     }
   }
@@ -95,25 +120,30 @@ const Result = () => {
   }
 
   async function getIdList() {
-    const response = await getStudentList();
-    setStudentList(response.data[0].studentIds);
+    try {
+      const response = await getStudentList();
+      setStudentList(response.data[0].studentIds);
+    } catch (error) {
+      console.log(`Failed to fetch student list: ${error}`);
+    }
   }
+
   useEffect(() => {
     getIdList();
     // setTotalNumberofPage(response.data.count);
     // setStudentList(response.data.studentId);
   }, [page]);
 
-  useEffect(() => {}, [item]);
+  useEffect(() => {}, [item, updateStudentFormHanlder]);
   return (
-    <div>
+    <div className="mt-8 px-3 md:px-8 2xl:px-4 max-w-7xl mx-auto ">
       <NoSSR>
-        <h1>補習搜尋</h1>
+        <h1 className="text-3xl my-8">補習搜尋</h1>
         {loading && <Loader />}
         {/* {!loading && (
           <div className={classes.searchbar}>
             <TextInput inputRef={studentIdRef} />{" "}
-            <Button  onClick={getSingleMatchResult}>Search</Button>
+            <button  onClick={getSingleMatchResult}>Search</Button>
           </div>
         )} */}
         {!loading && item && (

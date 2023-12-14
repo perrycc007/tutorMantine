@@ -123,9 +123,9 @@ const StudentOthers = (props) => {
         min={30}
         label={(value) => `${value}`}
       />
-      <Button type="submit">
+      <button type="submit">
         {props.types == "newApplication" ? "提交" : "更新"}
-      </Button>
+      </button>
     </form>
   );
 };

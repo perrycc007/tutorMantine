@@ -71,9 +71,9 @@ const ResetPassword = () => {
             inputRef={confirmPasswordInputRef}
           />
           <div className={classes.buttonContainer}>
-            <Button type="submit" variant="outline" className={classes.button}>
+            <button type="submit" variant="outline" className={classes.button}>
               重設密碼
-            </Button>
+            </button>
           </div>
         </form>
       </Paper>

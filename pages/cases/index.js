@@ -5,21 +5,27 @@ import {
   CaseGetAxiosWithFavourite,
 } from "../../component/Helper/AxiosFunction";
 import { useState, useEffect } from "react";
+
 const Cases = (props) => {
   const [dynamicData, setDynamicData] = useState(props.cases);
   const accessToken = cookie.get("access_token");
-  console.log(accessToken);
+
   useEffect(() => {
     const fetchData = async () => {
-      if (accessToken) {
-        // Fetch data that requires the accessToken
-        const response = await CaseGetAxiosWithFavourite();
-        setDynamicData(response.data);
+      try {
+        if (accessToken) {
+          const response = await CaseGetAxiosWithFavourite();
+          setDynamicData(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching cases with favourites:", error);
+        // Handle the error appropriately
       }
     };
 
     fetchData();
   }, [accessToken]);
+
   return (
     <>
       <Student cases={dynamicData} />
@@ -28,13 +34,23 @@ const Cases = (props) => {
 };
 
 export async function getStaticProps() {
-  const response = await CaseGetAxios();
-  return {
-    props: {
-      cases: response.data,
-    },
-    revalidate: 1,
-  };
+  try {
+    const response = await CaseGetAxios();
+    return {
+      props: {
+        cases: response.data,
+      },
+      revalidate: 1,
+    };
+  } catch (error) {
+    console.error("Error fetching cases:", error);
+    return {
+      props: {
+        cases: [],
+      },
+      revalidate: 1,
+    };
+  }
 }
 
 export default Cases;

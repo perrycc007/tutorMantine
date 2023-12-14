@@ -4,7 +4,7 @@ const AuthPage = () => {
   return (
     <>
       <section
-        className="flex py-20  min-h-screen bg-cover
+        className="flex py-20 bg-fixed min-h-screen bg-cover
        bg-login-page justify-center bg-center max-w-screen"
       >
         {/* Adjusted card container with responsive padding */}

@@ -3,93 +3,127 @@ import CaseItemAdminTutor from "../Case/Admin/CaseItemAdminTutor";
 import AdminIdNavigation from "../AdminIdNavigation/AdminIdNavigation";
 import { Group, Button, Accordion } from "@mantine/core";
 import {
-  toggleCheck,
-  toggleAvail,
-  toggleStatus,
-  toggleVerify,
+  toggleCheck as toggleCheckAPI,
+  toggleAvail as toggleAvailAPI,
+  toggleAdminStatus as toggleStatusAPI,
+  toggleVerify as toggleVerifyAPI,
 } from "../Helper/AxiosFunction.js";
-import { useState, Fragment, useEffect } from "react";
-export default function AdminDisplay(props) {
+import { useState, useEffect } from "react";
+
+export default function AdminDisplay({
+  updateTutorForm,
+  item,
+  passIdHandler,
+  studentList,
+  updateForm,
+  updateStudentForm,
+  handlePreviousClick,
+  handleNextClick,
+  page,
+  totalNumberofPage,
+}) {
   const [studentInfo, setStudentInfo] = useState(null);
+
   useEffect(() => {
-    if (props.item.length !== 0) {
-      let {
+    if (item.length !== 0) {
+      const {
         tutor,
         availiability,
         checkSTatus,
         matchstatus,
         idmatch,
-        ...studentInfo
-      } = props.item[0];
-      setStudentInfo(studentInfo);
+        ...rest
+      } = item[0];
+      setStudentInfo(rest);
     }
-  }, [props.item]);
+  }, [item]);
+
+  const handleToggleCheck = async (params) => {
+    try {
+      await toggleCheckAPI(params);
+    } catch (error) {
+      alert(`Error occurred in toggleCheck: ${error.message}`);
+    }
+  };
+
+  const handleToggleAvail = async (params) => {
+    try {
+      await toggleAvailAPI(params);
+    } catch (error) {
+      alert(`Error occurred in toggleAvail: ${error.message}`);
+    }
+  };
+
+  const handleToggleStatus = async (params) => {
+    try {
+      await toggleStatusAPI(params);
+    } catch (error) {
+      alert(`Error occurred in toggleStatus: ${error.message}`);
+    }
+  };
+
+  const handleToggleVerify = async (params) => {
+    try {
+      await toggleVerifyAPI(params);
+    } catch (error) {
+      alert(`Error occurred in toggleVerify: ${error.message}`);
+    }
+  };
 
   return (
-    <Fragment>
+    <>
       <div>
-        <AdminIdNavigation
-          passId={props.passIdHandler}
-          listIds={props.studentList}
-        />
-        <div>
-          {studentInfo && (
-            <CaseItemAdminStudent
-              cases={studentInfo}
-              toggleStatus={toggleStatus}
-              updateForm={props.updateForm}
-              updateStudentForm={props.updateStudentForm}
-              admin="admin"
-              type="cases"
-            />
-          )}
-        </div>
+        <AdminIdNavigation passId={passIdHandler} listIds={studentList} />
+        {studentInfo && (
+          <CaseItemAdminStudent
+            cases={studentInfo}
+            toggleStatus={handleToggleStatus}
+            updateForm={updateForm}
+            updateStudentForm={updateStudentForm}
+            admin="admin"
+            type="cases"
+          />
+        )}
 
         <Accordion>
-          {props.item.map((item) => {
-            const info = {
-              ...item.tutor,
-              availiability: item.availiability,
-              checkSTatus: item.checkSTatus,
-              matchstatus: item.matchstatus,
-              idmatch: item.idmatch,
-            };
-
-            return (
-              <div>
-                <CaseItemAdminTutor
-                  cases={info}
-                  key={item.idmatch}
-                  updateForm={props.updateForm}
-                  updateTutorForm={props.updateTutorForm}
-                  toggleCheck={toggleCheck}
-                  toggleAvail={toggleAvail}
-                  toggleStatus={toggleStatus}
-                  toggleVerify={toggleVerify}
-                  type="tutor"
-                />
-              </div>
-            );
-          })}
+          {item.map(
+            ({ idmatch, tutor, availiability, checkSTatus, matchstatus }) => (
+              <CaseItemAdminTutor
+                key={idmatch}
+                cases={{
+                  ...tutor,
+                  availiability,
+                  checkSTatus,
+                  matchstatus,
+                  idmatch,
+                }}
+                updateForm={updateForm}
+                updateTutorForm={updateTutorForm}
+                toggleCheck={handleToggleCheck}
+                toggleAvail={handleToggleAvail}
+                toggleStatus={handleToggleStatus}
+                toggleVerify={handleToggleVerify}
+                type="tutor"
+              />
+            )
+          )}
         </Accordion>
-        <Group>
-          <Button
-            onClick={props.handlePreviousClick}
-            disabled={props.page === 1}
-          >
+
+        <Group className="flex justify-center">
+          <button onClick={handlePreviousClick} disabled={page === 1}>
             ← Previous
-          </Button>
+          </button>
           <p>
-            {props.page}/{props.totalNumberofPage}
+            {page}/{totalNumberofPage}
           </p>
-          <Button
-            onClick={props.handleNextClick}
-            disabled={props.page === props.totalNumberofPage}
+          <button
+            onClick={handleNextClick}
+            disabled={page === totalNumberofPage}
           >
             Next →
-          </Button>
+          </button>
         </Group>
       </div>
-    </Fragment>
+    </>
   );
 }

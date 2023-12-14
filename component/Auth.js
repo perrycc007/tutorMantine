@@ -10,7 +10,6 @@ import cookie from "js-cookie";
 const AuthForm = () => {
   const router = useRouter();
   const form = useUserForm();
-  const [visible, { toggle }] = useDisclosure(false);
   const adduserId = useStore((state) => state.adduserId);
   const loginAction = useStore((state) => state.loginuserId);
   const [isLogin, setIsLogin] = useState(true);
@@ -19,12 +18,11 @@ const AuthForm = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    toggle();
-    setIsLoading(true);
+    setIsLogin(true);
     form.setValues((prev) => ({ ...prev, ...event }));
-    logIn(isLogin, form.values.email, form.values.password)
+    await logIn(isLogin, form.values.email, form.values.password)
       .then((res) => {
         if (res.status === 201) {
           return res.data;
@@ -41,8 +39,20 @@ const AuthForm = () => {
         router.push("/cases");
       })
       .catch((err) => {
-        alert(err.message);
-        toggle();
+        // Enhanced error alerting
+        let errorMessage = "An error occurred during login. Please try again.";
+        if (err.response) {
+          // The server responded with a status code outside the 2xx range
+          errorMessage = `Error: ${err.response.status} - ${err.response.data.message}`;
+        } else if (err.request) {
+          // The request was made but no response was received
+          errorMessage = "No response received from the server.";
+        } else {
+          // An error occurred in setting up the request
+          errorMessage = "There was a problem setting up your login request.";
+        }
+
+        alert(errorMessage);
       });
   };
 
@@ -52,11 +62,11 @@ const AuthForm = () => {
       <form onSubmit={submitHandler} className="">
         {/* Email input */}
         <Box pos="relative">
-          <LoadingOverlay
-            visible={visible}
+          {/* <LoadingOverlay
+            visible={isLoading}
             zIndex={1000}
             overlayProps={{ radius: "sm", blur: 2 }}
-          />
+          /> */}
           <div>
             <TextInput
               label="電郵地址"
@@ -80,19 +90,17 @@ const AuthForm = () => {
           </div>
           {/* Buttons and link */}
           <div className="flex flex-col space-y-2">
-            {!isLoading && (
-              <Button variant="deafult" onClick={submitHandler}>
-                {isLogin ? "Login" : "Create Account"}
-              </Button>
-            )}
-            {isLoading && <p>Sending request...</p>}
-            <Button
+            <button variant="deafult" onClick={submitHandler}>
+              {isLogin ? "登錄" : "登記"}
+            </button>
+
+            <button
               type="button"
               variant="deafult"
               onClick={switchAuthModeHandler}
             >
-              {isLogin ? "Create new account" : "Login with existing account"}
-            </Button>
+              {isLogin ? "創建新帳戶" : "現有帳戶登錄"}
+            </button>
             <Anchor className="self-center">忘記密碼</Anchor>
           </div>
         </Box>

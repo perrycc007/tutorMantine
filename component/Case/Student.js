@@ -25,23 +25,36 @@ const Student = (props) => {
     setFilterForm((prev) => ({ ...prev, ...values }));
   };
   const filterClickedHandler = () => {
-    casesFilter(filterForm);
+    casesFilter(filterForm).catch((error) => {
+      alert(`Error applying filter: ${error.message}`);
+    });
   };
+
   async function toggleFavouriteTopHandler(id, isFavourite) {
-    if (isFavourite) {
-      await removeFavouriteStudentAxios(userId, id);
-    } else {
-      await addFavouriteStudentAxios(userId, id);
+    try {
+      if (isFavourite) {
+        await removeFavouriteStudentAxios(userId, id);
+      } else {
+        await addFavouriteStudentAxios(userId, id);
+      }
+    } catch (error) {
+      alert(`Error toggling favourite: ${error.message}`);
     }
   }
 
   async function casesFilter(preference) {
-    const result = await caseFilterAxios(preference);
-    console.log(result.data);
-    setFiltered(true);
-    setFilteredList(result.data);
+    try {
+      const result = await caseFilterAxios(preference);
+      setFiltered(true);
+      setFilteredList(result.data);
+    } catch (error) {
+      showNotification({
+        title: "Error",
+        message: "Failed to fetch filtered cases",
+        color: "red",
+      });
+    }
   }
-
   return (
     <div className="mt-8  md:px-8 2xl:px-4 max-w-7xl mx-auto ">
       {!props.Favourite && <h1 className="text-3xl my-8">補習個案</h1>}

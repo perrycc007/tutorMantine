@@ -13,21 +13,25 @@ const Cases = () => {
   const [loading, setLoading] = useState(true);
   const [type, setType] = useState("student");
   const getuserId = userStore((state) => state.userId);
-  const updateStudentFormHanlder = (userId, values) => {
-    updateStudentAxios(userId, stripFormEventProperties(values));
-    setCases((prev) => ({ ...prev, ...stripFormEventProperties(values) }));
-    console.log(cases);
-    const updatedArray = cases.map((item) => {
-      if (item.studentId === values.studentId) {
-        return {
-          ...item,
-          ...values,
-        };
-      } else {
-        return item;
-      }
-    });
-    setCases(updatedArray);
+  const updateStudentFormHanlder = async (userId, values) => {
+    try {
+      updateStudentAxios(userId, stripFormEventProperties(values));
+      setCases((prev) => ({ ...prev, ...stripFormEventProperties(values) }));
+      console.log(cases);
+      const updatedArray = cases.map((item) => {
+        if (item.studentId === values.studentId) {
+          return {
+            ...item,
+            ...values,
+          };
+        } else {
+          return item;
+        }
+      });
+      setCases(updatedArray);
+    } catch (error) {
+      console.error("Error updating student:", error);
+    }
   };
   useEffect(() => {
     async function fetchData() {

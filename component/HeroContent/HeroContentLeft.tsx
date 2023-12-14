@@ -20,14 +20,14 @@ export function HeroContentLeft() {
             to cover you in any situation
           </Text>
 
-          <Button
+          <button
             variant="gradient"
             size="xl"
             radius="xl"
             className={classes.control}
           >
             Get started
-          </Button>
+          </button>
         </Container>
       </div>
     </div>

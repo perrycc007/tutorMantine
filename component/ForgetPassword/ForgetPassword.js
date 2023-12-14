@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { resetPasswordLinkAxios as resetPasswordLink } from "../Helper/AxiosFunction.js";
-import { Card, Container, Paper, Text, TextInput, Button } from "@mantine/core";
+import { Container, Paper, Text, TextInput, Button } from "@mantine/core";
 import classes from "./ForgetPassword.module.css";
 import EmailSent from "./EmailSent";
 
@@ -15,15 +15,13 @@ const ResetPasswordLink = () => {
     resetPasswordLink(enteredEmail)
       .then((res) => {
         if (res.data !== "user not found") {
-          console.log("Email Sended");
           setEmailSentState(true);
         } else {
-          let errorMessage = "User is not registered";
-          throw new Error(errorMessage);
+          throw new Error("User is not registered");
         }
       })
       .catch((err) => {
-        alert(err.message);
+        alert(`Error: ${err.message}`);
       });
   };
 
@@ -44,9 +42,9 @@ const ResetPasswordLink = () => {
               inputRef={emailInputRef}
               className={classes.email}
             />
-            <Button type="submit" variant="outline" className={classes.button}>
+            <button type="submit" variant="outline" className={classes.button}>
               發送重置鏈接
-            </Button>
+            </button>
           </form>
         </Paper>
       )}

@@ -11,22 +11,39 @@ const PersonalInfoForm = (props) => {
     initialValues: { ...props.data },
     validateInputOnBlur: true,
     validate: {
-      findus: (value) => (value.length > 0 ? null : "This field is required"),
+      findus: (value) =>
+        value ? (value.length > 0 ? null : "此欄位是必需的") : "此欄位是必需的",
       language: (value) =>
-        value.length > 0 ? null : "Please select a language",
-      name: (value) =>
-        /^[a-zA-Z ]+$/.test(value) ? null : "Name should only contain letters",
+        value ? (value.length > 0 ? null : "請選擇語言") : "請選擇語言",
+      name: (value) => (/^[a-zA-Z ]+$/.test(value) ? null : "名稱只能包含字母"),
       nationality: (value) =>
-        value.length > 0 ? null : "Nationality is required",
+        value ? (value.length > 0 ? null : "國籍為必填項") : "國籍為必填項",
       phoneno: (value) =>
-        /^\d{8}$/.test(value) ? null : "Invalid phone number",
-      address: (value) => (value.length > 5 ? null : "Address must be longer"),
+        value
+          ? /^\d{8}$/.test(value)
+            ? null
+            : "無效的電話號碼"
+          : "電話號碼為必填項",
+      address: (value) =>
+        value ? (value.length > 3 ? null : "地址必須更長") : "地址必須更長",
       emergencycontact: (value) =>
-        value.length > 0 ? null : "Emergency contact is required",
+        value
+          ? value.length > 0
+            ? null
+            : "需要緊急聯絡方式"
+          : "需要緊急聯絡方式",
       emergencyrelationship: (value) =>
-        value.length > 0 ? null : "Relationship is required",
+        value
+          ? value.length > 0
+            ? null
+            : "需要與緊急聯絡人的關係"
+          : "需要與緊急聯絡人的關係",
       emergencyphone: (value) =>
-        /^\d{8}$/.test(value) ? null : "Invalid phone number",
+        value
+          ? /^\d{8}$/.test(value)
+            ? null
+            : "無效的電話號碼"
+          : "電話號碼為必填項",
     },
   });
   const submitHanlder = (event) => {
@@ -62,7 +79,7 @@ const PersonalInfoForm = (props) => {
           //   value={formData[formField.selectfield.BasicInfo.name]}
         />
       ))}
-      <Button type="submit">Submit</Button>
+      <button type="submit">更新</button>
     </form>
   );
 };

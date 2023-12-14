@@ -3,6 +3,7 @@ import EditForm from "../../Form/EditForm";
 import { useState, useEffect } from "react";
 import EditProfileForm from "../../Form/EditProfileForm";
 import itemName from "../itemName";
+import { Card } from "@mantine/core";
 import readDate from "../../Helper/HelperFunction";
 function CaseItemAdminStudent(props) {
   const [status, setStatus] = useState(
@@ -103,9 +104,15 @@ function CaseItemAdminStudent(props) {
   }, [props.cases]);
 
   return (
-    <div>
+    <Card shadow="sm" radius="md">
       {Object.entries(heading).map(([key, value]) => (
-        <p key={`${key} value`}>{value}</p>
+        <p key={`${key} value`}>
+          {typeof value == "object"
+            ? value.map((item) => {
+                return ` ${item}`;
+              })
+            : ""}
+        </p>
       ))}
       <p>{`$${items.lowestfee} - ${items.highestfee}/小時`}</p>
 
@@ -131,13 +138,13 @@ function CaseItemAdminStudent(props) {
               {time}
             </p>
           ))}
-          <Button variant="outlined" onClick={StatusHandler}>
+          <button variant="outlined" onClick={StatusHandler}>
             {status == "OPEN"
               ? "個案已公開"
               : status == "CLOSE"
               ? "個案已隱藏"
               : "個案已封鎖"}
-          </Button>
+          </button>
           <div>
             <EditForm
               cases={studentCase}
@@ -153,10 +160,11 @@ function CaseItemAdminStudent(props) {
             userId={props.cases.userId}
             cases={studentProfile}
             type={"student"}
+            edit={true}
           />
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 

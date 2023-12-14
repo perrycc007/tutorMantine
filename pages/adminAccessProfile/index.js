@@ -26,33 +26,37 @@ const AdminUserProfile = () => {
   const updateProfile = userStore((state) => state.updateProfile);
   const updateTutor = userStore((state) => state.updateTutor);
   const updateFormHanlder = (values) => {
-    updateProfile(stripFormEventProperties(values));
-    updateProfileAdminAxios(
-      currentUserId,
-      cleanProfileObject(stripFormEventProperties(values))
-    );
-  };
-  const updateTutorFormHandler = (values) => {
-    updateTutor(stripFormEventProperties(values));
-    updateTutorAdminAxios(currentUserId, stripFormEventProperties(values));
+    const cleanedValues = stripFormEventProperties(values);
+    updateProfile(cleanedValues);
+    updateProfileAdminAxios(currentUserId, cleanedValues).catch((error) => {
+      alert(`Failed to update profile: ${error.message}`);
+    });
   };
 
-  const getUserIdhandler = (userId) => {
-    setUserId(userId);
+  const updateTutorFormHandler = (values) => {
+    const cleanedValues = stripFormEventProperties(values);
+    updateTutor(cleanedValues);
+    updateTutorAdminAxios(currentUserId, cleanedValues).catch((error) => {
+      alert(`Failed to update tutor profile: ${error.message}`);
+    });
   };
-  async function fetchData() {
+
+  const getUserIdhandler = (id) => {
+    setUserId(id);
+  };
+
+  const fetchData = async () => {
+    setLoading(true);
     try {
       const [profileResponse, tutorResponse] = await fetchProfileData(userId);
       updateProfile(profileResponse);
       updateTutor(tutorResponse);
       setCurrentUserId(userId);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching user profile:", error);
-      setLoading(false);
     }
-  }
-
+    setLoading(false);
+  };
   return (
     <>
       {/* {loading && <p>Loading...</p>} */}

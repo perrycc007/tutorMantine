@@ -50,7 +50,7 @@ const Result = () => {
         {/* {!loading && (
           <div className={classes.searchbar}>
             <TextInput inputRef={studentIdRef} />{" "}
-            <Button  onClick={getSingleMatchResult}>Search</Button>
+            <button  onClick={getSingleMatchResult}>Search</button>
           </div>
         )} */}
         {/* {loading && item && (

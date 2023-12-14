@@ -40,24 +40,21 @@ function NewStudentApply() {
       ...values,
     }));
   };
+
   const handInHandler = (values) => {
     setLoading(true);
     createStudentAxios(
       getuserId,
       stripFormEventProperties({ ...data, ...values })
-    ).then((response) => {
-      // updateNewStudentApplication({
-      //   ...values,
-      //   studentId: response.data.studentId,
-      // });
-      // setLoading(false);
-      // setData((prev) => ({
-      //   ...prev,
-      //   ...values,
-      //   studentId: response.data.studentId,
-      // }));
-      toCasePage();
-    });
+    )
+      .then((response) => {
+        // Update application state and navigate to case page
+        toCasePage();
+      })
+      .catch((error) => {
+        alert(`Error creating new student application: ${error.message}`);
+        setLoading(false);
+      });
   };
 
   return (

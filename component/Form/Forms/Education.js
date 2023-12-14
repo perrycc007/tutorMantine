@@ -111,7 +111,7 @@ const Education = (props) => {
             );
           })}
         </div>
-        <Button type="submit">Submit</Button>
+        <button type="submit">Submit</button>
       </form>
     </>
   );
