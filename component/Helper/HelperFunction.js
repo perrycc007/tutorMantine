@@ -133,6 +133,7 @@ export function cleanStudentObject(originalObject) {
     "locations",
     "subjects",
     "studentId",
+    "others",
   ];
   for (const key of keysToKeep) {
     if (originalObject.hasOwnProperty(key)) {

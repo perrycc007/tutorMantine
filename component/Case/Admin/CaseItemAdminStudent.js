@@ -60,7 +60,6 @@ function CaseItemAdminStudent(props) {
         language,
         name,
         nationality,
-        others,
         phoneno,
         status,
         userId,

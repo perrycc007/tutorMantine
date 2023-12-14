@@ -80,13 +80,12 @@ const Result = () => {
         if (item.studentid === values.studentId) {
           return {
             ...item,
-            ...values,
+            ...cleanStudentObject(stripFormEventProperties(values)),
           };
         } else {
           return item;
         }
       });
-      console.log(updatedStudent);
       setItem(updatedStudent);
     } catch (error) {
       alert(`Failed to update student: ${error.message}`);

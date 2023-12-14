@@ -23,9 +23,35 @@ const StudentOthers = (props) => {
   const [showError, setShowError] = useState(false);
   const inputfield = formField.inputfield.StudentOthers;
   const selectfield = formField.selectfield.StudentOthers;
+  const submitHanlder = (event) => {
+    // event.preventDefault();
+    form.setValues((prev) => ({ ...prev, ...event }));
+    form.setFieldValue("lowestfee", payPerHour[0]);
+    form.setFieldValue("highestfee", payPerHour[1]);
+    form.setFieldValue("lowestduration", hourPerLesson[0]);
+    form.setFieldValue("highestduration", hourPerLesson[1]);
+    form.setFieldValue("lowestfrequency", lessonAWeek[0]);
+    form.setFieldValue("highestfrequency", lessonAWeek[1]);
+
+    let NewData = {
+      ...props.data,
+      ...form.values,
+      lowestfee: payPerHour[0],
+      highestfee: payPerHour[1],
+      lowestduration: hourPerLesson[0],
+      highestduration: hourPerLesson[1],
+      lowestfrequency: lessonAWeek[0],
+      highestfrequency: lessonAWeek[1],
+    };
+    console.log(NewData);
+    props.updateForm(NewData);
+    setShowError(false); // Reset error state if submission is successful
+  };
+
   useEffect(() => {
     if (props.data) {
       if (props.data.lowestfrequency && props.data.highestfrequency) {
+        console.log(props.data);
         form.setValues(props.data);
         form.resetDirty(props.data);
         setLessonAWeek([
@@ -42,38 +68,7 @@ const StudentOthers = (props) => {
   }, [props.data]);
 
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (form.isValid()) {
-          form.setValues((prev) => ({ ...prev, ...event }));
-          form.setFieldValue("lowestfee", payPerHour[0]);
-          form.setFieldValue("highestfee", payPerHour[1]);
-          form.setFieldValue("lowestduration", hourPerLesson[0]);
-          form.setFieldValue("highestduration", hourPerLesson[1]);
-          form.setFieldValue("lowestfrequency", lessonAWeek[0]);
-          form.setFieldValue("highestfrequency", lessonAWeek[1]);
-
-          let NewData = {
-            ...props.data,
-            lowestfee: payPerHour[0],
-            highestfee: payPerHour[1],
-            lowestduration: hourPerLesson[0],
-            highestduration: hourPerLesson[1],
-            lowestfrequency: lessonAWeek[0],
-            highestfrequency: lessonAWeek[1],
-          };
-          NewData = {
-            ...NewData,
-            ...form.values,
-          };
-          props.updateForm(NewData);
-          setShowError(false); // Reset error state if submission is successful
-        } else {
-          setShowError(true); // Show error if validation fails
-        }
-      }}
-    >
+    <form onSubmit={form.onSubmit((values) => submitHanlder(values))}>
       {Object.entries(inputfield).map(([key, value]) => (
         <TextInput
           label={value.label}

@@ -51,7 +51,7 @@ function StudentApply(props) {
   };
 
   const handInHanlder = (values) => {
-    props.type == "newApplication" && props.handIn(values);
+    props.handIn(values);
   };
 
   const css =
@@ -96,7 +96,9 @@ function StudentApply(props) {
               <StudentOthers
                 data={props.data}
                 updateForm={
-                  props.type ? handInHanlder : updateApplicationHandler
+                  props.type == "newApplication"
+                    ? handInHanlder
+                    : updateApplicationHandler
                 }
                 types={props.type}
               />

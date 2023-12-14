@@ -12,9 +12,6 @@ function CaseItemAdminTutor(props) {
   const [notAvailStatus, setNotAvailStatus] = useState(false);
   const [checkStatus, setCheckStatus] = useState("");
   const info = props.cases;
-  const toggleFavoriteStatusHandler = () => {
-    props.toggleFavourite(props.id);
-  };
 
   const toggleCheck = (idmatch) => {
     if (checkStatus == "NOT_YET_CHECKED") {
