@@ -6,7 +6,7 @@ import {
   tutorFilterAxios,
   removeFavouriteTutorAxios,
   addFavouriteTutorAxios,
-} from "../Helper/AxiosFunctionOld";
+} from "../Helper/AxiosFunction";
 
 const Tutor = (props) => {
   const [filtered, setFiltered] = useState(false);

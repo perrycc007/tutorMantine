@@ -236,17 +236,14 @@ export async function getTutor(enteredtutorId) {
 
 export async function TutorGetAxios() {
   try {
-    const axiosFunc = () =>
-      axiosInstance(cookie.get("access_token")).get(
-        `http://localhost:3001/tutors`
-      );
-    return await axiosRetry(axiosFunc);
+    const response = await Axios.get(`http://localhost:3001/tutors`);
+    console.log(response.data.result);
+    return response;
   } catch (error) {
     console.error("Error in TutorGetAxios:", error);
     throw error;
   }
 }
-
 export async function TutorGetWithFavouriteAxios() {
   try {
     const axiosFunc = () =>
@@ -384,16 +381,14 @@ export async function fetchHistory(getuserId) {
 }
 
 export async function CaseGetAxios() {
-  try {
-    const axiosFunc = () =>
-      axiosInstance(cookie.get("access_token")).get(
-        `http://localhost:3001/students`
-      );
-    return await axiosRetry(axiosFunc);
-  } catch (error) {
-    console.error("Error in CaseGetAxios:", error);
-    throw error;
-  }
+  // try {
+  const response = await Axios.get(`http://localhost:3001/students`);
+  console.log(response.data.result);
+  return response;
+  // } catch (error) {
+  //   console.error("Error in CaseGetAxios:", error);
+  //   throw error;
+  // }
 }
 
 export async function caseFilterAxios(preference) {

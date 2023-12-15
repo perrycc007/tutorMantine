@@ -3,7 +3,6 @@ import { Modal, Button } from "@mantine/core";
 import StudentApply from "../../component/Form/StudentApply";
 import userStore from "../../stores/stores";
 import { useEffect, useState } from "react";
-import { updateStudentAxios } from "../Helper/AxiosFunctionOld";
 import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
 function EditForm(props) {
   const [opened, { open, close }] = useDisclosure(false);

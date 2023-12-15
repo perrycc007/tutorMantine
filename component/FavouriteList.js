@@ -3,7 +3,7 @@ import userStore from "../stores/stores";
 import {
   getFavouriteTutorListAxios,
   getFavouriteStudentListAxios,
-} from "./Helper/AxiosFunctionOld";
+} from "./Helper/AxiosFunction";
 import { SegmentedControl } from "@mantine/core";
 import Student from "./Case/Student";
 import Tutor from "./Case/Tutor";

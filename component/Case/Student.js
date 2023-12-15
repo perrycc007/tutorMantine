@@ -8,7 +8,7 @@ import {
   caseFilterAxios,
   addFavouriteStudentAxios,
   removeFavouriteStudentAxios,
-} from "../Helper/AxiosFunctionOld";
+} from "../Helper/AxiosFunction";
 const Student = (props) => {
   const [filtered, setFiltered] = useState(false);
   const [filteredList, setFilteredList] = useState([]);

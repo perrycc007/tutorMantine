@@ -12,7 +12,6 @@ export default function AccordionFilter(props) {
     highestfee: 200,
   };
   const updateFilterHanlder = (values) => {
-    console.log(values);
     props.updateFilterForm(values);
     form.setValues(values);
   };
