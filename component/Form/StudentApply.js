@@ -59,7 +59,7 @@ function StudentApply(props) {
       ? "w-full px-4 "
       : "w-full px-4 py-8 bg-white rounded-lg shadow-md sm:px-20 w-10/12 lg:px-20 w-12/12";
   return (
-    <div className="flex justify-center mt-8 md:px-8 2xl:px-4 max-w-7xl mx-auto ">
+    <div className="flex max-w-64 justify-center mt-8 md:px-8 items-center 2xl:px-4 max-w-5xl mx-auto ">
       <div className={css}>
         <UserFormProvider form={form}>
           <Stepper

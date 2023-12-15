@@ -212,7 +212,10 @@ export function HeaderMegaMenu() {
 
           <Group visibleFrom="sm">
             {!isLoggedin ? (
-              <button variant="default" onClick={loginHandler}>
+              <button
+                //  variant="default"
+                onClick={loginHandler}
+              >
                 登入
               </button>
             ) : (
@@ -316,7 +319,10 @@ export function HeaderMegaMenu() {
 
           <Group justify="center" grow pb="xl" px="md">
             {!isLoggedin ? (
-              <button variant="default" onClick={loginHandler}>
+              <button
+                //  variant="default"
+                onClick={loginHandler}
+              >
                 登入
               </button>
             ) : (

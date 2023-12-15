@@ -1,3 +1,28 @@
+export const isFormComplete = (studentInfo) => {
+  const requiredFieldsWithValidation = [
+    "expectation",
+    "lowestfee",
+    "highestfee",
+    "lowestduration",
+    "highestduration",
+    "lowestfrequency",
+    "highestfrequency",
+    "locations",
+    "availtimes",
+    "subjects",
+  ];
+
+  return requiredFieldsWithValidation.every((field) => {
+    const value = studentInfo[field];
+    return (
+      value !== null &&
+      value !== "" &&
+      JSON.stringify(value) !== "[]" &&
+      value !== undefined
+    );
+  });
+};
+
 export const readDate = (notFormat) => {
   const time = notFormat.split("t");
   let dayOfWeek = [];

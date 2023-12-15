@@ -38,7 +38,7 @@ const AuthForm = () => {
         cookie.set("access_token", res.accessToken, { expires: 1 / 24 }); // 1 hour expiration
         adduserId(res.userId);
         loginAction();
-        router.push("/cases");
+        router.push("/");
       })
       .catch((err) => {
         // Enhanced error alerting

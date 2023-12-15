@@ -90,10 +90,10 @@ const CaseAccordion = (props) => {
                 const toggleCaseStatusHandler = (id, status) => {
                   props.toggleStatus(
                     id,
-                    status == "OPEN" ? "OPEN" : "CLOSE",
+                    status == true ? "OPEN" : "CLOSE",
                     "cases"
                   );
-                  statusHandler(index, status == "OPEN" ? true : false);
+                  statusHandler(index, status == true ? true : false);
                 };
                 return (
                   <Accordion.Item key={id} value={JSON.stringify(id)}>
@@ -112,7 +112,19 @@ const CaseAccordion = (props) => {
                       </div>
                     </Accordion.Control>
                     <Accordion.Panel>
-                      <p>ID:{id}</p>
+                      <div className="flex justify-between w-full">
+                        <p>ID:{id}</p>{" "}
+                        {props.type == "tutor" || props.type == "cases" ? (
+                          <button
+                            variant="transparent"
+                            onClick={() => toggleFavoriteStatusHandler(id)}
+                          >
+                            {isFavourite ? <IconHeartFilled /> : <IconHeart />}
+                          </button>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                       {props.type == "tutor" && (
                         <p>履歷驗證狀態:{oneCase.verify}</p>
                       )}
@@ -157,16 +169,6 @@ const CaseAccordion = (props) => {
                             updateStudentForm={props.updateStudentForm}
                           />
                         </div>
-                      )}
-                      {props.type == "tutor" || props.type == "cases" ? (
-                        <button
-                          variant="transparent"
-                          onClick={() => toggleFavoriteStatusHandler(id)}
-                        >
-                          {isFavourite ? <IconHeartFilled /> : <IconHeart />}
-                        </button>
-                      ) : (
-                        ""
                       )}
                     </Accordion.Panel>
                   </Accordion.Item>

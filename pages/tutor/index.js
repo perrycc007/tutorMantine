@@ -11,12 +11,17 @@ const TutorPage = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const accessToken = cookie.get("access_token");
+      try {
+        const accessToken = cookie.get("access_token");
 
-      if (accessToken) {
-        // Fetch data that requires the accessToken
-        const response = await TutorGetWithFavouriteAxios();
-        setDynamicData(response.data);
+        if (accessToken) {
+          // Fetch data that requires the accessToken
+          const response = await TutorGetWithFavouriteAxios();
+          setDynamicData(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching cases with favourites:", error);
+        // Handle the error appropriately
       }
     };
 

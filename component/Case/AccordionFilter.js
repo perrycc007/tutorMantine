@@ -26,7 +26,7 @@ export default function AccordionFilter(props) {
     form.setValues({ lowestfee: event[0], highestfee: event[1] });
   };
   return (
-    <div>
+    <div className="mb-4">
       <UserFormProvider form={form}>
         <div>
           <div className="flex justify-between">
@@ -48,7 +48,7 @@ export default function AccordionFilter(props) {
         </div>
         <Accordion className="mt-4" variant="contained">
           <Accordion.Item key={"location"} value="location">
-            <Accordion.Control>Location</Accordion.Control>
+            <Accordion.Control>地點</Accordion.Control>
             <Accordion.Panel>
               <LocationForms
                 updateForm={updateFilterHanlder}
@@ -58,7 +58,7 @@ export default function AccordionFilter(props) {
             </Accordion.Panel>
           </Accordion.Item>
           <Accordion.Item value="subject">
-            <Accordion.Control>Subject</Accordion.Control>
+            <Accordion.Control>學科</Accordion.Control>
             <Accordion.Panel>
               <SubjectsForm
                 updateForm={updateFilterHanlder}

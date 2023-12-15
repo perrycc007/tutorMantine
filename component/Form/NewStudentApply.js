@@ -1,7 +1,10 @@
 import React from "react";
 import StudentApply from "./StudentApply"; // Replace with the correct path to your StudentApply component
 import userStore from "../../stores/stores";
-import { stripFormEventProperties } from "../../component/Helper/HelperFunction";
+import {
+  stripFormEventProperties,
+  isFormComplete,
+} from "../../component/Helper/HelperFunction";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import {
@@ -43,27 +46,39 @@ function NewStudentApply() {
 
   const handInHandler = (values) => {
     setLoading(true);
-    createStudentAxios(
-      getuserId,
-      stripFormEventProperties({ ...data, ...values })
-    )
-      .then((response) => {
-        // Update application state and navigate to case page
-        toCasePage();
-      })
-      .catch((error) => {
-        alert(`Error creating new student application: ${error.message}`);
-        setLoading(false);
-      });
+    if (isFormComplete(stripFormEventProperties(values))) {
+      updateNewStudentApplication(stripFormEventProperties(values));
+      setData((prev) => ({
+        ...prev,
+        ...stripFormEventProperties(values),
+      }));
+      createStudentAxios(
+        getuserId,
+        stripFormEventProperties({ ...data, ...values })
+      )
+        .then((response) => {
+          // Update application state and navigate to case page
+          // toCasePage();
+        })
+        .catch((error) => {
+          alert(`Error creating new student application: ${error.message}`);
+          setLoading(false);
+        });
+    } else {
+      alert("Please fill in all the fields");
+      setLoading(false);
+    }
   };
 
   return (
+    // <div className="flex item-center">
     <StudentApply
       data={data}
       updateApplication={updateApplicationHandler}
       handIn={handInHandler}
       type="newApplication"
     />
+    // </div>
   );
 }
 

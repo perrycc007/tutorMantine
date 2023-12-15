@@ -8,30 +8,34 @@ import classes from "./FooterLinks.module.css";
 
 const data = [
   {
-    title: "About",
+    title: "平台介紹",
     links: [
-      { label: "Features", link: "#" },
-      { label: "Pricing", link: "#" },
-      { label: "Support", link: "#" },
-      { label: "Forums", link: "#" },
+      { label: "運作方式", link: "#" },
+      { label: "尋找導師", link: "#" },
+      { label: "尋找學生", link: "#" },
     ],
   },
   {
-    title: "Project",
+    title: "學習資源",
     links: [
-      { label: "Contribute", link: "#" },
-      { label: "Media assets", link: "#" },
-      { label: "Changelog", link: "#" },
-      { label: "Releases", link: "#" },
+      { label: "學習技巧", link: "#" },
+      { label: "部落格", link: "#" },
+      { label: "學習指南", link: "#" },
     ],
   },
   {
-    title: "Community",
+    title: "客戶支援",
     links: [
-      { label: "Join Discord", link: "#" },
-      { label: "Follow on Twitter", link: "#" },
-      { label: "Email newsletter", link: "#" },
-      { label: "GitHub discussions", link: "#" },
+      { label: "聯絡我們", link: "#" },
+      { label: "幫助中心", link: "#" },
+    ],
+  },
+  {
+    title: "法律信息",
+    links: [
+      { label: "服務條款", link: "#" },
+      { label: "隱私政策", link: "#" },
+      { label: "合規性", link: "#" },
     ],
   },
 ];
@@ -65,15 +69,14 @@ export function FooterLinks() {
           <div className={classes.logo}>
             {/* <MantineLogo size={30} /> */}
             <Text size="xs" c="dimmed" className={classes.description}>
-              Build fully functional accessible web applications faster than
-              ever
+              每個學生的潛力都是無限的
             </Text>
           </div>
           <div className={classes.groups}>{groups}</div>
         </Container>
         <Container className={classes.afterFooter}>
           <Text c="dimmed" size="sm">
-            © 2020 mantine.dev. All rights reserved.
+            © 2023 TUTOR.ELITE All rights reserved.
           </Text>
 
           <Group
@@ -82,7 +85,7 @@ export function FooterLinks() {
             justify="flex-end"
             wrap="nowrap"
           >
-            <ActionIcon size="lg" color="gray" variant="subtle">
+            {/* <ActionIcon size="lg" color="gray" variant="subtle">
               <IconBrandTwitter
                 style={{ width: rem(18), height: rem(18) }}
                 stroke={1.5}
@@ -99,7 +102,7 @@ export function FooterLinks() {
                 style={{ width: rem(18), height: rem(18) }}
                 stroke={1.5}
               />
-            </ActionIcon>
+            </ActionIcon> */}
           </Group>
         </Container>
       </footer>
