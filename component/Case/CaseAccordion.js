@@ -49,7 +49,7 @@ const CaseAccordion = (props) => {
   }, [props.cases]);
   return (
     <>
-      <section>
+      <section className="w-full">
         <Accordion variant="separated">
           {props.cases
             ? _DATA.currentData().map((oneCase, index) => {

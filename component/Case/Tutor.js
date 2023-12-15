@@ -57,7 +57,7 @@ const Tutor = (props) => {
   }
 
   return (
-    <div className="mt-8  md:px-8 2xl:px-4 max-w-7xl mx-auto ">
+    <div className="mt-8  m-4  md:px-8 2xl:px-4 max-w-7xl">
       {!props.Favourite && <h1 className="text-3xl my-8">精英導師</h1>}
       {!props.Favourite && (
         <AccordionFilter
