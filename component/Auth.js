@@ -57,7 +57,7 @@ const AuthForm = () => {
   };
 
   return (
-    <section>
+    <section className="w-40  sm:w-60 md:w-80">
       <h1 className="text-xl font-bold mb-8">{isLogin ? "登入" : "登記"}</h1>
       <form onSubmit={submitHandler} className="">
         {/* Email input */}

@@ -118,7 +118,7 @@ export function HeaderMegaMenu() {
   ));
 
   return (
-    <Box pb={0}>
+    <Box className="sticky top-0 bg-white  z-50" pb={0}>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           {/* <MantineLogo size={30} /> */}
