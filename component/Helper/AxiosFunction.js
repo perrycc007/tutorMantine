@@ -62,7 +62,6 @@ export async function toggleAvail(idmatch, availability) {
   }
 }
 export async function toggleStatus(id, status, type) {
-  console.log(id, status);
   try {
     const axiosFunc = () => {
       if (type == "cases") {

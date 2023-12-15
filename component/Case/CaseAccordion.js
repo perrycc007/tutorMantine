@@ -136,7 +136,14 @@ const CaseAccordion = (props) => {
                         <div>
                           <Switch
                             checked={isStatus}
-                            label="開放申請"
+                            label={
+                              oneCase.status == "BLOCKED"
+                                ? "您目前被封鎖"
+                                : "開放申請"
+                            }
+                            disabled={
+                              oneCase.status == "BLOCKED" ? true : false
+                            }
                             onChange={(event) =>
                               toggleCaseStatusHandler(
                                 id,

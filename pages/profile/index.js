@@ -17,8 +17,8 @@ const UserProfile = () => {
   const TutorProfile = userStore((state) => state.TutorProfile);
   const updateProfile = userStore((state) => state.updateProfile);
   const updateTutor = userStore((state) => state.updateTutor);
-  const [TutorData, setTutorData] = useState({ ...TutorProfile });
-  const [ProfileData, setProfileData] = useState({ ...Profile });
+  const [TutorData, setTutorData] = useState({});
+  const [ProfileData, setProfileData] = useState({});
 
   const updateFormHandler = async (values) => {
     try {
@@ -34,6 +34,7 @@ const UserProfile = () => {
   const updateTutorFormHandler = async (values) => {
     try {
       const cleanedValues = stripFormEventProperties(values);
+      console.log(cleanedValues);
       await updateTutorAxios(getuserId, cleanedValues);
       updateTutor(cleanedValues);
       setTutorData((prev) => ({ ...prev, ...cleanedValues }));
@@ -41,7 +42,6 @@ const UserProfile = () => {
       alert("Error updating tutor profile:", error);
     }
   };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,7 +61,12 @@ const UserProfile = () => {
 
     fetchData();
   }, []);
-
+  useEffect(() => {}, [
+    TutorData,
+    ProfileData,
+    updateTutorFormHandler,
+    updateFormHandler,
+  ]);
   return (
     <>
       {loading && <p>Loading...</p>}

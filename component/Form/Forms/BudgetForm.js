@@ -51,7 +51,10 @@ function BudgetForm(props) {
 
         <Switch
           checked={checked}
-          label="公開導師檔案"
+          label={
+            props.data.status == "BLOCKED" ? "您目前被封鎖" : "公開導師檔案"
+          }
+          disabled={props.data.status == "BLOCKED" ? true : false}
           onChange={(event) => setChecked(event.currentTarget.checked)}
         />
 

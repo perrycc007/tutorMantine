@@ -81,7 +81,7 @@ function Form(props) {
   useEffect(() => {
     setProfile(props.data);
     setTutor(props.tutorData);
-  }, [props.data]);
+  }, [props.data, props.tutorData]);
   return (
     <div className="max-w-3xl">
       <UserFormProvider form={form}>
