@@ -29,9 +29,9 @@ const TutorPage = (props) => {
   }, []);
 
   return (
-    <>
+    <div className="flex w-screen justify-center">
       <Tutor cases={dynamicData} />
-    </>
+    </div>
   );
 };
 

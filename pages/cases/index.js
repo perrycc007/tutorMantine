@@ -27,9 +27,9 @@ const Cases = (props) => {
   }, []);
 
   return (
-    <>
+    <div className="flex w-screen justify-center">
       <Student cases={dynamicData} />
-    </>
+    </div>
   );
 };
 

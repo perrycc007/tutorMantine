@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }: any) {
       </Head>
       <div className="flex flex-col min-h-screen">
         <HeaderMegaMenu />
-        <div className="max-w-none    2xl: max-w-7xl  flex-grow ">
+        <div className="max-w-none  2xl: max-w-7xl  flex-grow ">
           <Component {...pageProps} />
         </div>
       </div>
