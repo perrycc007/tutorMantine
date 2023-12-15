@@ -9,7 +9,7 @@ const AuthPage = () => {
       >
         {/* Adjusted card container with responsive padding */}
         {/* <div className="mt-4 "> */}
-        <Card className="flex max-h-96 justify-center  px-10 py-10  bg-white rounded-lg shadow-md sm:px-15 py-10  lg:px-15 py-10 ">
+        <Card className="flex max-h-96 justify-center  px-10 py-10  bg-white rounded-lg shadow-md sm:px-10 py-10  lg:px-10 py-10 ">
           <Auth />
         </Card>
         {/* </div> */}

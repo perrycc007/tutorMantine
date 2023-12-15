@@ -542,7 +542,7 @@ export async function ResetPasswordAxios(userId, token, enteredPassword) {
       });
     return await axiosRetry(axiosFunc);
   } catch (error) {
-    console.error("Error in ResetPasswordAxios:", error);
+    console.error("重置失敗！");
     throw error;
   }
 }

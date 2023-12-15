@@ -9,16 +9,15 @@ import InvalidResetLink from "../../../../component/ResetPassword/InvalidResetLi
 const ResetPasswordPage = () => {
   const router = useRouter();
   const { token } = router.query;
-  const { userId } = router.query;
+  const { userid } = router.query;
   const [linkValid, setLinkValid] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    console.log(userId, token);
+    console.log(userid, token);
 
     if (token != null) {
-      VerifyResetPasswordAxios(userId, token)
+      VerifyResetPasswordAxios(userid, token)
         .then((res) => {
-          console.log(res);
           setLoading(false);
           if (res.data == "jwt expired") {
             // let errorMessage = "Link has Expired";

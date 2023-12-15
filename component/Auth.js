@@ -17,7 +17,9 @@ const AuthForm = () => {
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
-
+  const forgetPasswordHandler = () => {
+    router.push("/forgetPassword");
+  };
   const submitHandler = async (event) => {
     event.preventDefault();
     setIsLogin(true);
@@ -101,7 +103,9 @@ const AuthForm = () => {
             >
               {isLogin ? "創建新帳戶" : "現有帳戶登錄"}
             </button>
-            <Anchor className="self-center">忘記密碼</Anchor>
+            <Anchor onClick={forgetPasswordHandler} className="self-center">
+              忘記密碼
+            </Anchor>
           </div>
         </Box>
       </form>
