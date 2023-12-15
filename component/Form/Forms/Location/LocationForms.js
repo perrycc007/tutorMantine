@@ -76,14 +76,15 @@ function LocationForms(props) {
           </Tabs.Panel>
         ))}
       </Tabs>
-
-      {props.type == "filter" ? (
-        ""
-      ) : (
-        <button type="submit">
-          {props.types == "newApplication" ? "下一步" : "更新"}
-        </button>
-      )}
+      <div className="flex justify-end mt-10">
+        {props.type == "filter" ? (
+          ""
+        ) : (
+          <button type="submit">
+            {props.types == "newApplication" ? "下一步" : "更新"}
+          </button>
+        )}
+      </div>
     </form>
   );
 }

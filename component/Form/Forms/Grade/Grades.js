@@ -50,7 +50,9 @@ function Grades(props) {
           </Tabs.Panel>
         ))}
       </Tabs>
-      <button type="submit">Submit</button>
+      <div className="flex justify-end mt-10">
+        <button type="submit">更新</button>
+      </div>
     </form>
   );
 }

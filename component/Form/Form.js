@@ -129,7 +129,7 @@ function Form(props) {
           <Stepper.Completed>完成</Stepper.Completed>
         </Stepper>
 
-        <Group justify="flex-end" mt="xl">
+        <div className="flex justify-between mt-4">
           {active !== 0 && (
             <button variant="default" onClick={prevStep}>
               返回
@@ -138,7 +138,7 @@ function Form(props) {
           {active !== 6 && props.type == "tutor" && (
             <button onClick={nextStep}>下一步</button>
           )}
-        </Group>
+        </div>
       </UserFormProvider>
     </div>
   );

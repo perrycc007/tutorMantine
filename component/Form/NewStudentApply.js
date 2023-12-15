@@ -11,6 +11,7 @@ import {
   updateStudentAxios,
   createStudentAxios,
 } from "../../component/Helper/AxiosFunction";
+import { Card } from "@mantine/core";
 function NewStudentApply() {
   const router = useRouter();
   const toCasePage = () => {
@@ -71,14 +72,20 @@ function NewStudentApply() {
   };
 
   return (
-    // <div className="flex item-center">
-    <StudentApply
-      data={data}
-      updateApplication={updateApplicationHandler}
-      handIn={handInHandler}
-      type="newApplication"
-    />
-    // </div>
+    <section className="flex max-w-screen bg-cover bg-fixed min-h-screen bg-login-page bg-center sm:py-10">
+      <div className="flex w-screen justify-center md:items-center mb-20">
+        <div className="mt-4 mx-4 h-fit">
+          <Card className="flex justify-center px-4 py-6 bg-white rounded-lg shadow-md sm:px-10 py-10 lg:px-16 py-16">
+            <StudentApply
+              data={data}
+              updateApplication={updateApplicationHandler}
+              handIn={handInHandler}
+              type="newApplication"
+            />
+          </Card>
+        </div>
+      </div>
+    </section>
   );
 }
 

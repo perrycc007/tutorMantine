@@ -78,8 +78,10 @@ const PersonalInfoForm = (props) => {
           {...form.getInputProps(value.name)}
           //   value={formData[formField.selectfield.BasicInfo.name]}
         />
-      ))}
-      <button type="submit">更新</button>
+      ))}{" "}
+      <div className="flex justify-end mt-10">
+        <button type="submit">更新</button>
+      </div>
     </form>
   );
 };

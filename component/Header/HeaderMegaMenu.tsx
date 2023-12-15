@@ -178,21 +178,27 @@ export function HeaderMegaMenu() {
                 </div>
               </HoverCard.Dropdown>
             </HoverCard> */}
-            {isLoggedin && (
-              <Anchor className={classes.link} component={Link} href="/apply">
-                申請補習
-              </Anchor>
-            )}
+
             <Anchor className={classes.link} component={Link} href="/cases">
               補習個案
             </Anchor>
             <Anchor className={classes.link} component={Link} href="/tutor">
               精英導師
             </Anchor>
+
             {isLoggedin && (
-              <Anchor className={classes.link} component={Link} href="/profile">
-                個人資料
-              </Anchor>
+              <div className="flex">
+                <Anchor className={classes.link} component={Link} href="/apply">
+                  申請補習
+                </Anchor>
+                <Anchor
+                  className={classes.link}
+                  component={Link}
+                  href="/profile"
+                >
+                  個人資料
+                </Anchor>
+              </div>
             )}
             {isLoggedin && (
               <Anchor
@@ -262,16 +268,7 @@ export function HeaderMegaMenu() {
           >
             主頁
           </Anchor>
-          {isLoggedin && (
-            <Anchor
-              className={classes.link}
-              component={Link}
-              onClick={closeDrawer}
-              href="/apply"
-            >
-              申請補習
-            </Anchor>
-          )}
+
           <Anchor
             className={classes.link}
             component={Link}
@@ -288,8 +285,17 @@ export function HeaderMegaMenu() {
           >
             精英導師
           </Anchor>
+
           {isLoggedin && (
             <div>
+              <Anchor
+                className={classes.link}
+                component={Link}
+                onClick={closeDrawer}
+                href="/apply"
+              >
+                申請補習
+              </Anchor>
               <Anchor
                 className={classes.link}
                 component={Link}

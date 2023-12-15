@@ -118,9 +118,11 @@ const StudentOthers = (props) => {
         min={30}
         label={(value) => `${value}`}
       />
-      <button type="submit">
-        {props.types == "newApplication" ? "提交" : "更新"}
-      </button>
+      <div className="flex justify-end mt-10">
+        <button type="submit">
+          {props.types == "newApplication" ? "提交" : "更新"}
+        </button>
+      </div>
     </form>
   );
 };

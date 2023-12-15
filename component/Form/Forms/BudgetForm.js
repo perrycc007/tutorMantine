@@ -21,7 +21,7 @@ function BudgetForm(props) {
   return (
     <UserFormProvider form={form}>
       <form
-        className="h-full"
+        className="h-full mt-4"
         onSubmit={(event) => {
           event.preventDefault();
           if (form.isValid()) {
@@ -41,6 +41,7 @@ function BudgetForm(props) {
           工資: ${payRange[0]} - ${payRange[1]} 每小時
         </p>
         <RangeSlider
+          className="my-4"
           id="pay-range"
           value={payRange}
           onChange={(newValue) => setPayRange(newValue)}
@@ -58,8 +59,9 @@ function BudgetForm(props) {
           disabled={props.data.status == "BLOCKED" ? true : false}
           onChange={(event) => setChecked(event.currentTarget.checked)}
         />
-
-        <button type="submit">Submit</button>
+        <div className="flex justify-end mt-10">
+          <button type="submit">更新</button>
+        </div>
       </form>
     </UserFormProvider>
   );
