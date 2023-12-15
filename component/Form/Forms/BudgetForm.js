@@ -12,6 +12,7 @@ function BudgetForm(props) {
       form.setValues(props.data);
       form.resetDirty(props.data);
       setPayRange([props.data.lowestfee, props.data.highestfee]);
+      setChecked(props.data.status == "OPEN" ? true : false);
     } else {
       setPayRange([100, 200]);
     }
