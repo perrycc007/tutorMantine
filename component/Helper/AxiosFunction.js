@@ -260,11 +260,8 @@ export async function TutorGetWithFavouriteAxios() {
 export async function tutorFilterAxios(preference) {
   try {
     const axiosFunc = () =>
-      axiosInstance(cookie.get("access_token")).post(
-        `http://localhost:3001/tutors/filter`,
-        { preference }
-      );
-    return await axiosRetry(axiosFunc);
+      Axios.post(`http://localhost:3001/tutors/filter`, { preference });
+    return await axiosFunc();
   } catch (error) {
     console.error("Error in tutorFilterAxios:", error);
     throw error;
@@ -394,10 +391,7 @@ export async function CaseGetAxios() {
 export async function caseFilterAxios(preference) {
   try {
     const axiosFunc = () =>
-      axiosInstance(cookie.get("access_token")).post(
-        `http://localhost:3001/students/filter`,
-        { preference }
-      );
+      Axios.post(`http://localhost:3001/students/filter`, { preference });
     return await axiosRetry(axiosFunc);
   } catch (error) {
     console.error("Error in caseFilterAxios:", error);

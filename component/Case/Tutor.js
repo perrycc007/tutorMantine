@@ -1,6 +1,6 @@
 import CaseAccordion from "./CaseAccordion";
 import AccordionFilter from "./AccordionFilter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import userStore from "../../stores/stores";
 import {
   tutorFilterAxios,

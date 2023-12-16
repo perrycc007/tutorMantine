@@ -55,6 +55,10 @@ const Student = (props) => {
       });
     }
   }
+
+  // useEffect(() => {
+  //   console.log(_DATA);
+  // }, [_DATA]);
   return (
     <div className="mt-8  m-4  md:px-8 2xl:px-4 max-w-7xl">
       {!props.Favourite && <h1 className="text-3xl my-8">補習個案</h1>}
