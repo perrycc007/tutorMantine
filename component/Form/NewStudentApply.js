@@ -59,7 +59,7 @@ function NewStudentApply() {
       )
         .then((response) => {
           // Update application state and navigate to case page
-          // toCasePage();
+          toCasePage();
         })
         .catch((error) => {
           alert(`Error creating new student application: ${error.message}`);

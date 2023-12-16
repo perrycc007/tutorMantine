@@ -9,7 +9,7 @@ import usePagination from "../usePagination";
 function CaseItemAdminTutor(props) {
   const [status, setStatus] = useState(props.cases.status);
   const [verify, setVerify] = useState(props.cases.verify);
-  const [notAvailStatus, setNotAvailStatus] = useState(false);
+  const [AvailStatus, setAvailStatus] = useState(false);
   const [checkStatus, setCheckStatus] = useState("");
   const info = props.cases;
 
@@ -48,11 +48,11 @@ function CaseItemAdminTutor(props) {
     }
   };
   const toggleNotAvail = (idmatch) => {
-    if (notAvailStatus) {
-      setNotAvailStatus(false);
+    if (AvailStatus) {
+      setAvailStatus(false);
       props.toggleAvail(idmatch, false);
     } else {
-      setNotAvailStatus(true);
+      setAvailStatus(true);
       props.toggleAvail(idmatch, true);
     }
   };
@@ -68,7 +68,7 @@ function CaseItemAdminTutor(props) {
     } else {
       setCheckStatus("NOT_YET_CHECKED");
     }
-    setNotAvailStatus(props.notAvailStatus);
+    setAvailStatus(props.AvailStatus);
   }, []);
 
   let heading = {
@@ -122,47 +122,40 @@ function CaseItemAdminTutor(props) {
             </p>
           ))}
 
-        <div>
-          <div>
-            <p>{info.availtimes}</p>
-            <button
-              variant="outlined"
-              onClick={() => StatusHandler(info.tutorId)}
-            >
-              {status == "OPEN"
-                ? "個案已公開"
-                : status == "CLOSE"
-                ? "個案已隱藏"
-                : "個案已封鎖"}
-            </button>
-            <button
-              variant="outlined"
-              onClick={() => verifyHandler(info.tutorId)}
-            >
-              {verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}
-            </button>
-          </div>
+        <p>{info.availtimes}</p>
+        <div className="grid grid-cols-1 max-w-fit">
+          <button
+            variant="outlined"
+            onClick={() => StatusHandler(info.tutorId)}
+          >
+            {status == "OPEN"
+              ? "個案已公開"
+              : status == "CLOSE"
+              ? "個案已隱藏"
+              : "個案已封鎖"}
+          </button>
+          <button
+            variant="outlined"
+            onClick={() => verifyHandler(info.tutorId)}
+          >
+            {verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}
+          </button>
 
-          <div>
-            <EditProfileForm
-              updateForm={props.updateForm}
-              updateTutorForm={props.updateTutorForm}
-              cases={info}
-              index={props.index}
-              type={"tutor"}
-              passIndex={props.passIndex}
-            />
-          </div>
-
-          <div>
-            <button onClick={() => toggleCheck(info.idmatch)}>
-              {checkStatus}
-            </button>
-            <button onClick={() => toggleNotAvail(info.idmatch)}>
-              {notAvailStatus ? "Not Available" : "Available"}
-              {/* {props.isFavouriteTutor ? <IconHeartFilled /> : ""} */}
-            </button>
-          </div>
+          <button onClick={() => toggleCheck(info.idmatch)}>
+            {checkStatus}
+          </button>
+          <button onClick={() => toggleNotAvail(info.idmatch)}>
+            {AvailStatus ? "Available" : "Not Available"}
+            {/* {props.isFavouriteTutor ? <IconHeartFilled /> : ""} */}
+          </button>
+          <EditProfileForm
+            updateForm={props.updateForm}
+            updateTutorForm={props.updateTutorForm}
+            cases={info}
+            index={props.index}
+            type={"tutor"}
+            passIndex={props.passIndex}
+          />
         </div>
       </Accordion.Panel>
     </Accordion.Item>

@@ -37,7 +37,7 @@ export async function toggleCheck(idmatch, checkStatus) {
     const axiosFunc = () =>
       axiosInstance(cookie.get("access_token")).patch(
         url + "/admin/toggleCheck",
-        { idmatch, checkStatus }
+        { idmatch: idmatch, checkStatus: checkStatus }
       );
     return await axiosRetry(axiosFunc);
   } catch (error) {
@@ -53,7 +53,7 @@ export async function toggleAvail(idmatch, availability) {
     const axiosFunc = () =>
       axiosInstance(cookie.get("access_token")).patch(
         url + "/admin/toggleAvail",
-        { idmatch, availability }
+        { idmatch: idmatch, availability: availability }
       );
     return await axiosRetry(axiosFunc);
   } catch (error) {

@@ -15,7 +15,11 @@ export default function App({ Component, pageProps }: any) {
   const isLoggedin = userStore((state) => state.isLoggedin);
   useEffect(() => {
     const token = cookie.get("access_token"); // Function to get the token from cookies
-    if ((!token && isLoggedin) || (isTokenExpired(token) && isLoggedin)) {
+    if (
+      !token &&
+      isLoggedin
+      // || (isTokenExpired(token) && isLoggedin)
+    ) {
       logout(); // Function to log the user out
     }
 

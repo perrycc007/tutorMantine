@@ -123,7 +123,7 @@ const Result = () => {
       setTotalNumberofPage(Math.ceil(response.data[0].total_counts / 5));
       setLoading(false);
       return response.data;
-    } catch (err) {
+    } catch (error) {
       console.log(`Failed to fetch match results: ${error}`);
       setLoading(false);
     }

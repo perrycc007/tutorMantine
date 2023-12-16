@@ -65,11 +65,33 @@ function CaseItemAdminStudent(props) {
         userId,
         ...items
       } = props.cases;
+      if (props.cases.locations) {
+        studentLocations = props.cases.locations;
+      }
+      if (props.cases.subjects) {
+        studentSubjects = props.cases.subjects;
+      }
+      if (props.cases.availtimes) {
+        studentAvailTimes = props.cases.availtimes;
+      }
       setItems(items);
       let heading = {
-        locations: studentLocations ? studentLocations.split(",") : [],
-        subjects: studentSubjects ? studentSubjects.split(",") : [],
+        locations: studentLocations
+          ? Array.isArray(studentLocations)
+            ? studentLocations
+            : studentLocations.split(",")
+          : [],
+        subjects: studentSubjects
+          ? Array.isArray(studentSubjects)
+            ? studentSubjects
+            : studentSubjects.split(",")
+          : [],
       };
+      const availtimeArray = studentAvailTimes
+        ? Array.isArray(studentAvailTimes)
+          ? studentAvailTimes
+          : studentAvailTimes.split(",")
+        : [];
       const studentInfo = {
         studentId: studentId,
         locations: studentLocations,
@@ -95,9 +117,7 @@ function CaseItemAdminStudent(props) {
       setStudentCase(studentInfo);
       setStudentProfile(profile);
       setHeading(heading);
-      const availtimeArray = studentAvailTimes
-        ? studentAvailTimes.split(",")
-        : [];
+
       setAvailtimeArray(availtimeArray);
     }
   }, [props.cases]);

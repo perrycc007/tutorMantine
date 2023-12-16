@@ -24,7 +24,6 @@ export default function AdminDisplay({
   totalNumberofPage,
 }) {
   const [studentInfo, setStudentInfo] = useState(null);
-
   useEffect(() => {
     if (item.length !== 0) {
       const {
@@ -37,35 +36,36 @@ export default function AdminDisplay({
       } = item[0];
       setStudentInfo(rest);
     }
+    console.log(item);
   }, [item]);
 
-  const handleToggleCheck = async (params) => {
+  const handleToggleCheck = async (idmatch, checkStatus) => {
     try {
-      await toggleCheckAPI(params);
+      await toggleCheckAPI(idmatch, checkStatus);
     } catch (error) {
       alert(`Error occurred in toggleCheck: ${error.message}`);
     }
   };
 
-  const handleToggleAvail = async (params) => {
+  const handleToggleAvail = async (idmatch, availability) => {
     try {
-      await toggleAvailAPI(params);
+      await toggleAvailAPI(idmatch, availability);
     } catch (error) {
       alert(`Error occurred in toggleAvail: ${error.message}`);
     }
   };
 
-  const handleToggleStatus = async (params) => {
+  const handleToggleStatus = async (tutorId, status, type) => {
     try {
-      await toggleStatusAPI(params);
+      await toggleStatusAPI(tutorId, status, type);
     } catch (error) {
       alert(`Error occurred in toggleStatus: ${error.message}`);
     }
   };
 
-  const handleToggleVerify = async (params) => {
+  const handleToggleVerify = async (tutorId, verifyStatus) => {
     try {
-      await toggleVerifyAPI(params);
+      await toggleVerifyAPI(tutorId, verifyStatus);
     } catch (error) {
       alert(`Error occurred in toggleVerify: ${error.message}`);
     }
@@ -118,7 +118,7 @@ export default function AdminDisplay({
 
         <Group className="flex justify-center">
           <button onClick={handlePreviousClick} disabled={page === 1}>
-            ← Previous
+            ←
           </button>
           <p>
             {page}/{totalNumberofPage}
@@ -127,7 +127,7 @@ export default function AdminDisplay({
             onClick={handleNextClick}
             disabled={page === totalNumberofPage}
           >
-            Next →
+            →
           </button>
         </Group>
       </div>
