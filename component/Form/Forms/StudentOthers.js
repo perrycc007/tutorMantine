@@ -24,7 +24,6 @@ const StudentOthers = (props) => {
   const inputfield = formField.inputfield.StudentOthers;
   const selectfield = formField.selectfield.StudentOthers;
   const submitHanlder = (event) => {
-    event.preventDefault();
     form.setValues((prev) => ({ ...prev, ...event }));
     form.setFieldValue("lowestfee", payPerHour[0]);
     form.setFieldValue("highestfee", payPerHour[1]);

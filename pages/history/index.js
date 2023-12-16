@@ -52,6 +52,17 @@ const Cases = () => {
   async function toggleCaseStatusHandler(id, status) {
     try {
       const result = await toggleStatus(id, status, "cases");
+      const updatedArray = cases.map((item) => {
+        if (item.studentId === id) {
+          return {
+            ...item,
+            status: status,
+          };
+        } else {
+          return item;
+        }
+      });
+      setCases(updatedArray);
       result;
     } catch (error) {
       console.error("Error toggling case status:", error);
