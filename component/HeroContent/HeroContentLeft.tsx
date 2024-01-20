@@ -12,14 +12,14 @@ export function HeroContentLeft() {
         />
         <Container className={classes.container} size="md">
           <Title className={classes.title}>快速並免費地找到你的導師</Title>
-          <button
+          <Button
             // variant="gradient"
             // size="xl"
             // radius="xl"
             className={classes.control}
           >
             立即尋找
-          </button>
+          </Button>
         </Container>
       </div>
     </div>

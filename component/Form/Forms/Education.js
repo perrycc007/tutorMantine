@@ -112,7 +112,7 @@ const Education = (props) => {
           })}
         </div>
         <div className="flex justify-end mt-10">
-          <button type="submit">更新</button>
+          <Button type="submit">更新</Button>
         </div>
       </form>
     </>

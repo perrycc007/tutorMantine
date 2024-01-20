@@ -38,13 +38,13 @@ const ResetPasswordLink = () => {
               onChange={(e) => setEmail(e.currentTarget.value)} // Handle change
               className="w-full"
             />
-            <button
+            <Button
               type="submit"
               variant="outline"
               className="bg-blue-600 py-2 px-8 text-md text-white cursor-pointer rounded-full flex items-center transition duration-100 ease-in-out hover:bg-gray-500 mt-2 mx-1"
             >
               發送重置鏈接
-            </button>
+            </Button>
           </form>
         </Paper>
       )}

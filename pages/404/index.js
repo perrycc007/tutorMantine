@@ -25,9 +25,9 @@ export default function Custom404() {
             this is an error contact support.
           </Text>
           <Group justify="center">
-            <button onClick={toHomePage} size="md">
+            <Button onClick={toHomePage} size="md">
               Take me back to home page
-            </button>
+            </Button>
           </Group>
         </div>
       </div>

@@ -75,7 +75,7 @@ export function FeaturesTitle() {
               在這個知識迅速變遷的時代，我們相信每個學習者都應該獲得最適合自己的教育。我們的願景是打造一個無界限的學習平台，將專業導師和渴望學習的學生無縫連接，共同創造一個共享知識、激發潛能的社群。
             </Text>
 
-            <button
+            <Button
             // variant="gradient"
             // gradient={{ deg: 133, from: "blue", to: "cyan" }}
             // size="lg"
@@ -83,7 +83,7 @@ export function FeaturesTitle() {
             // mt="xl"
             >
               立即尋找
-            </button>
+            </Button>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 7 }}>
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={30}>

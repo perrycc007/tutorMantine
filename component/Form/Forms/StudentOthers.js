@@ -118,9 +118,9 @@ const StudentOthers = (props) => {
         label={(value) => `${value}`}
       />
       <div className="flex justify-end mt-10">
-        <button type="submit">
+        <Button type="submit">
           {props.types == "newApplication" ? "提交" : "更新"}
-        </button>
+        </Button>
       </div>
     </form>
   );

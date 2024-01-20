@@ -102,9 +102,9 @@ function Time(props) {
         </ScrollArea>
       </div>
       <div className="flex justify-end mt-5">
-        <button type="submit">
+        <Button type="submit">
           {props.types == "newApplication" ? "下一步" : "更新"}
-        </button>
+        </Button>
       </div>
     </form>
   );

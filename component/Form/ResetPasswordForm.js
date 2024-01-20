@@ -65,9 +65,9 @@ const ResetPasswordForm = (props) => {
 
   return (
     <div>
-      <button variant="contained" onClick={handleOpen}>
+      <Button variant="contained" onClick={handleOpen}>
         更改密碼
-      </button>
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -97,9 +97,9 @@ const ResetPasswordForm = (props) => {
               inputRef={ConfirmPasswordInputRef}
             />
             <div className={classes.buttonContainer}>
-              <button type="submit" className={classes.button}>
+              <Button type="submit" className={classes.button}>
                 重設密碼
-              </button>
+              </Button>
             </div>
           </form>
         </Box>

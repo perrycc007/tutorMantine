@@ -30,20 +30,20 @@ const AdminIdNavigation = (props) => {
   return (
     <div className="flex justify-center">
       <Group position="center" mt="md">
-        <button onClick={handlePreviousClick} disabled={currentPage === 0}>
+        <Button onClick={handlePreviousClick} disabled={currentPage === 0}>
           ←
-        </button>
+        </Button>
         {currentIds.map((id) => (
-          <button key={id} value={id} onClick={() => onClickHandler(id)}>
+          <Button key={id} value={id} onClick={() => onClickHandler(id)}>
             {id}
-          </button>
+          </Button>
         ))}
-        <button
+        <Button
           onClick={handleNextClick}
           disabled={currentPage >= Math.ceil(totals / PerPAge) - 1}
         >
           →
-        </button>
+        </Button>
       </Group>
     </div>
   );

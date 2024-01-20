@@ -115,12 +115,12 @@ const CaseAccordion = (props) => {
                       <div className="flex justify-between w-full">
                         <p>ID:{id}</p>{" "}
                         {props.type == "tutor" || props.type == "cases" ? (
-                          <button
+                          <Button
                             variant="transparent"
                             onClick={() => toggleFavoriteStatusHandler(id)}
                           >
                             {isFavourite ? <IconHeartFilled /> : <IconHeart />}
-                          </button>
+                          </Button>
                         ) : (
                           ""
                         )}

@@ -71,7 +71,7 @@ function EditProfileForm(props) {
           ></Form>
         )}
       </Modal>
-      <button onClick={selectedHandler}>編輯個人檔案</button>
+      <Button onClick={selectedHandler}>編輯個人檔案</Button>
     </>
   );
 }

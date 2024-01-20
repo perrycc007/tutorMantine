@@ -117,18 +117,18 @@ export default function AdminDisplay({
         </Accordion>
 
         <Group className="flex justify-center">
-          <button onClick={handlePreviousClick} disabled={page === 1}>
+          <Button onClick={handlePreviousClick} disabled={page === 1}>
             ←
-          </button>
+          </Button>
           <p>
             {page}/{totalNumberofPage}
           </p>
-          <button
+          <Button
             onClick={handleNextClick}
             disabled={page === totalNumberofPage}
           >
             →
-          </button>
+          </Button>
         </Group>
       </div>
     </>

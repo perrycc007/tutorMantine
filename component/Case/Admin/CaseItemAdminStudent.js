@@ -157,13 +157,13 @@ function CaseItemAdminStudent(props) {
               {time}
             </p>
           ))}
-          <button variant="outlined" onClick={StatusHandler}>
+          <Button variant="outlined" onClick={StatusHandler}>
             {status == "OPEN"
               ? "個案已公開"
               : status == "CLOSE"
               ? "個案已隱藏"
               : "個案已封鎖"}
-          </button>
+          </Button>
           <div>
             <EditForm
               cases={studentCase}

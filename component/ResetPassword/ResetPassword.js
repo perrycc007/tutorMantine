@@ -76,9 +76,9 @@ const ResetPassword = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <div className={classes.buttonContainer}>
-            <button type="submit" variant="outline" className={classes.button}>
+            <Button type="submit" variant="outline" className={classes.button}>
               重設密碼
-            </button>
+            </Button>
           </div>
         </form>
       </Paper>

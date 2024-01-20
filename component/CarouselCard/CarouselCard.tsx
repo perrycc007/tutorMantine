@@ -64,7 +64,7 @@ export function CarouselCard() {
           </Text>
         </div>
 
-        <button radius="md">Book now</button>
+        <Button radius="md">Book now</Button>
       </Group>
     </Card>
   );

@@ -92,17 +92,17 @@ const AuthForm = () => {
           </div>
           {/* Buttons and link */}
           <div className="flex flex-col space-y-2">
-            <button variant="deafult" onClick={submitHandler}>
+            <Button variant="deafult" onClick={submitHandler}>
               {isLogin ? "登錄" : "登記"}
-            </button>
+            </Button>
 
-            <button
+            <Button
               type="button"
               variant="deafult"
               onClick={switchAuthModeHandler}
             >
               {isLogin ? "創建新帳戶" : "現有帳戶登錄"}
-            </button>
+            </Button>
             <Anchor onClick={forgetPasswordHandler} className="self-center">
               忘記密碼
             </Anchor>

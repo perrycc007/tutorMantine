@@ -80,9 +80,9 @@ function SubjectsForms(props) {
         {props.type == "filter" ? (
           ""
         ) : (
-          <button type="submit">
+          <Button type="submit">
             {props.types == "newApplication" ? "下一步" : "更新"}
-          </button>
+          </Button>
         )}
       </div>
     </form>

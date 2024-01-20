@@ -124,7 +124,7 @@ function CaseItemAdminTutor(props) {
 
         <p>{info.availtimes}</p>
         <div className="grid grid-cols-1 max-w-fit">
-          <button
+          <Button
             variant="outlined"
             onClick={() => StatusHandler(info.tutorId)}
           >
@@ -133,21 +133,21 @@ function CaseItemAdminTutor(props) {
               : status == "CLOSE"
               ? "個案已隱藏"
               : "個案已封鎖"}
-          </button>
-          <button
+          </Button>
+          <Button
             variant="outlined"
             onClick={() => verifyHandler(info.tutorId)}
           >
             {verify == "VERIFIED" ? "教師已驗證" : "教師未驗證"}
-          </button>
+          </Button>
 
-          <button onClick={() => toggleCheck(info.idmatch)}>
+          <Button onClick={() => toggleCheck(info.idmatch)}>
             {checkStatus}
-          </button>
-          <button onClick={() => toggleNotAvail(info.idmatch)}>
+          </Button>
+          <Button onClick={() => toggleNotAvail(info.idmatch)}>
             {AvailStatus ? "Available" : "Not Available"}
             {/* {props.isFavouriteTutor ? <IconHeartFilled /> : ""} */}
-          </button>
+          </Button>
           <EditProfileForm
             updateForm={props.updateForm}
             updateTutorForm={props.updateTutorForm}
