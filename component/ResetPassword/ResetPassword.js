@@ -12,7 +12,7 @@ const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [showLink, setShowLink] = useState(false);
   const isPasswordValid = (password) => {
     return password.length >= 6 && /\d/.test(password);
   };
@@ -42,6 +42,8 @@ const ResetPassword = () => {
       })
       .catch((err) => {
         alert(err.message);
+        setError("重置密碼失敗。 連結可能已過期。 請請求另一個連結。");
+        setShowLink(true);
       });
   };
 
@@ -56,6 +58,11 @@ const ResetPassword = () => {
           重置你的密碼
         </Text>
         {error && <div className="text-red-500">{error}</div>}
+        {showLink && (
+          <Button onClick={() => router.push("/forgetPassword")}>
+            點擊此處到忘記密碼頁面
+          </Button>
+        )}
         <form onSubmit={submitHandler}>
           <TextInput
             required

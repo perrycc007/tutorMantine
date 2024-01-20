@@ -7,7 +7,6 @@ import {
 import { SegmentedControl } from "@mantine/core";
 import Student from "./Case/Student";
 import Tutor from "./Case/Tutor";
-import classes from "./Case/Student.module.css";
 
 const FavouriteList = () => {
   const [type, setType] = useState("student");

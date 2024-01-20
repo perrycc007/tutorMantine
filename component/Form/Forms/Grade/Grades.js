@@ -31,6 +31,7 @@ function Grades(props) {
   }, [setFormValues]);
 
   const handleSubmit = (event) => {
+    console.log("handleSubmit");
     event.preventDefault();
     if (form.isValid()) {
       const newData = { ...props.data, subjectGrade: form.values };

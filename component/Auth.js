@@ -91,7 +91,7 @@ const AuthForm = () => {
             />
           </div>
           {/* Buttons and link */}
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-2 mt-2">
             <Button variant="deafult" onClick={submitHandler}>
               {isLogin ? "登錄" : "登記"}
             </Button>

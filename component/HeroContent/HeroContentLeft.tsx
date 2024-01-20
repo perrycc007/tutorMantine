@@ -1,6 +1,6 @@
 import { Overlay, Container, Title, Button, Text } from "@mantine/core";
 import classes from "./HeroContentLeft.module.css";
-
+import Link from "next/link";
 export function HeroContentLeft() {
   return (
     <div className="w-screen">
@@ -16,6 +16,8 @@ export function HeroContentLeft() {
             // variant="gradient"
             // size="xl"
             // radius="xl"
+            component={Link}
+            href="/tutor"
             className={classes.control}
           >
             立即尋找

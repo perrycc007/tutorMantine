@@ -20,15 +20,20 @@ const Cases = (props) => {
       } catch (error) {
         console.error("Error fetching cases with favourites:", error);
         // Handle the error appropriately
+        alert("Error fetching cases", error);
       }
     };
-
     fetchData();
   }, []);
 
   return (
     <div className="flex flex-col mt-4  md:px-8 2xl:px-4 max-w-7xl mx-auto ">
-      <Student cases={dynamicData} />
+      {props.cases.statusCode !== 500 && (
+        <Student cases={dynamicData ? dynamicData : []} />
+      )}
+      {props.cases.statusCode == 500 && (
+        <div className="flex justify-center">無法獲取任何數據</div>
+      )}
     </div>
   );
 };

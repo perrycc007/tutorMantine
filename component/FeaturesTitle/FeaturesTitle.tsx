@@ -14,7 +14,7 @@ import {
   IconFileCode,
 } from "@tabler/icons-react";
 import classes from "./FeaturesTitle.module.css";
-
+import Link from "next/link";
 const features = [
   {
     icon: IconCpu,
@@ -76,11 +76,13 @@ export function FeaturesTitle() {
             </Text>
 
             <Button
-            // variant="gradient"
-            // gradient={{ deg: 133, from: "blue", to: "cyan" }}
-            // size="lg"
-            // radius="md"
-            // mt="xl"
+              // variant="gradient"
+              // gradient={{ deg: 133, from: "blue", to: "cyan" }}
+              // size="lg"
+              // radius="md"
+              // mt="xl"
+              component={Link}
+              href="/tutor"
             >
               立即尋找
             </Button>
