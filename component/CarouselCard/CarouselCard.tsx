@@ -1,5 +1,4 @@
 import { Image, Card, Text, Group, Button, rem } from "@mantine/core";
-import { Carousel } from "@mantine/carousel";
 import { IconStar } from "@tabler/icons-react";
 import classes from "./CarouselCard.module.css";
 
@@ -12,27 +11,9 @@ const images = [
 ];
 
 export function CarouselCard() {
-  const slides = images.map((image) => (
-    <Carousel.Slide key={image}>
-      <Image src={image} height={220} />
-    </Carousel.Slide>
-  ));
-
   return (
     <Card radius="md" withBorder padding="xl">
-      <Card.Section>
-        <Carousel
-          withIndicators
-          loop
-          classNames={{
-            root: classes.carousel,
-            controls: classes.carouselControls,
-            indicator: classes.carouselIndicator,
-          }}
-        >
-          {slides}
-        </Carousel>
-      </Card.Section>
+      <Card.Section></Card.Section>
 
       <Group justify="space-between" mt="lg">
         <Text fw={500} fz="lg">
